@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Datagrid Site
+
+Marketing website for Datagrid — an AI agent platform for the construction industry.
+
+Built with Next.js 15 (App Router), Sanity v3, TypeScript, and Tailwind CSS v4.
 
 ## Getting Started
 
-First, run the development server:
+### 1. Clone the repo
+
+```bash
+git clone git@github.com:<your-username>/datagrid-site.git
+cd datagrid-site
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Set up environment variables
+
+```bash
+cp .env.example .env.local
+```
+
+Edit `.env.local` with your Sanity project credentials:
+
+```
+NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
+NEXT_PUBLIC_SANITY_DATASET=production
+```
+
+> **Note:** The site renders with placeholder data when Sanity is not configured, so you can start designing immediately without a Sanity project.
+
+### 4. Run the dev server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 5. Sanity Studio
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The Sanity Studio is embedded at [http://localhost:3000/studio](http://localhost:3000/studio). You'll need valid Sanity credentials to use it.
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+app/                    # Next.js App Router pages
+  layout.tsx            # Root layout (Nav + Footer)
+  page.tsx              # Homepage
+  agents/               # Agent marketplace pages
+  connectors/           # Connector pages
+  blog/                 # Blog/guide pages
+  pricing/              # Pricing page
+  demo/                 # Demo request page
+  careers/              # Careers page
+  (legal)/              # Terms & Privacy
+  studio/               # Sanity Studio (embedded)
+components/             # Shared UI components
+  nav.tsx               # Global navigation
+  footer.tsx            # Global footer
+lib/                    # Utilities
+  sanity.ts             # Sanity client config
+  queries.ts            # GROQ queries
+  placeholder-data.ts   # Fallback data for development
+sanity/                 # Sanity CMS
+  schema/               # Content schemas
+  sanity.config.ts      # Studio config
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Key Pages
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Route | Template | Description |
+|-------|----------|-------------|
+| `/` | Homepage | Hero, featured agents, how it works, CTA |
+| `/agents` | Listing | Agent marketplace grid with category filters |
+| `/agents/[slug]` | Agent Detail | Full agent page with inputs/outputs/connectors |
+| `/blog/[slug]` | Content | Article page with prose styling |
+| `/pricing` | Pricing | Tier cards, comparison table, FAQ |
 
-## Deploy on Vercel
+## Tech Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Framework:** Next.js 15 (App Router, Server Components)
+- **CMS:** Sanity v3 (embedded studio at /studio)
+- **Styling:** Tailwind CSS v4 + @tailwindcss/typography
+- **Language:** TypeScript
+- **Deployment:** Vercel
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deployment
+
+Push to `main` and Vercel will auto-deploy. Set the environment variables in your Vercel project settings.
+
+## Design Notes
+
+- The visual design is iterated in the browser — everything uses Tailwind utility classes for easy tweaking
+- Look for `{/* DESIGN: ... */}` comments in the code marking areas for design refinement
+- Color palette is defined in `app/globals.css` — change it there to update everywhere
+- Pages fall back to placeholder data when Sanity is empty, so you can design without content
