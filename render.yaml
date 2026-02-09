@@ -1,0 +1,11 @@
+services:
+  - type: web
+    runtime: node
+    name: datagrid-site
+    repo: https://github.com/rennvaldes/datagrid-site.git
+    branch: main
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
