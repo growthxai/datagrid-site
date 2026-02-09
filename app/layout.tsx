@@ -1,12 +1,17 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import Nav from "@/components/nav";
 import Footer from "@/components/footer";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
+const polysans = localFont({
+  src: [
+    { path: "../public/fonts/PolySans-Neutral.otf", weight: "400", style: "normal" },
+    { path: "../public/fonts/PolySans-Median.otf", weight: "500", style: "normal" },
+    { path: "../public/fonts/PolySans-Bulky.otf", weight: "700", style: "normal" },
+  ],
+  variable: "--font-polysans",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -25,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} font-sans antialiased`}>
+      <body className={`${polysans.variable} font-sans antialiased`}>
         <Nav />
         <main className="min-h-screen">{children}</main>
         <Footer />

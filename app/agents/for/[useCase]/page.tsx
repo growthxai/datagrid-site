@@ -25,60 +25,67 @@ export default async function UseCasePage({ params }: Props) {
     .replace(/\b\w/g, (c) => c.toUpperCase());
 
   return (
-    <div className="py-16">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        {/* DESIGN: pSEO hero — dynamic based on useCase slug */}
-        <div className="mb-12">
-          <h1 className="text-3xl sm:text-4xl font-bold text-foreground">
+    <>
+      {/* Dark hero header */}
+      <section className="relative py-16 sm:py-20 overflow-hidden hero-glow">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center_top,rgba(37,99,235,0.12),transparent_60%)]" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <p className="text-xs font-medium text-black/75 mb-4">Use Case</p>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-white">
             AI Agents for {title}
           </h1>
-          <p className="mt-3 text-lg text-secondary max-w-2xl">
+          <p className="mt-1 text-lg text-dark-muted max-w-2xl">
             See how Datagrid&apos;s AI agents automate {title.toLowerCase()}{" "}
             workflows for construction teams.
           </p>
         </div>
+      </section>
 
-        {/* DESIGN: Content section — pSEO body copy goes here */}
-        <div className="prose prose-lg max-w-none mb-12">
-          <p className="text-secondary">
-            Construction teams spend countless hours on {title.toLowerCase()}.
-            Datagrid&apos;s AI agents are purpose-built to handle these workflows,
-            integrating with your existing tools to deliver structured, reviewable
-            outputs.
-          </p>
-        </div>
+      <div className="py-16 sm:py-20 lg:py-24 bg-background">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          {/* Content section */}
+          <div className="prose prose-lg max-w-none mb-16">
+            <p className="text-secondary">
+              Construction teams spend countless hours on {title.toLowerCase()}.
+              Datagrid&apos;s AI agents are purpose-built to handle these workflows,
+              integrating with your existing tools to deliver structured, reviewable
+              outputs.
+            </p>
+          </div>
 
-        {/* Recommended agents for this use case */}
-        <h2 className="text-2xl font-bold text-foreground mb-6">
-          Recommended Agents
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {agents.slice(0, 3).map((agent) => (
+          {/* Recommended agents for this use case */}
+          <p className="text-xs font-medium text-black/75 mb-4">Recommended</p>
+          <h2 className="text-2xl font-medium text-foreground mb-8">
+            Recommended Agents
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {agents.slice(0, 3).map((agent) => (
+              <Link
+                key={agent._id}
+                href={`/agents/${agent.slug.current}`}
+                className="group block p-8 bg-background rounded-2xl border border-border hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300 ease-out"
+              >
+                <h3 className="text-lg font-semibold text-foreground group-hover:text-accent transition-colors duration-150">
+                  {agent.title}
+                </h3>
+                <p className="mt-2 text-sm text-secondary line-clamp-2">
+                  {agent.shortDescription}
+                </p>
+              </Link>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <div className="mt-16 text-center">
             <Link
-              key={agent._id}
-              href={`/agents/${agent.slug.current}`}
-              className="group block p-6 bg-background rounded-xl border border-border hover:border-accent/40 transition-colors"
+              href="/demo"
+              className="px-8 py-4 text-base font-semibold rounded-lg bg-accent text-accent-foreground shadow-sm hover:bg-accent-hover hover:shadow-md transition-all duration-200 ease-out"
             >
-              <h3 className="text-lg font-semibold text-foreground group-hover:text-accent transition-colors">
-                {agent.title}
-              </h3>
-              <p className="mt-2 text-sm text-secondary line-clamp-2">
-                {agent.shortDescription}
-              </p>
+              Request a Demo
             </Link>
-          ))}
-        </div>
-
-        {/* CTA */}
-        <div className="mt-16 text-center">
-          <Link
-            href="/demo"
-            className="px-6 py-3 text-sm font-medium rounded-lg bg-accent text-accent-foreground hover:bg-accent/90 transition-colors"
-          >
-            Request a Demo
-          </Link>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

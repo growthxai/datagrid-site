@@ -1,19 +1,121 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+@font-face {
+  font-family: "Polysans";
+  src: url("/fonts/PolySans-Neutral.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Polysans";
+  src: url("/fonts/PolySans-Median.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Polysans";
+  src: url("/fonts/PolySans-Bulky.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme inline {
   --color-background: #FAFAF8;
-  --color-foreground: #1A1A1A;
-  --color-muted: #F5F5F0;
-  --color-border: #E5E5E0;
+  --color-surface: #F4F4F0;
+  --color-foreground: #111118;
+  --color-secondary: #5C5C6D;
+  --color-tertiary: #9494A3;
   --color-accent: #2563EB;
+  --color-accent-hover: #1D4ED8;
+  --color-accent-light: #EFF6FF;
+  --color-accent-muted: #DBEAFE;
   --color-accent-foreground: #FFFFFF;
-  --color-secondary: #6B7280;
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --color-dark: #0B0F1A;
+  --color-dark-surface: #131825;
+  --color-dark-border: #1E2435;
+  --color-dark-text: #E2E4E9;
+  --color-dark-muted: #8B8FA3;
+  --color-border: #E2E2DC;
+  --color-border-hover: #C5C5BE;
+  --color-success: #16A34A;
+  --color-warning: #D97706;
+  --color-error: #DC2626;
+  --font-sans: var(--font-polysans), "Polysans", Arial, sans-serif;
+  --radius-sm: 4px;
+  --radius-md: 4px;
+  --radius-lg: 4px;
+  --radius-xl: 7px;
+  --radius-2xl: 7px;
+  --radius-full: 9999px;
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.03);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.12), 0 8px 16px rgba(0, 0, 0, 0.06);
+  --shadow-accent-sm: 0 2px 8px rgba(37, 99, 235, 0.08);
+  --shadow-accent-md: 0 4px 16px rgba(37, 99, 235, 0.12);
+  --shadow-accent-lg: 0 8px 32px rgba(37, 99, 235, 0.16);
+}
+
+@utility hero-glow {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(37, 99, 235, 0.10) 0%, transparent 60%),
+    var(--color-dark);
+}
+
+@utility hero-glow-strong {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(37, 99, 235, 0.18) 0%, transparent 50%),
+    var(--color-dark);
+}
+
+@utility overline {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
 }
 
 body {
   background: var(--color-background);
   color: var(--color-foreground);
-  font-family: var(--font-sans);
+  font-family: "Polysans", Arial, sans-serif !important;
+  font-size: 1rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background-color: var(--color-accent-muted);
+  color: var(--color-foreground);
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
+@keyframes placeholder-fade {
+  0% { opacity: 0; transform: translateY(4px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-4px); }
+}
+
+.animate-placeholder-fade {
+  animation: placeholder-fade 3s ease-in-out;
 }

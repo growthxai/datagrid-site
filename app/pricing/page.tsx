@@ -88,42 +88,43 @@ export default function PricingPage() {
     { feature: "Connectors", starter: "1", pro: "5", enterprise: "Unlimited" },
     { feature: "Document Runs", starter: "100/mo", pro: "2,500/mo", enterprise: "Unlimited" },
     { feature: "Team Members", starter: "3", pro: "15", enterprise: "Unlimited" },
-    { feature: "Custom Agents", starter: "—", pro: "Yes", enterprise: "Yes" },
-    { feature: "Priority Support", starter: "—", pro: "Yes", enterprise: "Yes" },
-    { feature: "SSO", starter: "—", pro: "—", enterprise: "Yes" },
-    { feature: "SLA", starter: "—", pro: "—", enterprise: "Yes" },
+    { feature: "Custom Agents", starter: "\u2014", pro: "Yes", enterprise: "Yes" },
+    { feature: "Priority Support", starter: "\u2014", pro: "Yes", enterprise: "Yes" },
+    { feature: "SSO", starter: "\u2014", pro: "\u2014", enterprise: "Yes" },
+    { feature: "SLA", starter: "\u2014", pro: "\u2014", enterprise: "Yes" },
   ];
 
   return (
-    <div className="py-16">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        {/* DESIGN: Pricing hero */}
+    <div className="py-16 sm:py-20 lg:py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Pricing hero */}
         <div className="text-center mb-16">
-          <h1 className="text-3xl sm:text-4xl font-bold text-foreground">
+          <p className="text-xs font-medium text-black/75 mb-4">Pricing</p>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-foreground">
             Simple, transparent pricing
           </h1>
-          <p className="mt-3 text-lg text-secondary max-w-xl mx-auto">
+          <p className="mt-1 text-lg text-secondary max-w-xl mx-auto">
             Start free, scale as you grow. No hidden fees, no surprises.
           </p>
         </div>
 
-        {/* DESIGN: Pricing cards — 3 tiers */}
+        {/* Pricing cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
           {tiers.map((tier) => (
             <div
               key={tier.name}
-              className={`relative p-8 rounded-xl border ${
+              className={`relative p-8 rounded-2xl ${
                 tier.highlighted
-                  ? "border-accent bg-accent/5 ring-1 ring-accent"
-                  : "border-border bg-background"
+                  ? "border-2 border-accent bg-accent/5 ring-1 ring-accent/20 shadow-lg shadow-accent/5"
+                  : "border border-border bg-background"
               }`}
             >
               {tier.highlighted && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 text-xs font-medium rounded-full bg-accent text-accent-foreground">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 text-xs font-semibold rounded-full bg-accent text-accent-foreground">
                   Most Popular
                 </span>
               )}
-              <h2 className="text-xl font-bold text-foreground">{tier.name}</h2>
+              <h2 className="text-xl font-medium text-foreground">{tier.name}</h2>
               <div className="mt-4 flex items-baseline">
                 <span className="text-4xl font-bold text-foreground">
                   {tier.price}
@@ -158,10 +159,10 @@ export default function PricingPage() {
               </ul>
               <Link
                 href="/demo"
-                className={`mt-8 block w-full text-center px-5 py-2.5 text-sm font-medium rounded-lg transition-colors ${
+                className={`mt-8 block w-full text-center px-5 py-3 text-sm font-semibold rounded-lg transition-all duration-200 ease-out ${
                   tier.highlighted
-                    ? "bg-accent text-accent-foreground hover:bg-accent/90"
-                    : "border border-border text-foreground hover:bg-muted"
+                    ? "bg-accent text-accent-foreground shadow-sm hover:bg-accent-hover hover:shadow-md"
+                    : "border border-border text-foreground hover:bg-surface"
                 }`}
               >
                 {tier.cta}
@@ -170,25 +171,25 @@ export default function PricingPage() {
           ))}
         </div>
 
-        {/* DESIGN: Feature comparison table */}
+        {/* Feature comparison table */}
         <section className="mb-20">
-          <h2 className="text-2xl font-bold text-foreground text-center mb-8">
+          <h2 className="text-2xl font-medium text-foreground text-center mb-8">
             Feature Comparison
           </h2>
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto rounded-2xl border border-border">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-border">
-                  <th className="text-left py-3 pr-4 font-semibold text-foreground">
+                <tr className="border-b border-border bg-surface">
+                  <th className="text-left py-4 px-6 font-semibold text-foreground">
                     Feature
                   </th>
-                  <th className="text-center py-3 px-4 font-semibold text-foreground">
+                  <th className="text-center py-4 px-4 font-semibold text-foreground">
                     Starter
                   </th>
-                  <th className="text-center py-3 px-4 font-semibold text-accent">
+                  <th className="text-center py-4 px-4 font-semibold text-accent">
                     Pro
                   </th>
-                  <th className="text-center py-3 px-4 font-semibold text-foreground">
+                  <th className="text-center py-4 px-4 font-semibold text-foreground">
                     Enterprise
                   </th>
                 </tr>
@@ -196,14 +197,14 @@ export default function PricingPage() {
               <tbody>
                 {comparisonFeatures.map((row) => (
                   <tr key={row.feature} className="border-b border-border">
-                    <td className="py-3 pr-4 text-foreground">{row.feature}</td>
-                    <td className="py-3 px-4 text-center text-secondary">
+                    <td className="py-4 px-6 text-foreground">{row.feature}</td>
+                    <td className="py-4 px-4 text-center text-secondary">
                       {row.starter}
                     </td>
-                    <td className="py-3 px-4 text-center text-foreground font-medium">
+                    <td className="py-4 px-4 text-center text-foreground font-medium">
                       {row.pro}
                     </td>
-                    <td className="py-3 px-4 text-center text-secondary">
+                    <td className="py-4 px-4 text-center text-secondary">
                       {row.enterprise}
                     </td>
                   </tr>
@@ -213,24 +214,24 @@ export default function PricingPage() {
           </div>
         </section>
 
-        {/* DESIGN: FAQ accordion */}
+        {/* FAQ accordion */}
         <section className="mb-20 max-w-3xl mx-auto">
-          <h2 className="text-2xl font-bold text-foreground text-center mb-8">
+          <h2 className="text-2xl font-medium text-foreground text-center mb-8">
             Frequently Asked Questions
           </h2>
           <div className="space-y-3">
             {faqs.map((faq, i) => (
               <div
                 key={i}
-                className="border border-border rounded-lg overflow-hidden"
+                className="border border-border rounded-2xl overflow-hidden"
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between px-6 py-4 text-left text-sm font-medium text-foreground hover:bg-muted transition-colors"
+                  className="w-full flex items-center justify-between px-6 py-5 text-left text-sm font-semibold text-foreground hover:bg-surface transition-all duration-200 ease-out"
                 >
                   {faq.question}
                   <svg
-                    className={`w-4 h-4 text-secondary transition-transform ${
+                    className={`w-4 h-4 text-secondary transition-transform duration-200 ${
                       openFaq === i ? "rotate-180" : ""
                     }`}
                     fill="none"
@@ -246,7 +247,7 @@ export default function PricingPage() {
                   </svg>
                 </button>
                 {openFaq === i && (
-                  <div className="px-6 pb-4 text-sm text-secondary">
+                  <div className="px-6 pb-5 text-sm text-secondary leading-relaxed">
                     {faq.answer}
                   </div>
                 )}
@@ -255,17 +256,17 @@ export default function PricingPage() {
           </div>
         </section>
 
-        {/* DESIGN: Bottom CTA */}
+        {/* Bottom CTA */}
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-foreground mb-3">
+          <h2 className="text-2xl font-medium text-foreground mb-3">
             Still have questions?
           </h2>
-          <p className="text-secondary mb-6">
+          <p className="text-secondary mb-8">
             Our team is happy to walk you through the platform.
           </p>
           <Link
             href="/demo"
-            className="px-6 py-3 text-sm font-medium rounded-lg bg-accent text-accent-foreground hover:bg-accent/90 transition-colors"
+            className="px-8 py-4 text-base font-semibold rounded-lg bg-accent text-accent-foreground shadow-sm hover:bg-accent-hover hover:shadow-md transition-all duration-200 ease-out"
           >
             Request a Demo
           </Link>

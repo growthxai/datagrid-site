@@ -7,15 +7,16 @@ export const metadata = {
 
 export default function DemoPage() {
   return (
-    <div className="py-16">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <div className="py-16 sm:py-20 lg:py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Left column — value prop */}
           <div>
-            <h1 className="text-3xl sm:text-4xl font-bold text-foreground">
+            <p className="text-xs font-medium text-black/75 mb-4">Get Started</p>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-foreground">
               See Datagrid in action
             </h1>
-            <p className="mt-4 text-lg text-secondary">
+            <p className="mt-1 text-lg text-secondary">
               Book a 30-minute walkthrough tailored to your team&apos;s workflows.
               We&apos;ll show you how AI agents can automate your most
               time-consuming processes.
@@ -40,9 +41,9 @@ export default function DemoPage() {
                 },
               ].map((item) => (
                 <div key={item.title} className="flex gap-4">
-                  <div className="mt-1 w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
+                  <div className="mt-1 w-7 h-7 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
                     <svg
-                      className="w-3.5 h-3.5 text-accent"
+                      className="w-4 h-4 text-accent"
                       fill="none"
                       viewBox="0 0 24 24"
                       strokeWidth={2}
@@ -69,59 +70,58 @@ export default function DemoPage() {
           </div>
 
           {/* Right column — form */}
-          <div className="p-8 bg-muted rounded-xl border border-border">
-            <h2 className="text-xl font-bold text-foreground mb-6">
+          <div className="p-8 bg-background rounded-2xl border border-border shadow-lg">
+            <h2 className="text-xl font-medium text-foreground mb-6">
               Request your demo
             </h2>
-            {/* DESIGN: Demo request form — connect to form service (e.g., Formspree, HubSpot) */}
             <form className="space-y-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-1">
+                  <label className="block text-sm font-medium text-foreground mb-1.5">
                     First name
                   </label>
                   <input
                     type="text"
-                    className="w-full px-3 py-2 text-sm rounded-lg border border-border bg-background text-foreground placeholder:text-secondary focus:outline-none focus:ring-2 focus:ring-accent/40"
+                    className="w-full px-4 py-3 text-sm rounded-xl border border-border bg-background text-foreground placeholder:text-tertiary focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200"
                     placeholder="Jane"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-1">
+                  <label className="block text-sm font-medium text-foreground mb-1.5">
                     Last name
                   </label>
                   <input
                     type="text"
-                    className="w-full px-3 py-2 text-sm rounded-lg border border-border bg-background text-foreground placeholder:text-secondary focus:outline-none focus:ring-2 focus:ring-accent/40"
+                    className="w-full px-4 py-3 text-sm rounded-xl border border-border bg-background text-foreground placeholder:text-tertiary focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200"
                     placeholder="Smith"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-foreground mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1.5">
                   Work email
                 </label>
                 <input
                   type="email"
-                  className="w-full px-3 py-2 text-sm rounded-lg border border-border bg-background text-foreground placeholder:text-secondary focus:outline-none focus:ring-2 focus:ring-accent/40"
+                  className="w-full px-4 py-3 text-sm rounded-xl border border-border bg-background text-foreground placeholder:text-tertiary focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200"
                   placeholder="jane@company.com"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-foreground mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1.5">
                   Company
                 </label>
                 <input
                   type="text"
-                  className="w-full px-3 py-2 text-sm rounded-lg border border-border bg-background text-foreground placeholder:text-secondary focus:outline-none focus:ring-2 focus:ring-accent/40"
+                  className="w-full px-4 py-3 text-sm rounded-xl border border-border bg-background text-foreground placeholder:text-tertiary focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200"
                   placeholder="Acme Construction"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-foreground mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1.5">
                   Role
                 </label>
-                <select className="w-full px-3 py-2 text-sm rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-accent/40">
+                <select className="w-full px-4 py-3 text-sm rounded-xl border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200">
                   <option value="">Select your role</option>
                   <option value="pm">Project Manager</option>
                   <option value="pe">Project Engineer</option>
@@ -133,28 +133,31 @@ export default function DemoPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-foreground mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1.5">
                   What workflows are you looking to automate?
                 </label>
                 <textarea
                   rows={3}
-                  className="w-full px-3 py-2 text-sm rounded-lg border border-border bg-background text-foreground placeholder:text-secondary focus:outline-none focus:ring-2 focus:ring-accent/40"
+                  className="w-full px-4 py-3 text-sm rounded-xl border border-border bg-background text-foreground placeholder:text-tertiary focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200"
                   placeholder="e.g., Submittal reviews, RFI drafting, daily log compilation..."
                 />
               </div>
               <button
                 type="submit"
-                className="w-full px-5 py-2.5 text-sm font-medium rounded-lg bg-accent text-accent-foreground hover:bg-accent/90 transition-colors"
+                className="w-full px-5 py-3 text-sm font-semibold rounded-lg bg-accent text-accent-foreground shadow-sm hover:bg-accent-hover hover:shadow-md transition-all duration-200 ease-out"
               >
                 Book My Demo
               </button>
-              <p className="text-xs text-secondary text-center">
+              <p className="text-xs text-tertiary text-center">
+                Join 200+ construction teams already using Datagrid.
+              </p>
+              <p className="text-xs text-tertiary text-center">
                 By submitting this form, you agree to our{" "}
-                <Link href="/terms" className="underline hover:text-foreground">
+                <Link href="/terms" className="underline hover:text-foreground transition-colors duration-150">
                   Terms
                 </Link>{" "}
                 and{" "}
-                <Link href="/privacy" className="underline hover:text-foreground">
+                <Link href="/privacy" className="underline hover:text-foreground transition-colors duration-150">
                   Privacy Policy
                 </Link>
                 .

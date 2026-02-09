@@ -22,24 +22,24 @@ export default async function AgentDetailPage({ params }: Props) {
   const agent = (agentData || PLACEHOLDER_AGENTS.find((a) => a.slug.current === slug) || PLACEHOLDER_AGENTS[0]) as Agent;
 
   return (
-    <div className="py-16">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        {/* DESIGN: Agent hero */}
+    <div className="py-16 sm:py-20 lg:py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Agent hero */}
         <div className="mb-12">
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-xs font-medium px-3 py-1 rounded-full bg-muted text-secondary">
+            <span className="text-xs font-semibold px-3 py-1.5 rounded-full bg-surface text-secondary">
               {agent.category?.title}
             </span>
             {agent.status === "coming-soon" && (
-              <span className="text-xs font-medium px-3 py-1 rounded-full bg-accent/10 text-accent">
+              <span className="text-xs font-semibold px-3 py-1.5 rounded-full bg-accent/10 text-accent">
                 Coming Soon
               </span>
             )}
           </div>
-          <h1 className="text-3xl sm:text-4xl font-bold text-foreground">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-foreground">
             {agent.title}
           </h1>
-          <p className="mt-4 text-lg text-secondary max-w-3xl">
+          <p className="mt-1 text-lg text-secondary max-w-3xl">
             {agent.description || agent.shortDescription}
           </p>
         </div>
@@ -47,9 +47,9 @@ export default async function AgentDetailPage({ params }: Props) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Main content */}
           <div className="lg:col-span-2 space-y-12">
-            {/* DESIGN: What this agent does */}
+            {/* What this agent does */}
             <section>
-              <h2 className="text-2xl font-bold text-foreground mb-4">
+              <h2 className="text-2xl font-medium text-foreground mb-4">
                 What this agent does
               </h2>
               <p className="text-secondary leading-relaxed">
@@ -57,38 +57,38 @@ export default async function AgentDetailPage({ params }: Props) {
               </p>
             </section>
 
-            {/* DESIGN: Inputs / Outputs */}
+            {/* Inputs / Outputs */}
             <section className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-lg font-semibold text-foreground mb-3">
+              <div className="p-8 bg-surface rounded-2xl">
+                <h3 className="text-lg font-semibold text-foreground mb-4">
                   Inputs
                 </h3>
-                <ul className="space-y-2">
+                <ul className="space-y-3">
                   {(agent.inputs || ["Project documents", "Field data"]).map(
                     (input: string, i: number) => (
                       <li
                         key={i}
-                        className="flex items-start gap-2 text-sm text-secondary"
+                        className="flex items-start gap-2.5 text-sm text-secondary"
                       >
-                        <span className="mt-1 w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
+                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
                         {input}
                       </li>
                     )
                   )}
                 </ul>
               </div>
-              <div>
-                <h3 className="text-lg font-semibold text-foreground mb-3">
+              <div className="p-8 bg-surface rounded-2xl">
+                <h3 className="text-lg font-semibold text-foreground mb-4">
                   Outputs
                 </h3>
-                <ul className="space-y-2">
+                <ul className="space-y-3">
                   {(agent.outputs || ["Structured report", "Action items"]).map(
                     (output: string, i: number) => (
                       <li
                         key={i}
-                        className="flex items-start gap-2 text-sm text-secondary"
+                        className="flex items-start gap-2.5 text-sm text-secondary"
                       >
-                        <span className="mt-1 w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
+                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
                         {output}
                       </li>
                     )
@@ -97,10 +97,9 @@ export default async function AgentDetailPage({ params }: Props) {
               </div>
             </section>
 
-            {/* DESIGN: Body content — portable text goes here */}
+            {/* Body content */}
             {Boolean(agent.body) && (
               <section className="prose max-w-none">
-                {/* TODO: Render portable text body */}
                 <p className="text-secondary">
                   Detailed agent documentation will render here from Sanity portable text.
                 </p>
@@ -110,8 +109,8 @@ export default async function AgentDetailPage({ params }: Props) {
 
           {/* Sidebar */}
           <aside className="space-y-8">
-            {/* DESIGN: Related connectors */}
-            <div className="p-6 bg-muted rounded-xl">
+            {/* Related connectors */}
+            <div className="p-8 bg-surface rounded-2xl">
               <h3 className="text-lg font-semibold text-foreground mb-4">
                 Compatible Connectors
               </h3>
@@ -127,7 +126,7 @@ export default async function AgentDetailPage({ params }: Props) {
                       <li key={conn._id}>
                         <Link
                           href={`/connectors/${conn.slug.current}`}
-                          className="block p-3 bg-background rounded-lg border border-border hover:border-accent/40 transition-colors"
+                          className="block p-4 bg-background rounded-xl border border-border hover:border-accent/30 hover:shadow-md transition-all duration-300 ease-out"
                         >
                           <span className="text-sm font-medium text-foreground">
                             {conn.title}
@@ -149,17 +148,17 @@ export default async function AgentDetailPage({ params }: Props) {
               )}
             </div>
 
-            {/* DESIGN: CTA block */}
-            <div className="p-6 bg-accent/5 border border-accent/20 rounded-xl text-center">
+            {/* CTA block */}
+            <div className="p-8 bg-accent/5 border-2 border-accent/20 rounded-2xl text-center">
               <h3 className="text-lg font-semibold text-foreground mb-2">
                 Start using this agent
               </h3>
-              <p className="text-sm text-secondary mb-4">
+              <p className="text-sm text-secondary mb-6">
                 See how {agent.title} can save your team hours every week.
               </p>
               <Link
                 href="/demo"
-                className="inline-flex px-5 py-2.5 text-sm font-medium rounded-lg bg-accent text-accent-foreground hover:bg-accent/90 transition-colors"
+                className="inline-flex px-6 py-3 text-sm font-semibold rounded-lg bg-accent text-accent-foreground shadow-sm hover:bg-accent-hover hover:shadow-md transition-all duration-200 ease-out"
               >
                 Request a Demo
               </Link>

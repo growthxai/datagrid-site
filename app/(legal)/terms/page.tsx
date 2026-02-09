@@ -9,13 +9,12 @@ export default async function TermsPage() {
   const pageData = await getPageBySlug("terms").catch(() => null);
 
   return (
-    <div className="py-16">
+    <div className="py-16 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <h1 className="text-3xl font-bold text-foreground mb-8">
+        <h1 className="text-3xl sm:text-4xl font-medium tracking-tight text-foreground mb-8">
           {pageData?.title || "Terms of Service"}
         </h1>
         <div className="prose prose-lg max-w-none">
-          {/* TODO: Render portable text body when Sanity content exists */}
           <p className="text-secondary">Last updated: January 1, 2025</p>
           <h2>1. Acceptance of Terms</h2>
           <p>

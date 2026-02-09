@@ -13,7 +13,7 @@ const PLACEHOLDER_JOBS = [
     type: "Full-time",
   },
   {
-    title: "ML Engineer — Document Understanding",
+    title: "ML Engineer \u2014 Document Understanding",
     team: "AI/ML",
     location: "Remote (US)",
     type: "Full-time",
@@ -34,36 +34,38 @@ const PLACEHOLDER_JOBS = [
 
 export default function CareersPage() {
   return (
-    <div className="py-16">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        {/* DESIGN: Careers hero */}
+    <div className="py-16 sm:py-20 lg:py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Careers hero */}
         <div className="mb-16 max-w-2xl">
-          <h1 className="text-3xl sm:text-4xl font-bold text-foreground">
+          <p className="text-xs font-medium text-black/75 mb-4">Careers</p>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-foreground">
             Build the future of construction with us
           </h1>
-          <p className="mt-4 text-lg text-secondary">
+          <p className="mt-1 text-lg text-secondary">
             Datagrid is on a mission to bring AI to one of the world&apos;s
             largest industries. We&apos;re looking for people who want to solve
             hard problems and ship real products.
           </p>
         </div>
 
-        {/* DESIGN: Open positions listing */}
+        {/* Open positions listing */}
         <section>
-          <h2 className="text-2xl font-bold text-foreground mb-6">
+          <p className="text-xs font-medium text-black/75 mb-4">Join the Team</p>
+          <h2 className="text-2xl font-medium text-foreground mb-8">
             Open Positions
           </h2>
           <div className="space-y-4">
             {PLACEHOLDER_JOBS.map((job) => (
               <div
                 key={job.title}
-                className="flex flex-col sm:flex-row sm:items-center justify-between p-6 bg-background rounded-xl border border-border hover:border-accent/40 transition-colors"
+                className="flex flex-col sm:flex-row sm:items-center justify-between p-8 bg-background rounded-2xl border border-border hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300 ease-out"
               >
                 <div>
                   <h3 className="text-lg font-semibold text-foreground">
                     {job.title}
                   </h3>
-                  <div className="mt-1 flex flex-wrap items-center gap-3 text-sm text-secondary">
+                  <div className="mt-1.5 flex flex-wrap items-center gap-3 text-sm text-secondary">
                     <span>{job.team}</span>
                     <span>&middot;</span>
                     <span>{job.location}</span>
@@ -73,7 +75,7 @@ export default function CareersPage() {
                 </div>
                 <Link
                   href="/demo"
-                  className="mt-4 sm:mt-0 inline-flex px-5 py-2 text-sm font-medium rounded-lg border border-border text-foreground hover:bg-muted transition-colors"
+                  className="mt-4 sm:mt-0 inline-flex px-5 py-2.5 text-sm font-semibold rounded-lg border border-border text-foreground hover:bg-surface transition-all duration-200 ease-out"
                 >
                   Apply
                 </Link>
@@ -82,9 +84,10 @@ export default function CareersPage() {
           </div>
         </section>
 
-        {/* DESIGN: Why Datagrid section */}
+        {/* Why Datagrid section */}
         <section className="mt-20">
-          <h2 className="text-2xl font-bold text-foreground mb-8">
+          <p className="text-xs font-medium text-black/75 mb-4">Why Datagrid</p>
+          <h2 className="text-2xl font-medium text-foreground mb-8">
             Why Datagrid?
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -97,7 +100,7 @@ export default function CareersPage() {
               {
                 title: "Small team, big scope",
                 description:
-                  "You'll have ownership over entire product surfaces. No ticket factories — just hard problems and smart people.",
+                  "You\u2019ll have ownership over entire product surfaces. No ticket factories \u2014 just hard problems and smart people.",
               },
               {
                 title: "Remote-first",
@@ -107,12 +110,12 @@ export default function CareersPage() {
             ].map((item) => (
               <div
                 key={item.title}
-                className="p-6 bg-muted rounded-xl"
+                className="p-8 bg-surface rounded-2xl"
               >
                 <h3 className="text-lg font-semibold text-foreground">
                   {item.title}
                 </h3>
-                <p className="mt-2 text-sm text-secondary">
+                <p className="mt-2 text-sm text-secondary leading-relaxed">
                   {item.description}
                 </p>
               </div>
