@@ -158,7 +158,7 @@ export default async function AgentDetailPage({ params }: Props) {
               </p>
               <Link
                 href="/demo"
-                className="inline-flex px-6 py-3 text-sm font-semibold rounded-lg bg-accent text-accent-foreground shadow-sm hover:bg-accent-hover hover:shadow-md transition-all duration-200 ease-out"
+                className="inline-flex px-6 py-3 text-sm font-medium rounded-lg bg-accent text-accent-foreground shadow-sm hover:bg-accent-hover hover:shadow-md transition-all duration-200 ease-out"
               >
                 Request a Demo
               </Link>

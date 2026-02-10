@@ -75,7 +75,7 @@ export default function CareersPage() {
                 </div>
                 <Link
                   href="/demo"
-                  className="mt-4 sm:mt-0 inline-flex px-5 py-2.5 text-sm font-semibold rounded-lg border border-border text-foreground hover:bg-surface transition-all duration-200 ease-out"
+                  className="mt-4 sm:mt-0 inline-flex px-5 py-2.5 text-sm font-medium rounded-lg border border-border text-foreground hover:bg-surface transition-all duration-200 ease-out"
                 >
                   Apply
                 </Link>

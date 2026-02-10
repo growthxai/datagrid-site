@@ -79,7 +79,7 @@ export default async function UseCasePage({ params }: Props) {
           <div className="mt-16 text-center">
             <Link
               href="/demo"
-              className="px-8 py-4 text-base font-semibold rounded-lg bg-accent text-accent-foreground shadow-sm hover:bg-accent-hover hover:shadow-md transition-all duration-200 ease-out"
+              className="px-8 py-4 text-base font-medium rounded-lg bg-accent text-accent-foreground shadow-sm hover:bg-accent-hover hover:shadow-md transition-all duration-200 ease-out"
             >
               Request a Demo
             </Link>

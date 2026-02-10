@@ -126,7 +126,7 @@ export default function PricingPage() {
               )}
               <h2 className="text-xl font-medium text-foreground">{tier.name}</h2>
               <div className="mt-4 flex items-baseline">
-                <span className="text-4xl font-bold text-foreground">
+                <span className="text-4xl font-medium text-foreground">
                   {tier.price}
                 </span>
                 {tier.period && (
@@ -159,7 +159,7 @@ export default function PricingPage() {
               </ul>
               <Link
                 href="/demo"
-                className={`mt-8 block w-full text-center px-5 py-3 text-sm font-semibold rounded-lg transition-all duration-200 ease-out ${
+                className={`mt-8 block w-full text-center px-5 py-3 text-sm font-medium rounded-lg transition-all duration-200 ease-out ${
                   tier.highlighted
                     ? "bg-accent text-accent-foreground shadow-sm hover:bg-accent-hover hover:shadow-md"
                     : "border border-border text-foreground hover:bg-surface"
@@ -266,7 +266,7 @@ export default function PricingPage() {
           </p>
           <Link
             href="/demo"
-            className="px-8 py-4 text-base font-semibold rounded-lg bg-accent text-accent-foreground shadow-sm hover:bg-accent-hover hover:shadow-md transition-all duration-200 ease-out"
+            className="px-8 py-4 text-base font-medium rounded-lg bg-accent text-accent-foreground shadow-sm hover:bg-accent-hover hover:shadow-md transition-all duration-200 ease-out"
           >
             Request a Demo
           </Link>

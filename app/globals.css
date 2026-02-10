@@ -119,3 +119,87 @@ body {
 .animate-placeholder-fade {
   animation: placeholder-fade 3s ease-in-out;
 }
+
+@keyframes dropdown-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(2px) scale(1.005);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-dropdown-in {
+  animation: dropdown-in 350ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  transform-origin: top;
+}
+
+/* Blueprint build-in: stroke draws in then gently pulses */
+@keyframes blueprint-draw {
+  0% {
+    stroke-dashoffset: 26;
+    opacity: 0;
+  }
+  60% {
+    opacity: 0.35;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.25;
+  }
+}
+
+@keyframes blueprint-pulse {
+  0%, 100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.blueprint-dash {
+  stroke-dasharray: 26;
+  stroke-dashoffset: 26;
+  animation:
+    blueprint-draw 0.8s ease-out forwards,
+    blueprint-pulse 5s ease-in-out 0.8s infinite;
+}
+
+/* Connector cross: arms extend outward then pulse */
+@keyframes cross-draw {
+  0% {
+    stroke-dashoffset: 16;
+    opacity: 0;
+  }
+  60% {
+    opacity: 0.35;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.25;
+  }
+}
+
+@keyframes cross-pulse {
+  0%, 100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.cross-arm {
+  stroke-dasharray: 16;
+  stroke-dashoffset: 16;
+  animation:
+    cross-draw 0.6s ease-out forwards,
+    cross-pulse 6s ease-in-out 0.6s infinite;
+}

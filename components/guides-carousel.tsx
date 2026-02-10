@@ -117,7 +117,7 @@ export default function GuidesCarousel({ guides }: { guides: GuideItem[] }) {
                 </div>
                 <Link
                   href={`/blog/${guide.slug}`}
-                  className="group shrink-0 inline-flex items-center px-5 py-2.5 text-sm font-semibold rounded-lg border border-border text-foreground hover:bg-surface transition-all duration-200 ease-out whitespace-nowrap"
+                  className="group shrink-0 inline-flex items-center px-5 py-2.5 text-sm font-medium rounded-lg border border-border text-foreground hover:bg-surface transition-all duration-200 ease-out whitespace-nowrap"
                   tabIndex={i === activeIndex ? 0 : -1}
                 >
                   {CTA_LABELS[guide.category || ""] || "Read More"}<CtaArrow />

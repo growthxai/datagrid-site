@@ -100,7 +100,7 @@ function renderBody(sections: ScrapedBodySection[]): ReactNode[] {
             <h2
               key={idx}
               id={id}
-              className="text-[1.75rem] sm:text-4xl font-bold leading-[1.2] tracking-tight text-foreground mt-12 mb-4 scroll-mt-24"
+              className="text-[1.75rem] sm:text-4xl font-medium leading-[1.2] tracking-tight text-foreground mt-12 mb-4 scroll-mt-24"
             >
               {section.text}
             </h2>
@@ -435,7 +435,7 @@ export default async function BlogPostPage({ params }: Props) {
           {/* Accent glow */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-48 bg-accent/10 rounded-full blur-3xl" />
           <div className="relative px-8 py-16 sm:py-20 text-center">
-            <h3 className="text-[1.75rem] sm:text-4xl font-bold leading-[1.2] tracking-tight text-dark-text mb-4">
+            <h3 className="text-[1.75rem] sm:text-4xl font-medium leading-[1.2] tracking-tight text-dark-text mb-4">
               {cta.heading}
             </h3>
             <p className="text-base sm:text-lg leading-relaxed text-dark-muted mb-8 max-w-xl mx-auto">
@@ -443,7 +443,7 @@ export default async function BlogPostPage({ params }: Props) {
             </p>
             <Link
               href={cta.buttonHref}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold rounded-lg bg-accent text-accent-foreground shadow-sm hover:bg-accent-hover hover:shadow-md active:shadow-sm transition-all duration-200 ease-out"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium rounded-lg bg-accent text-accent-foreground shadow-sm hover:bg-accent-hover hover:shadow-md active:shadow-sm transition-all duration-200 ease-out"
             >
               {cta.buttonText}
             </Link>
@@ -453,7 +453,7 @@ export default async function BlogPostPage({ params }: Props) {
         {/* ── Related Posts ── */}
         {relatedPosts.length > 0 && (
           <section className="mt-16 sm:mt-20">
-            <h3 className="text-[1.75rem] sm:text-4xl font-bold leading-[1.2] tracking-tight text-foreground mb-8">
+            <h3 className="text-[1.75rem] sm:text-4xl font-medium leading-[1.2] tracking-tight text-foreground mb-8">
               More from the blog
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

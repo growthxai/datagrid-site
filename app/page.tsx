@@ -5,6 +5,7 @@ import LogoMarquee from "@/components/logo-marquee";
 import GuidesCarousel from "@/components/guides-carousel";
 import HoverCard from "@/components/hover-card";
 import CtaArrow from "@/components/cta-arrow";
+import BlueprintBg from "@/components/blueprint-bg";
 import { getAgents, getConnectors, getGuides } from "@/lib/queries";
 import { PLACEHOLDER_AGENTS, PLACEHOLDER_CONNECTORS, PLACEHOLDER_GUIDES } from "@/lib/placeholder-data";
 
@@ -38,7 +39,7 @@ export default async function HomePage() {
   return (
     <>
       {/* Hero section */}
-      <section className="relative py-10 sm:py-12 lg:py-16 overflow-hidden bg-[#f1e8e0]">
+      <section className="relative z-10 py-10 sm:py-12 lg:py-16 bg-[#f1e8e0]">
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
             {/* Left column: eyebrow + headline */}
@@ -68,10 +69,10 @@ export default async function HomePage() {
                 Automate submittal reviews, RFIs, daily logs, and more. Purpose-built
                 for general contractors, owners, and subs.
               </p>
-              <div className="mt-8 flex items-center gap-4">
+              <div className="mt-8 flex items-start gap-4">
                 <Link
                   href="/demo"
-                  className="group inline-flex items-center px-6 py-3 text-sm font-semibold rounded-lg bg-accent text-accent-foreground shadow-sm hover:bg-accent-hover hover:shadow-md transition-all duration-200 ease-out"
+                  className="group shrink-0 inline-flex items-center px-6 py-3 text-sm font-medium rounded-lg bg-accent text-accent-foreground shadow-sm hover:bg-accent-hover hover:shadow-md transition-all duration-200 ease-out whitespace-nowrap"
                 >
                   Sign up for Datagrid<CtaArrow />
                 </Link>
@@ -114,10 +115,10 @@ export default async function HomePage() {
                       )}
                     </div>
                     <div className="shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/10 flex items-center justify-center transition-transform duration-300 ease-out group-hover/card:translate-x-[2px] group-hover/card:-translate-y-[2px]">
-                      <span className="text-sm font-bold text-accent">{agent.title.charAt(0)}</span>
+                      <span className="text-sm font-medium text-accent">{agent.title.charAt(0)}</span>
                     </div>
                   </div>
-                  <h3 className="text-lg font-semibold text-foreground group-hover/card:text-accent transition-all duration-300 ease-out group-hover/card:-translate-x-[1px] group-hover/card:translate-y-[2px]">
+                  <h3 className="text-lg font-medium text-foreground group-hover/card:text-accent transition-all duration-300 ease-out group-hover/card:-translate-x-[1px] group-hover/card:translate-y-[2px]">
                     {agent.title}
                   </h3>
                   <p className="mt-1 text-sm text-secondary transition-transform duration-300 ease-out group-hover/card:-translate-x-[1px] group-hover/card:translate-y-[1px]">
@@ -130,7 +131,7 @@ export default async function HomePage() {
           <div className="mt-10 text-right">
             <Link
               href="/agents"
-              className="group inline-flex items-center px-5 py-2.5 text-sm font-semibold rounded-lg border border-border text-foreground hover:bg-surface transition-all duration-200 ease-out"
+              className="group inline-flex items-center px-5 py-2.5 text-sm font-medium rounded-lg border border-border text-foreground hover:bg-surface transition-all duration-200 ease-out"
             >
               View all agents<CtaArrow />
             </Link>
@@ -170,13 +171,13 @@ export default async function HomePage() {
                             className="w-5 h-5 object-contain opacity-60"
                           />
                         ) : (
-                          <span className="text-sm font-bold text-secondary">
+                          <span className="text-sm font-medium text-secondary">
                             {connector.title.charAt(0)}
                           </span>
                         )}
                       </div>
                     </div>
-                    <h3 className="text-sm font-semibold text-foreground group-hover/card:text-accent transition-all duration-300 ease-out group-hover/card:-translate-x-[1px] group-hover/card:translate-y-[2px]">
+                    <h3 className="text-sm font-medium text-foreground group-hover/card:text-accent transition-all duration-300 ease-out group-hover/card:-translate-x-[1px] group-hover/card:translate-y-[2px]">
                       {connector.title}
                     </h3>
                     <p className="mt-1 text-sm text-secondary line-clamp-2 transition-transform duration-300 ease-out group-hover/card:-translate-x-[1px] group-hover/card:translate-y-[1px]">
@@ -190,7 +191,7 @@ export default async function HomePage() {
           <div className="mt-10 text-right">
             <Link
               href="/connectors"
-              className="group inline-flex items-center px-5 py-2.5 text-sm font-semibold rounded-lg border border-border text-foreground hover:bg-surface transition-all duration-200 ease-out"
+              className="group inline-flex items-center px-5 py-2.5 text-sm font-medium rounded-lg border border-border text-foreground hover:bg-surface transition-all duration-200 ease-out"
             >
               View all connectors<CtaArrow />
             </Link>
@@ -234,7 +235,7 @@ export default async function HomePage() {
               },
             ].map((item) => (
               <div key={item.step} className="relative text-center">
-                <div className="relative z-10 mx-auto w-12 h-12 rounded-full bg-gradient-to-br from-accent to-accent-hover text-accent-foreground flex items-center justify-center text-lg font-bold shadow-sm">
+                <div className="relative z-10 mx-auto w-12 h-12 rounded-full bg-gradient-to-br from-accent to-accent-hover text-accent-foreground flex items-center justify-center text-lg font-medium shadow-sm">
                   {item.step}
                 </div>
                 <h3 className="mt-5 text-lg font-semibold text-foreground">
@@ -248,8 +249,9 @@ export default async function HomePage() {
       </section>
 
       {/* Stats section */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-[#f5f1ed]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="relative py-16 sm:py-20 lg:py-24 bg-[#f5f1ed] overflow-hidden">
+        <BlueprintBg variant="agents" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <p className="text-xs font-medium text-black/75 mb-4">By the Numbers</p>
             <h2 className="text-3xl sm:text-4xl font-medium text-foreground">
@@ -264,7 +266,7 @@ export default async function HomePage() {
               { number: "99.9%", label: "Platform uptime" },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
-                <p className="text-[2.5rem] sm:text-5xl font-bold text-accent">
+                <p className="text-[2.5rem] sm:text-5xl font-medium text-accent">
                   {stat.number}
                 </p>
                 <p className="mt-2 text-sm text-secondary">{stat.label}</p>
@@ -306,7 +308,7 @@ export default async function HomePage() {
           {/* Left: construction image — bleeds to left edge */}
           <div className="relative min-h-[400px]">
             <Image
-              src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80"
+              src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200&q=80"
               alt="Construction site"
               fill
               className="object-cover"
@@ -323,7 +325,7 @@ export default async function HomePage() {
               <div className="mt-10">
                 <Link
                   href="/demo"
-                  className="group inline-flex items-center px-8 py-4 text-base font-semibold rounded-lg bg-accent text-accent-foreground shadow-sm hover:bg-accent-hover hover:shadow-md transition-all duration-200 ease-out"
+                  className="group inline-flex items-center px-8 py-4 text-base font-medium rounded-lg bg-accent text-accent-foreground shadow-sm hover:bg-accent-hover hover:shadow-md transition-all duration-200 ease-out"
                 >
                   Request a Demo<CtaArrow />
                 </Link>

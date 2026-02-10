@@ -35,7 +35,7 @@ export default async function ConnectorsPage() {
             >
               {/* Connector logo placeholder */}
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/10 flex items-center justify-center mb-5">
-                <span className="text-lg font-bold text-accent">
+                <span className="text-lg font-medium text-accent">
                   {connector.title.charAt(0)}
                 </span>
               </div>

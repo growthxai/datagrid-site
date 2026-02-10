@@ -144,7 +144,7 @@ export default function DemoPage() {
               </div>
               <button
                 type="submit"
-                className="w-full px-5 py-3 text-sm font-semibold rounded-lg bg-accent text-accent-foreground shadow-sm hover:bg-accent-hover hover:shadow-md transition-all duration-200 ease-out"
+                className="w-full px-5 py-3 text-sm font-medium rounded-lg bg-accent text-accent-foreground shadow-sm hover:bg-accent-hover hover:shadow-md transition-all duration-200 ease-out"
               >
                 Book My Demo
               </button>

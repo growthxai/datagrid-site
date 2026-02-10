@@ -29,7 +29,7 @@ export default async function ConnectorDetailPage({ params }: Props) {
         {/* Connector hero */}
         <div className="mb-12">
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/10 flex items-center justify-center mb-6">
-            <span className="text-2xl font-bold text-accent">
+            <span className="text-2xl font-medium text-accent">
               {connector.title.charAt(0)}
             </span>
           </div>
@@ -88,7 +88,7 @@ export default async function ConnectorDetailPage({ params }: Props) {
         <div className="mt-16 text-center">
           <Link
             href="/demo"
-            className="px-8 py-4 text-base font-semibold rounded-lg bg-accent text-accent-foreground shadow-sm hover:bg-accent-hover hover:shadow-md transition-all duration-200 ease-out"
+            className="px-8 py-4 text-base font-medium rounded-lg bg-accent text-accent-foreground shadow-sm hover:bg-accent-hover hover:shadow-md transition-all duration-200 ease-out"
           >
             Request a Demo
           </Link>
