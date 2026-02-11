@@ -17,6 +17,12 @@ const RESOURCE_LINKS = [
     icon: "blog",
   },
   {
+    href: "/guides/general-contractors",
+    label: "Guides",
+    description: "Industry guides for GCs, owners, and specialty contractors",
+    icon: "guide",
+  },
+  {
     href: "/webinars",
     label: "Webinars",
     description: "Live and on-demand sessions on AI in construction",
@@ -53,6 +59,15 @@ function BlogIcon() {
   );
 }
 
+function GuideIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
+      <path d="M4 19.5A2.5 2.5 0 016.5 17H20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 function WebinarIcon() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
@@ -65,6 +80,7 @@ function WebinarIcon() {
 
 const RESOURCE_ICONS: Record<string, () => React.ReactNode> = {
   blog: BlogIcon,
+  guide: GuideIcon,
   webinar: WebinarIcon,
 };
 
@@ -171,32 +187,26 @@ function ResourcesDropdown() {
             ))}
           </div>
 
-          {/* Featured blog posts */}
+          {/* Featured guides */}
           <div className="bg-surface border-t border-border/50 px-6 py-5">
-            <p className="text-xs font-medium text-tertiary tracking-wider mb-4">Featured from Blog</p>
+            <p className="text-xs font-medium text-tertiary tracking-wider mb-4">Industry Guides</p>
             <div className="grid grid-cols-3 gap-4">
               {[
-                { title: "What is Agentic AI?", slug: "what-is-agentic-ai", image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&q=80" },
-                { title: "AI Submittal Review: A Practical Guide", slug: "ai-agents-submittal-review", image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&q=80" },
-                { title: "How GCs Are Adopting AI", slug: "gc-guide-ai-adoption", image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=400&q=80" },
-              ].map((post) => (
+                { title: "General Contractors", slug: "general-contractors", description: "Automate document review, field reporting, and bid leveling." },
+                { title: "Owners & Developers", slug: "owners-developers", description: "Review submittals, track compliance, and monitor project health." },
+                { title: "Specialty Contractors", slug: "specialty-contractors", description: "Streamline submittals, RFIs, and daily reporting." },
+              ].map((guide) => (
                 <Link
-                  key={post.slug}
-                  href={`/blog/${post.slug}`}
+                  key={guide.slug}
+                  href={`/guides/${guide.slug}`}
                   onClick={() => setOpen(false)}
-                  className="block group"
+                  className="block group p-3 rounded-lg hover:bg-background transition-colors duration-150"
                 >
-                  <div className="rounded-lg overflow-hidden aspect-[16/10] mb-2 bg-border">
-                    <Image
-                      src={post.image}
-                      alt={post.title}
-                      width={200}
-                      height={125}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 ease-out"
-                    />
-                  </div>
-                  <p className="text-sm font-medium text-foreground group-hover:text-accent transition-colors duration-150 leading-snug line-clamp-2">
-                    {post.title}
+                  <p className="text-sm font-medium text-foreground group-hover:text-accent transition-colors duration-150 leading-snug">
+                    {guide.title}
+                  </p>
+                  <p className="text-xs text-secondary mt-1 leading-snug line-clamp-2">
+                    {guide.description}
                   </p>
                 </Link>
               ))}

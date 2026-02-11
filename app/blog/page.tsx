@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { getGuides } from "@/lib/queries";
 import { PLACEHOLDER_GUIDES } from "@/lib/placeholder-data";
 import {
@@ -6,6 +7,7 @@ import {
   BLOG_INDEX_STRUCTURE,
 } from "@/lib/scraped-blog-data";
 import type { Guide } from "@/lib/types";
+import HoverCard from "@/components/hover-card";
 
 export const metadata = {
   title: "Blog | Datagrid",
@@ -13,7 +15,6 @@ export const metadata = {
     "Guides, insights, and updates on AI in construction from the Datagrid team.",
 };
 
-/** Convert scraped blog posts into the Guide shape for consistent rendering. */
 function scrapedToGuides(): Guide[] {
   return SCRAPED_BLOG_POSTS.map((post) => ({
     _id: post._id,
@@ -29,18 +30,15 @@ function scrapedToGuides(): Guide[] {
   }));
 }
 
-/** Look up the reading time for a guide slug from scraped data, or estimate. */
 function getReadTime(guide: Guide): number {
   const scraped = SCRAPED_BLOG_POSTS.find(
     (p) => p.slug === guide.slug.current
   );
   if (scraped) return scraped.readTimeMinutes;
-  // Estimate from excerpt length: rough heuristic
   const words = (guide.excerpt ?? "").split(/\s+/).length;
   return Math.max(3, Math.round(words / 40));
 }
 
-/** Merge Sanity guides with scraped data, deduplicating by slug. */
 function mergeGuides(sanityGuides: Guide[]): Guide[] {
   const scraped = scrapedToGuides();
   const slugSet = new Set(sanityGuides.map((g) => g.slug.current));
@@ -48,7 +46,6 @@ function mergeGuides(sanityGuides: Guide[]): Guide[] {
   return [...sanityGuides, ...additional];
 }
 
-/** Key categories for the filter pills. */
 const FILTER_CATEGORIES = [
   { title: "All", slug: "all" },
   ...BLOG_INDEX_STRUCTURE.categories.slice(0, 5).map((c) => ({
@@ -60,7 +57,7 @@ const FILTER_CATEGORIES = [
 function formatDate(dateString: string | undefined): string {
   if (!dateString) return "";
   return new Date(dateString).toLocaleDateString("en-US", {
-    month: "short",
+    month: "long",
     day: "numeric",
     year: "numeric",
   });
@@ -72,139 +69,191 @@ export default async function BlogPage() {
   const guides = mergeGuides(sanityGuides);
 
   const [heroPost, ...remainingPosts] = guides;
+  const totalPosts = guides.length;
 
   return (
-    <div className="py-16 sm:py-20 lg:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* ── Header ── */}
-        <div className="mb-12">
-          <p className="text-xs font-semibold tracking-[0.1em] text-accent mb-3">From the Blog</p>
-          <h1 className="text-[2rem] sm:text-5xl font-medium leading-[1.15] tracking-tight text-foreground">
-            Blog
+    <>
+      {/* ── Dark Hero ── */}
+      <section className="bg-dark pt-16 pb-20 sm:pt-20 sm:pb-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium text-white leading-tight">
+            The Datagrid<br />Resource Hub
           </h1>
-          <p className="mt-1 text-base sm:text-lg leading-relaxed text-secondary max-w-2xl">
-            Guides, case studies, and insights on how AI is transforming
-            construction workflows.
+          <p className="mt-4 text-base text-dark-muted max-w-xl mx-auto leading-relaxed">
+            Explore the latest in agentic AI, from product updates and industry insights to
+            practical guides that help your team work smarter, faster, and more efficiently.
           </p>
         </div>
+      </section>
 
-        {/* ── Category Filter Pills ── */}
-        <div className="flex flex-wrap gap-2 mb-12">
-          {FILTER_CATEGORIES.map((cat) => (
-            <span
-              key={cat.slug}
-              className={
-                cat.slug === "all"
-                  ? "inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-full bg-accent text-accent-foreground border border-accent cursor-default"
-                  : "inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-full bg-surface text-secondary border border-border cursor-default"
-              }
-            >
-              {cat.title}
-            </span>
-          ))}
-        </div>
-
-        {/* ── Hero / Featured Post ── */}
-        {heroPost && (
+      {/* ── Featured Post ── */}
+      {heroPost && (
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 -mt-10">
+          <HoverCard>
           <Link
             href={`/blog/${heroPost.slug.current}`}
-            className="group block mb-12 p-8 rounded-2xl border border-border bg-background hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300 ease-out"
+            className="group block rounded-2xl border border-border bg-background shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
           >
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Featured image placeholder */}
-              <div className="aspect-video rounded-xl bg-surface relative overflow-hidden flex items-center justify-center">
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent" />
-                <span className="text-sm text-tertiary relative z-10">
-                  Featured Image
-                </span>
-              </div>
-              <div className="flex flex-col justify-center">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-full bg-surface text-secondary border border-border">
-                    {heroPost.category?.title}
-                  </span>
-                  <span className="text-xs text-tertiary">
-                    {formatDate(heroPost.publishedAt)}
-                  </span>
-                  <span className="text-xs text-tertiary">
-                    &middot; {getReadTime(heroPost)} min read
-                  </span>
+            <div className="grid grid-cols-1 lg:grid-cols-2">
+              <div className="aspect-[16/10] lg:aspect-auto bg-surface relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-accent/8 to-accent/3" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-sm text-tertiary">Featured Image</span>
                 </div>
-                <h2 className="text-[1.75rem] sm:text-4xl font-medium leading-[1.2] tracking-tight text-foreground group-hover:text-accent transition-colors duration-200">
+              </div>
+              <div className="p-8 sm:p-10 flex flex-col justify-center">
+                <span className="inline-flex self-start items-center px-3 py-1 text-xs font-medium rounded-full bg-surface text-secondary border border-border mb-4">
+                  {heroPost.category?.title}
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-medium text-foreground leading-snug group-hover:text-accent transition-colors duration-200">
                   {heroPost.title}
                 </h2>
-                <p className="mt-4 text-base sm:text-lg leading-relaxed text-secondary line-clamp-3">
+                <p className="mt-3 text-base text-secondary leading-relaxed line-clamp-2">
                   {heroPost.excerpt}
                 </p>
-                <div className="mt-6">
-                  <span className="inline-flex items-center gap-2 text-sm font-semibold text-accent group-hover:gap-3 transition-all duration-200">
-                    Read article
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M17 8l4 4m0 0l-4 4m4-4H3"
-                      />
-                    </svg>
-                  </span>
+                <div className="mt-6 flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center">
+                    <span className="text-xs font-medium text-accent">D</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-tertiary">
+                    <span className="font-medium text-secondary">Datagrid Team</span>
+                    <span>&middot;</span>
+                    <span>{formatDate(heroPost.publishedAt)}</span>
+                  </div>
                 </div>
               </div>
             </div>
           </Link>
-        )}
+          </HoverCard>
+        </div>
+      )}
 
-        {/* ── Post Grid ── */}
+      {/* ── Filter Bar ── */}
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            {/* Category filter */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border bg-background text-sm text-secondary">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-tertiary">
+                <path d="M2 4h12M4 8h8M6 12h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+              Filter by Category
+            </div>
+            {/* Search */}
+            <div className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-lg border border-border bg-background text-sm text-tertiary w-64">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="shrink-0">
+                <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M11 11l3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+              Search by keyword
+            </div>
+          </div>
+          <div className="flex items-center gap-1.5 text-sm text-secondary">
+            Sort by
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M3 5l3 3 3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+        </div>
+
+        <p className="mt-6 text-sm text-tertiary">
+          Showing {totalPosts}
+        </p>
+      </div>
+
+      {/* ── Post Grid ── */}
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-8 pb-16 sm:pb-20 lg:pb-24">
         {remainingPosts.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {remainingPosts.map((guide) => (
-              <Link
-                key={guide._id}
-                href={`/blog/${guide.slug.current}`}
-                className="group block p-8 rounded-2xl border border-border bg-background hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300 ease-out overflow-hidden"
-              >
-                {/* Featured image placeholder */}
-                <div className="aspect-video rounded-xl bg-surface relative overflow-hidden flex items-center justify-center mb-6 -mx-2">
-                  <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent" />
-                  <span className="text-sm text-tertiary relative z-10">
-                    Featured Image
-                  </span>
-                </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
+            {remainingPosts.map((guide, i) => (
+              <article key={guide._id}>
+                {/* Inline newsletter CTA after 6 posts — spans 2 cols */}
+                {i === 6 && (
+                  <div className="col-span-1 sm:col-span-2 mb-10 -mt-2 rounded-2xl bg-accent/5 border border-accent/10 p-8 sm:p-10">
+                    <h3 className="text-xl font-medium text-foreground">
+                      Subscribe for updates
+                    </h3>
+                    <p className="mt-2 text-sm text-secondary max-w-md">
+                      Join the community of operators, project managers, and leaders using
+                      agentic AI to move faster and do more with less.
+                    </p>
+                    <div className="mt-5 flex items-center gap-3 max-w-sm">
+                      <input
+                        type="email"
+                        placeholder="you@example.com"
+                        className="flex-1 px-4 py-2.5 text-sm rounded-lg border border-border bg-background text-foreground placeholder:text-tertiary focus:outline-none focus:border-accent/40"
+                      />
+                      <button className="px-5 py-2.5 text-sm font-medium rounded-lg bg-accent text-accent-foreground hover:bg-accent-hover transition-colors duration-150">
+                        Get updates
+                      </button>
+                    </div>
+                    <p className="mt-3 text-xs text-tertiary">
+                      By subscribing you agree to our{" "}
+                      <Link href="/privacy" className="underline hover:text-secondary">
+                        Privacy Policy
+                      </Link>.
+                    </p>
+                  </div>
+                )}
 
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-full bg-surface text-secondary border border-border">
-                    {guide.category?.title}
-                  </span>
-                  <span className="text-xs text-tertiary">
-                    {formatDate(guide.publishedAt)}
-                  </span>
-                </div>
+                <Link
+                  href={`/blog/${guide.slug.current}`}
+                  className="group block"
+                >
+                  {/* Image */}
+                  <div className="aspect-[16/10] rounded-xl bg-surface relative overflow-hidden mb-4">
+                    <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent" />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-xs text-tertiary">Featured Image</span>
+                    </div>
+                  </div>
 
-                <h2 className="text-lg font-semibold text-foreground group-hover:text-accent transition-colors duration-200 leading-snug">
-                  {guide.title}
-                </h2>
-                <p className="mt-2 text-sm text-secondary line-clamp-2 leading-relaxed">
-                  {guide.excerpt}
-                </p>
+                  {/* Title */}
+                  <h2 className="text-base font-medium text-foreground leading-snug group-hover:text-accent transition-colors duration-200 line-clamp-2">
+                    {guide.title}
+                  </h2>
 
-                <div className="mt-4 flex items-center justify-between">
-                  <span className="text-xs text-tertiary">
-                    {getReadTime(guide)} min read
-                  </span>
-                  <span className="text-sm font-semibold text-accent opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                    Read &rarr;
-                  </span>
-                </div>
-              </Link>
+                  {/* Author + Date */}
+                  <div className="mt-3 flex items-center gap-2.5">
+                    <div className="w-6 h-6 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center shrink-0">
+                      <span className="text-[10px] font-medium text-accent">D</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-xs text-tertiary">
+                      <span className="font-medium text-secondary">Datagrid Team</span>
+                      <span>&middot;</span>
+                      <span>{formatDate(guide.publishedAt)}</span>
+                    </div>
+                  </div>
+                </Link>
+              </article>
             ))}
           </div>
         )}
+
+        {/* ── Pagination ── */}
+        <div className="mt-14 flex items-center justify-center gap-1.5">
+          <span className="w-9 h-9 flex items-center justify-center rounded-lg bg-accent text-accent-foreground text-sm font-medium">
+            1
+          </span>
+          {[2, 3, 4, 5].map((n) => (
+            <span
+              key={n}
+              className="w-9 h-9 flex items-center justify-center rounded-lg text-sm text-secondary hover:bg-surface transition-colors duration-150 cursor-pointer"
+            >
+              {n}
+            </span>
+          ))}
+          <span className="text-sm text-tertiary px-1">&hellip;</span>
+          <span className="w-9 h-9 flex items-center justify-center rounded-lg text-sm text-secondary hover:bg-surface transition-colors duration-150 cursor-pointer">
+            86
+          </span>
+          <span className="w-9 h-9 flex items-center justify-center rounded-lg text-secondary hover:bg-surface transition-colors duration-150 cursor-pointer">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

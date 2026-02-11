@@ -40,165 +40,230 @@ export default function BlueprintBg({ variant }: Props) {
     window.addEventListener("resize", resize);
     window.addEventListener("scroll", onScroll, { passive: true });
 
-    const B = "59,130,246";
+    // Monochromatic beige — all faces same color, light blue strokes
+    const STROKE = "#93C5FD";
+    const STROKE_DIM = "#BFDBFE";
+    const FACE = "#f5f1ed";
     const ease = (t: number) => t >= 1 ? 1 : 1 - Math.pow(1 - t, 3);
 
-    // City layers: back → front. Each building: [xFraction, floors]
-    const layers = variant === "agents"
-      ? [
-          { s: 0.25, a: 0.05, y: 0.56, d: 0, b: [
-            [.02,10],[.09,14],[.17,7],[.25,16],[.34,9],[.43,12],[.52,7],[.60,15],[.69,10],[.78,12],[.87,8],[.95,6],
-          ]},
-          { s: 0.42, a: 0.08, y: 0.66, d: 0.03, b: [
-            [.01,11],[.11,16],[.22,8],[.33,13],[.45,18],[.56,9],[.67,14],[.79,8],[.90,12],
-          ]},
-          { s: 0.62, a: 0.12, y: 0.80, d: 0.07, b: [
-            [.04,12],[.16,18],[.31,9],[.46,15],[.61,20],[.77,11],[.91,14],
-          ]},
-          { s: 1.0, a: 0.17, y: 1.02, d: 0.13, b: [
-            [.02,14],[.17,20],[.36,10],[.54,18],[.74,15],[.91,9],
-          ]},
-        ]
-      : [
-          { s: 0.25, a: 0.05, y: 0.56, d: 0, b: [
-            [.03,9],[.11,13],[.20,6],[.29,15],[.38,8],[.47,11],[.56,7],[.64,14],[.73,9],[.82,13],[.91,7],
-          ]},
-          { s: 0.42, a: 0.08, y: 0.66, d: 0.03, b: [
-            [.02,10],[.13,15],[.25,7],[.37,12],[.50,16],[.62,9],[.74,14],[.86,11],
-          ]},
-          { s: 0.62, a: 0.12, y: 0.80, d: 0.07, b: [
-            [.06,13],[.20,17],[.36,9],[.52,19],[.68,12],[.84,15],
-          ]},
-          { s: 1.0, a: 0.17, y: 1.02, d: 0.13, b: [
-            [.04,15],[.20,19],[.40,10],[.58,17],[.77,13],[.93,8],
-          ]},
-        ];
+    // True isometric projection
+    const IX = (x: number, y: number) => (x - y) * 0.866;
+    const IY = (x: number, y: number, z: number) => (x + y) * 0.5 - z;
 
-    // Pre-compute building objects
+    // Seeded PRNG for deterministic layout
+    let seed = variant === "agents" ? 42 : 137;
+    function rand() {
+      seed = (seed * 16807) % 2147483647;
+      return (seed - 1) / 2147483646;
+    }
+
     type Bld = {
-      xF: number; floors: number;
-      w: number; fh: number; dx: number; dy: number;
-      a: number; yF: number; delay: number; cols: number;
+      gx: number; gy: number;
+      w: number; d: number;
+      floors: number; fh: number;
+      alpha: number; delay: number;
+      sortKey: number;
     };
 
     const buildings: Bld[] = [];
-    for (const L of layers) {
-      const w = 130 * L.s;
-      const fh = 26 * L.s;
-      const dx = 38 * L.s;
-      const dy = 17 * L.s;
-      const cols = L.s >= 0.6 ? 3 : L.s >= 0.4 ? 2 : 0;
+    const ROWS = 18;
+    const COLS = 24;
+    const SP = 44;
+    const FH = 7;
 
-      for (const [xF, floors] of L.b) {
+    for (let row = 0; row < ROWS; row++) {
+      for (let col = 0; col < COLS; col++) {
+        if (rand() < 0.1) continue;
+
+        const gx = col * SP + (rand() - 0.5) * 8;
+        const gy = row * SP + (rand() - 0.5) * 8;
+
+        const isLandmark = rand() < 0.2;
+        const w = isLandmark ? 32 + rand() * 24 : 16 + rand() * 20;
+        const d = isLandmark ? 24 + rand() * 18 : 12 + rand() * 16;
+
+        const centerDist = Math.abs(col - COLS / 2) / (COLS / 2);
+        const rowFactor = 0.3 + (row / ROWS) * 0.7;
+        const base = (5 + (1 - centerDist) * 18) * rowFactor;
+        const landmarkBoost = isLandmark ? 8 + rand() * 6 : 0;
+        const floors = Math.max(3, Math.min(32, Math.round(base + landmarkBoost + (rand() - 0.3) * 10)));
+
         buildings.push({
-          xF, floors,
-          w: w + (floors > 14 ? 18 * L.s : 0),
-          fh, dx, dy,
-          a: L.a,
-          yF: L.y,
-          delay: L.d + (xF as number) * 0.04,
-          cols,
+          gx, gy, w, d, floors, fh: FH,
+          alpha: 1,
+          delay: (1 - row / ROWS) * 0.12 + rand() * 0.04,
+          sortKey: gx + gy,
         });
       }
     }
 
-    function draw(ts: number) {
+    // Back-to-front
+    buildings.sort((a, b) => a.sortKey - b.sortKey);
+
+    // Compute isometric bounding box at full build
+    let sxMin = Infinity, sxMax = -Infinity, syMin = Infinity, syMax = -Infinity;
+    for (const b of buildings) {
+      const h = b.floors * b.fh;
+      const pts: [number, number, number][] = [
+        [b.gx, b.gy, 0], [b.gx + b.w, b.gy, 0],
+        [b.gx, b.gy + b.d, 0], [b.gx + b.w, b.gy + b.d, 0],
+        [b.gx, b.gy, h], [b.gx + b.w, b.gy, h],
+        [b.gx, b.gy + b.d, h], [b.gx + b.w, b.gy + b.d, h],
+      ];
+      for (const [x, y, z] of pts) {
+        const sx = IX(x, y), sy = IY(x, y, z);
+        if (sx < sxMin) sxMin = sx;
+        if (sx > sxMax) sxMax = sx;
+        if (sy < syMin) syMin = sy;
+        if (sy > syMax) syMax = sy;
+      }
+    }
+
+    const citySW = sxMax - sxMin;
+    const cityCX = (sxMin + sxMax) / 2;
+    const groundMaxY = syMax; // lowest point on screen (front of ground plane)
+
+    function draw() {
       const r = parent!.getBoundingClientRect();
       const cw = r.width, ch = r.height;
       ctx!.clearRect(0, 0, cw, ch);
 
       smooth += (target - smooth) * 0.07;
 
+      // Scale so the city spans the full canvas width
+      const scale = (cw * 1.4) / citySW;
+      const lw = 1 / scale; // consistent line width
+
+      ctx!.save();
+      ctx!.translate(cw / 2, ch + ch * 0.55); // anchor well below bottom edge
+      ctx!.scale(scale, scale);
+      ctx!.translate(-cityCX, -groundMaxY); // ground plane below canvas bottom
+
       for (const b of buildings) {
         const prog = Math.max(0, Math.min(1, (smooth - b.delay) / (1 - b.delay)));
         if (prog <= 0) continue;
 
         const built = prog * (b.floors + 0.3);
-        ctx!.save();
-        ctx!.translate(cw * b.xF, ch * b.yF);
+        const x0 = b.gx, y0 = b.gy, x1 = b.gx + b.w, y1 = b.gy + b.d;
 
+        // Current max height of the building
+        const topFloor = Math.min(b.floors - 1, Math.floor(built));
+        const topFp = Math.max(0, Math.min(1, built - topFloor));
+        const maxZ = topFloor * b.fh + b.fh * ease(topFp);
+
+        // ── 1. Solid silhouette fill (single hexagon covers entire building) ──
+        ctx!.fillStyle = FACE;
+
+        // Ground corners
+        const gA = [IX(x0, y0), IY(x0, y0, 0)] as const;
+        const gB = [IX(x1, y0), IY(x1, y0, 0)] as const;
+        const gC = [IX(x1, y1), IY(x1, y1, 0)] as const;
+        const gD = [IX(x0, y1), IY(x0, y1, 0)] as const;
+        // Top corners at current height
+        const tA = [IX(x0, y0), IY(x0, y0, maxZ)] as const;
+        const tB = [IX(x1, y0), IY(x1, y0, maxZ)] as const;
+        const tC = [IX(x1, y1), IY(x1, y1, maxZ)] as const;
+        const tD = [IX(x0, y1), IY(x0, y1, maxZ)] as const;
+
+        // One hexagon covering the full isometric projection of the box:
+        // tA (top-front) → tB (top-right) → gB (ground-right) → gC (ground-back) → gD (ground-left) → tD (top-left)
+        ctx!.beginPath();
+        ctx!.moveTo(tA[0], tA[1]);
+        ctx!.lineTo(tB[0], tB[1]);
+        ctx!.lineTo(gB[0], gB[1]);
+        ctx!.lineTo(gC[0], gC[1]);
+        ctx!.lineTo(gD[0], gD[1]);
+        ctx!.lineTo(tD[0], tD[1]);
+        ctx!.closePath();
+        ctx!.fill();
+
+        // ── 2. Per-floor strokes ──
         for (let f = 0; f < b.floors; f++) {
           const fp = Math.max(0, Math.min(1, built - f));
           if (fp <= 0) continue;
 
-          const bot = -f * b.fh;
-          const tt = -(f + 1) * b.fh;
-          const top = bot + (tt - bot) * ease(fp);
-          const lw = Math.max(0.4, 2.2 * (b.fh / 26));
-
-          // ── Columns (0→50%) ──
+          const z0 = f * b.fh;
+          const z1 = z0 + (b.fh * ease(fp));
           const cP = Math.min(1, fp / 0.5);
-          const cE = ease(cP);
-          const cT = bot + (tt - bot) * cE;
 
-          ctx!.strokeStyle = `rgba(${B},${b.a * cP})`;
-          ctx!.lineWidth = lw;
-          ctx!.beginPath(); ctx!.moveTo(0, bot); ctx!.lineTo(0, cT); ctx!.stroke();
-          ctx!.beginPath(); ctx!.moveTo(b.w, bot); ctx!.lineTo(b.w, cT); ctx!.stroke();
+          const Ax = IX(x0, y0), Ay = IY(x0, y0, z0);
+          const Bx = IX(x1, y0), By = IY(x1, y0, z0);
+          const Cx = IX(x1, y1), Cy = IY(x1, y1, z0);
+          const Dx = IX(x0, y1), Dy = IY(x0, y1, z0);
+          const Ex = IX(x0, y0), Ey = IY(x0, y0, z1);
+          const Fx = IX(x1, y0), Fy = IY(x1, y0, z1);
+          const Gx = IX(x1, y1), Gy = IY(x1, y1, z1);
+          const Hx = IX(x0, y1), Hy = IY(x0, y1, z1);
 
-          ctx!.lineWidth = lw * 0.6;
-          ctx!.strokeStyle = `rgba(${B},${b.a * 0.5 * cP})`;
-          ctx!.beginPath(); ctx!.moveTo(b.dx, bot - b.dy); ctx!.lineTo(b.dx, cT - b.dy); ctx!.stroke();
-          ctx!.beginPath(); ctx!.moveTo(b.w + b.dx, bot - b.dy); ctx!.lineTo(b.w + b.dx, cT - b.dy); ctx!.stroke();
+          // Columns
+          ctx!.strokeStyle = STROKE;
+          ctx!.lineWidth = lw * 1.2;
+          ctx!.beginPath();
+          ctx!.moveTo(Ax, Ay); ctx!.lineTo(Ex, Ey);
+          ctx!.moveTo(Bx, By); ctx!.lineTo(Fx, Fy);
+          ctx!.moveTo(Dx, Dy); ctx!.lineTo(Hx, Hy);
+          ctx!.stroke();
+          ctx!.strokeStyle = STROKE_DIM;
+          ctx!.beginPath();
+          ctx!.moveTo(Cx, Cy); ctx!.lineTo(Gx, Gy);
+          ctx!.stroke();
 
-          if (b.cols > 0) {
-            ctx!.lineWidth = lw * 0.4;
-            ctx!.strokeStyle = `rgba(${B},${b.a * 0.3 * cP})`;
-            for (let c = 1; c <= b.cols; c++) {
-              const cx = (b.w / (b.cols + 1)) * c;
-              ctx!.beginPath(); ctx!.moveTo(cx, bot); ctx!.lineTo(cx, cT); ctx!.stroke();
-            }
-          }
-
-          // ── Beams (25→65%) ──
-          if (fp > 0.25) {
-            const bP = Math.min(1, (fp - 0.25) / 0.4);
-            const bE = ease(bP);
-
-            ctx!.strokeStyle = `rgba(${B},${b.a * 0.85 * bP})`;
-            ctx!.lineWidth = lw * 0.8;
-            ctx!.beginPath(); ctx!.moveTo(0, top); ctx!.lineTo(b.w * bE, top); ctx!.stroke();
-
-            ctx!.lineWidth = lw * 0.45;
-            ctx!.strokeStyle = `rgba(${B},${b.a * 0.4 * bP})`;
-            ctx!.beginPath(); ctx!.moveTo(b.dx, top - b.dy); ctx!.lineTo(b.dx + b.w * bE, top - b.dy); ctx!.stroke();
-
-            if (bP > 0.5) {
-              const dP = (bP - 0.5) / 0.5;
-              ctx!.lineWidth = lw * 0.45;
-              ctx!.strokeStyle = `rgba(${B},${b.a * 0.3 * dP})`;
-              ctx!.beginPath(); ctx!.moveTo(0, top); ctx!.lineTo(b.dx * dP, top - b.dy * dP); ctx!.stroke();
-              ctx!.beginPath(); ctx!.moveTo(b.w, top); ctx!.lineTo(b.w + b.dx * dP, top - b.dy * dP); ctx!.stroke();
-            }
-          }
-
-          // ── Floor plate (40→70%) ──
-          if (fp > 0.4) {
-            const pP = Math.min(1, (fp - 0.4) / 0.3);
-
-            ctx!.fillStyle = `rgba(${B},${b.a * 0.22 * pP})`;
-            ctx!.fillRect(0, top, b.w, b.fh * 0.85);
-
-            ctx!.fillStyle = `rgba(${B},${b.a * 0.13 * pP})`;
+          // Bottom edges
+          if (f === 0) {
+            ctx!.strokeStyle = STROKE;
+            ctx!.lineWidth = lw * 0.9;
             ctx!.beginPath();
-            ctx!.moveTo(b.w, top); ctx!.lineTo(b.w + b.dx, top - b.dy);
-            ctx!.lineTo(b.w + b.dx, top - b.dy + b.fh * 0.85);
-            ctx!.lineTo(b.w, top + b.fh * 0.85);
-            ctx!.closePath(); ctx!.fill();
+            ctx!.moveTo(Ax, Ay); ctx!.lineTo(Bx, By);
+            ctx!.moveTo(Ax, Ay); ctx!.lineTo(Dx, Dy);
+            ctx!.stroke();
+            ctx!.strokeStyle = STROKE_DIM;
+            ctx!.beginPath();
+            ctx!.moveTo(Bx, By); ctx!.lineTo(Cx, Cy);
+            ctx!.moveTo(Dx, Dy); ctx!.lineTo(Cx, Cy);
+            ctx!.stroke();
+          }
 
-            if (f === Math.floor(built) || f === b.floors - 1) {
-              ctx!.fillStyle = `rgba(${B},${b.a * 0.15 * pP})`;
-              ctx!.beginPath();
-              ctx!.moveTo(0, top); ctx!.lineTo(b.w, top);
-              ctx!.lineTo(b.w + b.dx, top - b.dy); ctx!.lineTo(b.dx, top - b.dy);
-              ctx!.closePath(); ctx!.fill();
-            }
+          // Beams
+          if (fp > 0.25) {
+            ctx!.strokeStyle = STROKE;
+            ctx!.lineWidth = lw * 0.9;
+            ctx!.beginPath();
+            ctx!.moveTo(Ex, Ey); ctx!.lineTo(Fx, Fy);
+            ctx!.moveTo(Ex, Ey); ctx!.lineTo(Hx, Hy);
+            ctx!.moveTo(Fx, Fy); ctx!.lineTo(Gx, Gy);
+            ctx!.stroke();
+            ctx!.strokeStyle = STROKE_DIM;
+            ctx!.beginPath();
+            ctx!.moveTo(Hx, Hy); ctx!.lineTo(Gx, Gy);
+            ctx!.stroke();
           }
         }
 
-        ctx!.restore();
+        // ── 3. Roof cap LAST (covers column strokes) ──
+        const done = built >= b.floors;
+        if (done) {
+          ctx!.fillStyle = FACE;
+          ctx!.beginPath();
+          ctx!.moveTo(tA[0], tA[1]); ctx!.lineTo(tB[0], tB[1]);
+          ctx!.lineTo(tC[0], tC[1]); ctx!.lineTo(tD[0], tD[1]);
+          ctx!.closePath(); ctx!.fill();
+
+          // Roof edge strokes on top
+          ctx!.strokeStyle = STROKE;
+          ctx!.lineWidth = lw * 0.9;
+          ctx!.beginPath();
+          ctx!.moveTo(tA[0], tA[1]); ctx!.lineTo(tB[0], tB[1]);
+          ctx!.moveTo(tA[0], tA[1]); ctx!.lineTo(tD[0], tD[1]);
+          ctx!.stroke();
+          ctx!.strokeStyle = STROKE_DIM;
+          ctx!.beginPath();
+          ctx!.moveTo(tB[0], tB[1]); ctx!.lineTo(tC[0], tC[1]);
+          ctx!.moveTo(tD[0], tD[1]); ctx!.lineTo(tC[0], tC[1]);
+          ctx!.stroke();
+        }
       }
 
+      ctx!.restore();
       animFrame = requestAnimationFrame(draw);
     }
 
@@ -214,7 +279,7 @@ export default function BlueprintBg({ variant }: Props) {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full pointer-events-none"
+      className="absolute inset-0 w-full h-full pointer-events-none opacity-50"
     />
   );
 }

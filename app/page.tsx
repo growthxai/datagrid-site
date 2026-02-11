@@ -8,20 +8,36 @@ import CtaArrow from "@/components/cta-arrow";
 import BlueprintBg from "@/components/blueprint-bg";
 import { getAgents, getConnectors, getGuides } from "@/lib/queries";
 import { PLACEHOLDER_AGENTS, PLACEHOLDER_CONNECTORS, PLACEHOLDER_GUIDES } from "@/lib/placeholder-data";
+import { INDUSTRY_DATA } from "@/lib/cross-references";
 
 const GUIDE_IMAGES: Record<string, string> = {
-  "ai-agents-submittal-review": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80",
-  "getting-started-connectors": "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&q=80",
-  "gc-guide-ai-adoption": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80",
+  "ai-agents-submittal-review": "/blog/trimble-connect.jpeg",
+  "getting-started-connectors": "/blog/manufacturing-sops.jpeg",
+  "gc-guide-ai-adoption": "/blog/transportation-ops.jpeg",
 };
 
-const CONNECTOR_LOGOS: Record<string, { src: string; width: number }> = {
-  procore: { src: "/logos/procore.svg", width: 130 },
-  plangrid: { src: "/logos/plangrid.svg", width: 120 },
-  "autodesk-build": { src: "/logos/autodesk.svg", width: 130 },
-  bluebeam: { src: "/logos/bluebeam.svg", width: 120 },
-  "sage-300-cre": { src: "/logos/sage.svg", width: 80 },
-  "microsoft-project": { src: "/logos/microsoft-project.svg", width: 140 },
+const AGENT_ICONS: Record<string, { bg: string; border: string; color: string; icon: string }> = {
+  "submittal-reviewer": { bg: "bg-blue-50", border: "border-blue-200", color: "text-blue-500", icon: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" },
+  "rfi-drafter": { bg: "bg-amber-50", border: "border-amber-200", color: "text-amber-500", icon: "M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01" },
+  "daily-log-compiler": { bg: "bg-emerald-50", border: "border-emerald-200", color: "text-emerald-500", icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" },
+  "change-order-analyzer": { bg: "bg-violet-50", border: "border-violet-200", color: "text-violet-500", icon: "M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" },
+  "safety-compliance-checker": { bg: "bg-rose-50", border: "border-rose-200", color: "text-rose-500", icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" },
+  "bid-leveling-assistant": { bg: "bg-cyan-50", border: "border-cyan-200", color: "text-cyan-500", icon: "M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" },
+};
+
+const GUIDE_CARD_IMAGES: Record<string, string> = {
+  "general-contractors": "/blog/agentic-ai.jpeg",
+  "owners-developers": "/blog/fmea-root-cause.jpeg",
+  "specialty-contractors": "/blog/manufacturing-rfqs.jpeg",
+};
+
+const CONNECTOR_LOGOS: Record<string, { src: string; width: number; h: string }> = {
+  procore: { src: "/logos/procore.svg", width: 130, h: "h-[14px]" },
+  plangrid: { src: "/logos/plangrid.svg", width: 120, h: "h-[22px]" },
+  "autodesk-build": { src: "/logos/autodesk.svg", width: 130, h: "h-[16px]" },
+  bluebeam: { src: "/logos/bluebeam.svg", width: 120, h: "h-[14px]" },
+  "sage-300-cre": { src: "/logos/sage.svg", width: 80, h: "h-[28px]" },
+  "microsoft-project": { src: "/logos/microsoft-project.svg", width: 140, h: "h-[18px]" },
 };
 
 export default async function HomePage() {
@@ -114,9 +130,16 @@ export default async function HomePage() {
                         </span>
                       )}
                     </div>
-                    <div className="shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/10 flex items-center justify-center transition-transform duration-300 ease-out group-hover/card:translate-x-[2px] group-hover/card:-translate-y-[2px]">
-                      <span className="text-sm font-medium text-accent">{agent.title.charAt(0)}</span>
-                    </div>
+                    {(() => {
+                      const iconData = AGENT_ICONS[agent.slug.current];
+                      return (
+                        <div className={`shrink-0 w-10 h-10 rounded-lg border ${iconData?.bg || "bg-accent/5"} ${iconData?.border || "border-accent/10"} flex items-center justify-center transition-transform duration-300 ease-out group-hover/card:translate-x-[2px] group-hover/card:-translate-y-[2px]`}>
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className={iconData?.color || "text-accent"}>
+                            <path d={iconData?.icon || "M13 10V3L4 14h7v7l9-11h-7z"} stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </div>
+                      );
+                    })()}
                   </div>
                   <h3 className="text-lg font-medium text-foreground group-hover/card:text-accent transition-all duration-300 ease-out group-hover/card:-translate-x-[1px] group-hover/card:translate-y-[2px]">
                     {agent.title}
@@ -160,27 +183,22 @@ export default async function HomePage() {
                     href={`/connectors/${connector.slug.current}`}
                     className="relative block h-full p-6 bg-background rounded-2xl border border-border group-hover/card:shadow-[0_2px_2px_rgba(0,0,0,0.06)] transition-all duration-300 ease-out"
                   >
-                    <div className="flex justify-end mb-4">
-                      <div className="shrink-0 w-10 h-10 rounded-xl bg-surface border border-border flex items-center justify-center transition-transform duration-300 ease-out group-hover/card:translate-x-[2px] group-hover/card:-translate-y-[2px]">
-                        {logo ? (
-                          <Image
-                            src={logo.src}
-                            alt=""
-                            width={24}
-                            height={24}
-                            className="w-5 h-5 object-contain opacity-60"
-                          />
-                        ) : (
-                          <span className="text-sm font-medium text-secondary">
-                            {connector.title.charAt(0)}
-                          </span>
-                        )}
-                      </div>
+                    <div className="mb-4 h-8 flex items-center transition-transform duration-300 ease-out group-hover/card:-translate-y-[2px]">
+                      {logo ? (
+                        <Image
+                          src={logo.src}
+                          alt={connector.title}
+                          width={logo.width}
+                          height={32}
+                          className={`${logo.h} w-auto object-contain opacity-70 group-hover/card:opacity-100 transition-opacity duration-300 ease-out`}
+                        />
+                      ) : (
+                        <span className="text-base font-medium text-foreground">
+                          {connector.title}
+                        </span>
+                      )}
                     </div>
-                    <h3 className="text-sm font-medium text-foreground group-hover/card:text-accent transition-all duration-300 ease-out group-hover/card:-translate-x-[1px] group-hover/card:translate-y-[2px]">
-                      {connector.title}
-                    </h3>
-                    <p className="mt-1 text-sm text-secondary line-clamp-2 transition-transform duration-300 ease-out group-hover/card:-translate-x-[1px] group-hover/card:translate-y-[1px]">
+                    <p className="text-sm text-secondary line-clamp-2 transition-transform duration-300 ease-out group-hover/card:translate-y-[1px]">
                       {connector.shortDescription}
                     </p>
                   </Link>
@@ -276,16 +294,68 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Guides / pSEO */}
+      {/* Industry Guides */}
       <section className="py-16 sm:py-20 lg:py-24 bg-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-2">
-            <p className="text-xs font-medium text-black/75 mb-4">Guides & Resources</p>
+          <div className="mb-12">
+            <p className="text-xs font-medium text-black/75 mb-4">Industry Guides</p>
             <h2 className="text-3xl sm:text-4xl font-medium text-foreground">
-              Learn from the best in construction AI
+              Built for how you build
             </h2>
             <p className="mt-1 text-secondary max-w-2xl">
-              Practical guides and insights to help your team get the most out of AI.
+              Explore AI workflows tailored to your role in the construction industry.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {Object.entries(INDUSTRY_DATA).map(([slug, industry]) => (
+              <HoverCard key={slug}>
+                <Link
+                  href={`/guides/${slug}`}
+                  className="relative block h-full bg-background rounded-2xl border border-border overflow-hidden group-hover/card:shadow-[0_2px_2px_rgba(0,0,0,0.06)] transition-all duration-300 ease-out"
+                >
+                  <div className="aspect-[16/10] relative overflow-hidden">
+                    <Image
+                      src={GUIDE_CARD_IMAGES[slug] || "/blog/property-management.jpeg"}
+                      alt={industry.title}
+                      fill
+                      className="object-cover group-hover/card:scale-[1.03] transition-transform duration-500 ease-out"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-lg font-medium text-foreground group-hover/card:text-accent transition-colors duration-300 ease-out">
+                      {industry.title}
+                    </h3>
+                    <p className="mt-1 text-sm text-secondary line-clamp-2">
+                      {industry.description}
+                    </p>
+                    <div className="mt-4 flex flex-wrap gap-1.5">
+                      {industry.agentSlugs.slice(0, 3).map((s) => {
+                        const agent = agents.find((a) => a.slug.current === s);
+                        return agent ? (
+                          <span key={s} className="text-xs px-2 py-0.5 rounded-full bg-surface text-tertiary">
+                            {agent.title}
+                          </span>
+                        ) : null;
+                      })}
+                    </div>
+                  </div>
+                </Link>
+              </HoverCard>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* From the Blog */}
+      <section className="py-16 sm:py-20 lg:py-24 bg-surface">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-2">
+            <p className="text-xs font-medium text-black/75 mb-4">From the Blog</p>
+            <h2 className="text-3xl sm:text-4xl font-medium text-foreground">
+              Insights for modern construction teams
+            </h2>
+            <p className="mt-1 text-secondary max-w-2xl">
+              Practical guides, case studies, and thought leadership on AI in construction.
             </p>
           </div>
           <GuidesCarousel
@@ -296,7 +366,7 @@ export default async function HomePage() {
               category: guide.category?.title,
               publishedAt: guide.publishedAt,
               excerpt: guide.excerpt,
-              image: GUIDE_IMAGES[guide.slug.current] || "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80",
+              image: GUIDE_IMAGES[guide.slug.current] || "/blog/tenant-screening.jpeg",
             }))}
           />
         </div>
@@ -308,7 +378,7 @@ export default async function HomePage() {
           {/* Left: construction image — bleeds to left edge */}
           <div className="relative min-h-[400px]">
             <Image
-              src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200&q=80"
+              src="/blog/insurance-compliance.jpeg"
               alt="Construction site"
               fill
               className="object-cover"
@@ -316,7 +386,7 @@ export default async function HomePage() {
           </div>
           {/* Right: headline, sub, CTA */}
           <div className="py-20 sm:py-24 lg:py-32 px-8 sm:px-12 lg:px-16 max-w-2xl">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium text-foreground leading-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium text-foreground leading-[1.1]">
                 Ready to put AI to work on your projects?
               </h2>
               <p className="mt-1 text-lg text-secondary max-w-xl">

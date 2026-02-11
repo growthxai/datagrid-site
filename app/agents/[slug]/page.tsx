@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getAgentBySlug } from "@/lib/queries";
 import { PLACEHOLDER_AGENTS } from "@/lib/placeholder-data";
+import { getGuidesForAgent, getUseCasesForAgent } from "@/lib/cross-references";
 import type { Agent } from "@/lib/types";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -20,6 +21,9 @@ export default async function AgentDetailPage({ params }: Props) {
   const { slug } = await params;
   const agentData = await getAgentBySlug(slug).catch(() => null);
   const agent = (agentData || PLACEHOLDER_AGENTS.find((a) => a.slug.current === slug) || PLACEHOLDER_AGENTS[0]) as Agent;
+
+  const relatedGuides = getGuidesForAgent(slug);
+  const useCases = getUseCasesForAgent(slug);
 
   return (
     <div className="py-16 sm:py-20 lg:py-24">
@@ -103,6 +107,55 @@ export default async function AgentDetailPage({ params }: Props) {
                 <p className="text-secondary">
                   Detailed agent documentation will render here from Sanity portable text.
                 </p>
+              </section>
+            )}
+
+            {/* Related Guides */}
+            {relatedGuides.length > 0 && (
+              <section>
+                <p className="text-xs font-medium text-black/75 mb-4">Learn More</p>
+                <h2 className="text-2xl font-medium text-foreground mb-6">
+                  Related Guides
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {relatedGuides.map((guide) => (
+                    <Link
+                      key={guide._id}
+                      href={`/blog/${guide.slug.current}`}
+                      className="group block p-6 bg-background rounded-2xl border border-border hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300 ease-out"
+                    >
+                      <h3 className="text-base font-semibold text-foreground group-hover:text-accent transition-colors duration-150">
+                        {guide.title}
+                      </h3>
+                      {guide.excerpt && (
+                        <p className="mt-2 text-sm text-secondary line-clamp-2">
+                          {guide.excerpt}
+                        </p>
+                      )}
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* Use Cases */}
+            {useCases.length > 0 && (
+              <section>
+                <p className="text-xs font-medium text-black/75 mb-4">Explore</p>
+                <h2 className="text-2xl font-medium text-foreground mb-6">
+                  Use Cases
+                </h2>
+                <div className="flex flex-wrap gap-3">
+                  {useCases.map((uc) => (
+                    <Link
+                      key={uc.slug}
+                      href={`/agents/for/${uc.slug}`}
+                      className="inline-flex px-4 py-2 text-sm font-medium rounded-full border border-border bg-background text-secondary hover:text-foreground hover:border-accent/30 hover:shadow-sm transition-all duration-200 ease-out"
+                    >
+                      {uc.title}
+                    </Link>
+                  ))}
+                </div>
               </section>
             )}
           </div>

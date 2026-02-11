@@ -10,6 +10,7 @@ const FOOTER_LINKS = {
   ],
   Resources: [
     { href: "/blog", label: "Blog" },
+    { href: "/guides/general-contractors", label: "Guides" },
     { href: "/careers", label: "Careers" },
   ],
   Legal: [
@@ -28,6 +29,7 @@ export default function Footer() {
             <Link href="/" className="inline-block">
               <Image src="/datagrid-logo.avif" alt="Datagrid" width={140} height={32} className="brightness-0" />
             </Link>
+            <p className="mt-1.5 text-xs text-tertiary tracking-wide">a Procore Company</p>
             <p className="mt-4 text-sm text-secondary leading-relaxed">
               AI agents for the construction industry. Automate document review, field ops, and more.
             </p>
@@ -55,7 +57,7 @@ export default function Footer() {
 
         <div className="mt-12 pt-8 border-t border-border">
           <p className="text-sm text-tertiary">
-            &copy; {new Date().getFullYear()} Datagrid. All rights reserved.
+            &copy; {new Date().getFullYear()} Datagrid, a Procore company. All rights reserved.
           </p>
         </div>
       </div>

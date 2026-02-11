@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getConnectorBySlug } from "@/lib/queries";
 import { PLACEHOLDER_CONNECTORS } from "@/lib/placeholder-data";
+import { getAgentsForConnector, getGuidesForConnector } from "@/lib/cross-references";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -22,6 +23,9 @@ export default async function ConnectorDetailPage({ params }: Props) {
     connectorData ||
     PLACEHOLDER_CONNECTORS.find((c) => c.slug.current === slug) ||
     PLACEHOLDER_CONNECTORS[0];
+
+  const supportedAgents = getAgentsForConnector(slug);
+  const relatedGuides = getGuidesForConnector(slug);
 
   return (
     <div className="py-16 sm:py-20 lg:py-24">
@@ -49,40 +53,59 @@ export default async function ConnectorDetailPage({ params }: Props) {
           </p>
         </div>
 
-        {/* Compatible agents */}
-        {"agents" in connector &&
-          Array.isArray(connector.agents) &&
-          connector.agents.length > 0 && (
-            <section className="mt-12">
-              <p className="text-xs font-medium text-black/75 mb-4">Compatible</p>
-              <h2 className="text-2xl font-medium text-foreground mb-8">
-                Compatible Agents
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {connector.agents.map(
-                  (agent: {
-                    _id: string;
-                    title: string;
-                    slug: { current: string };
-                    shortDescription: string;
-                  }) => (
-                    <Link
-                      key={agent._id}
-                      href={`/agents/${agent.slug.current}`}
-                      className="group block p-8 bg-background rounded-2xl border border-border hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300 ease-out"
-                    >
-                      <h3 className="text-lg font-semibold text-foreground group-hover:text-accent transition-colors duration-150">
-                        {agent.title}
-                      </h3>
-                      <p className="mt-2 text-sm text-secondary line-clamp-2">
-                        {agent.shortDescription}
-                      </p>
-                    </Link>
-                  )
-                )}
-              </div>
-            </section>
-          )}
+        {/* Supported Agents */}
+        {supportedAgents.length > 0 && (
+          <section className="mt-12">
+            <p className="text-xs font-medium text-black/75 mb-4">Compatible</p>
+            <h2 className="text-2xl font-medium text-foreground mb-8">
+              Supported Agents
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {supportedAgents.map((agent) => (
+                <Link
+                  key={agent._id}
+                  href={`/agents/${agent.slug.current}`}
+                  className="group block p-8 bg-background rounded-2xl border border-border hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300 ease-out"
+                >
+                  <h3 className="text-lg font-semibold text-foreground group-hover:text-accent transition-colors duration-150">
+                    {agent.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-secondary line-clamp-2">
+                    {agent.shortDescription}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Related Guides */}
+        {relatedGuides.length > 0 && (
+          <section className="mt-16">
+            <p className="text-xs font-medium text-black/75 mb-4">Learn More</p>
+            <h2 className="text-2xl font-medium text-foreground mb-8">
+              Related Guides
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {relatedGuides.map((guide) => (
+                <Link
+                  key={guide._id}
+                  href={`/blog/${guide.slug.current}`}
+                  className="group block p-8 bg-background rounded-2xl border border-border hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300 ease-out"
+                >
+                  <h3 className="text-lg font-semibold text-foreground group-hover:text-accent transition-colors duration-150">
+                    {guide.title}
+                  </h3>
+                  {guide.excerpt && (
+                    <p className="mt-2 text-sm text-secondary line-clamp-2">
+                      {guide.excerpt}
+                    </p>
+                  )}
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* CTA */}
         <div className="mt-16 text-center">

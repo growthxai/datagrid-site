@@ -162,6 +162,8 @@ export const PLACEHOLDER_GUIDES = [
     author: "Datagrid Team",
     publishedAt: "2025-01-15T00:00:00Z",
     category: { title: "Document Review", slug: { current: "document-review" } },
+    relatedAgentSlugs: ["submittal-reviewer", "rfi-drafter"],
+    relatedConnectorSlugs: ["procore", "plangrid"],
   },
   {
     _id: "guide-2",
@@ -171,6 +173,8 @@ export const PLACEHOLDER_GUIDES = [
     author: "Datagrid Team",
     publishedAt: "2025-01-10T00:00:00Z",
     category: { title: "Guides", slug: { current: "guides" } },
+    relatedAgentSlugs: ["submittal-reviewer", "daily-log-compiler"],
+    relatedConnectorSlugs: ["procore", "plangrid", "autodesk-build"],
   },
   {
     _id: "guide-3",
@@ -180,5 +184,7 @@ export const PLACEHOLDER_GUIDES = [
     author: "Datagrid Team",
     publishedAt: "2025-01-05T00:00:00Z",
     category: { title: "Industry", slug: { current: "industry" } },
+    relatedAgentSlugs: ["submittal-reviewer", "daily-log-compiler", "rfi-drafter"],
+    relatedConnectorSlugs: ["procore"],
   },
 ];

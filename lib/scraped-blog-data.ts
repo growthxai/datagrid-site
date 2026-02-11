@@ -969,10 +969,682 @@ export const SCRAPED_POST_3: ScrapedBlogPost = {
 };
 
 // ---------------------------------------------------------------------------
+// Scraped Post 4: Insurance Compliance
+// ---------------------------------------------------------------------------
+
+export const SCRAPED_POST_4: ScrapedBlogPost = {
+  _id: "scraped-post-4",
+  title: "How to Automate Compliance Documentation Tracking in Insurance Operations",
+  slug: "automate-insurance-compliance-management",
+  url: "/blog/automate-insurance-compliance-management",
+  author: "Datagrid Team",
+  publishedAt: "2026-02-04T00:00:00Z",
+  category: { title: "Insurance", slug: "insurance" },
+  excerpt:
+    "Manual insurance compliance tracking creates systematic vulnerabilities that compound as vendor relationships multiply. Learn how AI agents automate verification, validation, and audit trail workflows.",
+  featuredImage: {
+    url: "/blog/insurance-compliance.jpeg",
+    alt: "Insurance compliance documentation tracking dashboard",
+    width: 1200,
+    height: 675,
+  },
+  readTimeMinutes: 12,
+  body: [
+    {
+      type: "paragraph",
+      text: "One team member uses color-coded spreadsheets. Another relies on calendar reminders. A third depends on vendor self-reporting. When contractor liability coverage lapses undetected, the gap becomes apparent only after a claim surfaces. This is a workflow problem, not a training problem — manual insurance management creates systematic vulnerabilities that compound as vendor relationships multiply.",
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: "How Manual Compliance Tracking Breaks Down at Scale",
+    },
+    {
+      type: "list",
+      ordered: false,
+      items: [
+        "Verification happens inconsistently due to competing priorities.",
+        "Expired certificates create liability exposure during active vendor work.",
+        "Audit preparation requires scrambling through email archives rather than systematic retrieval.",
+        "Staff resistance undermines large-scale transformation efforts despite adequate technology.",
+      ],
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: "Build Automated Verification, Validation, and Audit Trail Workflows",
+    },
+    {
+      type: "heading",
+      level: 3,
+      text: "Automate Insurance Document Verification",
+    },
+    {
+      type: "paragraph",
+      text: "AI agents can cross-reference incoming certificates against predefined requirements. Datagrid's Data Extraction Agent processes certificates automatically, pulling coverage details and policy limits from PDFs without manual entry. Implementation includes requirement definition by vendor category, automated routing, intelligent extraction, completeness checking, and exception notification.",
+    },
+    {
+      type: "image",
+      image: {
+        url: "/blog/data-extraction-agent.png",
+        alt: "Datagrid Data Extraction Agent processing insurance certificates",
+        width: 800,
+        height: 450,
+      },
+    },
+    {
+      type: "heading",
+      level: 3,
+      text: "Validate Insurance Coverage Against Compliance Requirements",
+    },
+    {
+      type: "paragraph",
+      text: "Validation confirms coverage actually protects the organization by comparing extracted policy details against documented underwriting guidelines. Datagrid's Data Validator Agent cross-references policy details against rules, flagging discrepancies. Implementation requires codifying underwriting rules, building validation logic, defining exception thresholds, and creating escalation paths with audit documentation meeting NAIC Model Law #910 accessibility standards.",
+    },
+    {
+      type: "image",
+      image: {
+        url: "/blog/data-validator-agent.png",
+        alt: "Datagrid Data Validator Agent cross-referencing policy details",
+        width: 800,
+        height: 450,
+      },
+    },
+    {
+      type: "heading",
+      level: 3,
+      text: "Maintain Audit Trails for Regulatory Compliance",
+    },
+    {
+      type: "paragraph",
+      text: "Automated compliance creates audit trails as execution byproducts. Every verification check, validation decision, and exception resolution logs automatically with timestamps and decision rationale. This supports the six-year minimum retention standards common across state insurance regulations, with some jurisdictions requiring ten-year retention.",
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: "Connect Insurance Compliance Tracking to Property Management Systems",
+    },
+    {
+      type: "paragraph",
+      text: "Integration operates at three layers: data synchronization, process integration connecting compliance workflows to operational triggers, and application integration for unified visibility. Datagrid's Automation Agent connects to property management platforms, triggering verification workflows automatically when vendor or tenant changes occur.",
+    },
+    {
+      type: "image",
+      image: {
+        url: "/blog/automation-agent.png",
+        alt: "Datagrid Automation Agent connecting to property management platforms",
+        width: 800,
+        height: 450,
+      },
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: "Implement Insurance Compliance Management in Phases",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Phase 1 (Months 1-3): Document existing workflows, identify inconsistencies, and define requirements for highest-volume vendor categories.",
+        "Phase 2 (Months 3-6): Implement automated tracking for a portfolio subset, establishing baseline metrics.",
+        "Phase 3 (Months 7-9): Adjust workflows based on pilot performance and refine alerts based on vendor response patterns.",
+        "Phase 4 (Months 10-12): Scale refined workflows across remaining properties and build KPI dashboards.",
+        "Phase 5 (Months 13-18): Implement advanced analytics and predictive monitoring.",
+        "Phase 6 (Months 19-24): Optimize exception workflows and evaluate expansion to additional compliance domains.",
+      ],
+    },
+  ],
+  inlineImages: [
+    { url: "/blog/data-extraction-agent.png", alt: "Datagrid Data Extraction Agent", width: 800, height: 450 },
+    { url: "/blog/data-validator-agent.png", alt: "Datagrid Data Validator Agent", width: 800, height: 450 },
+    { url: "/blog/automation-agent.png", alt: "Datagrid Automation Agent", width: 800, height: 450 },
+  ],
+  relatedAgents: [],
+  relatedConnectors: [],
+  cta: {
+    heading: "Ready to try Datagrid?",
+    description: "Build your first AI Agent in minutes — free to get started.",
+    buttonText: "Create Free Account",
+    buttonHref: "/demo",
+  },
+  relatedPosts: [
+    { title: "How AI Agents Are Transforming Submittal Review", slug: "ai-agents-submittal-review", excerpt: "Learn how construction teams are cutting submittal review time by 80% with AI-powered document analysis." },
+    { title: "Getting Started with Datagrid Connectors", slug: "getting-started-connectors", excerpt: "A step-by-step guide to connecting your existing construction software with Datagrid's AI agents." },
+  ],
+};
+
+// ---------------------------------------------------------------------------
+// Scraped Post 5: Commercial Tenant Screening
+// ---------------------------------------------------------------------------
+
+export const SCRAPED_POST_5: ScrapedBlogPost = {
+  _id: "scraped-post-5",
+  title: "How AI Agents Automate Commercial Tenant Screening for Leasing Teams",
+  slug: "commercial-tenant-screening-automation-ai",
+  url: "/blog/commercial-tenant-screening-automation-ai",
+  author: "Datagrid Team",
+  publishedAt: "2026-02-04T01:00:00Z",
+  category: { title: "Commercial Real Estate", slug: "commercial-real-estate" },
+  excerpt:
+    "Top-performing leasing agents gain competitive advantage through thorough prospect research. AI agents automate financial verification, business stability checks, and lease history — giving every agent the research capabilities of your best performer.",
+  featuredImage: {
+    url: "/blog/tenant-screening.jpeg",
+    alt: "Commercial real estate tenant screening automation dashboard",
+    width: 1200,
+    height: 675,
+  },
+  readTimeMinutes: 10,
+  body: [
+    {
+      type: "paragraph",
+      text: "Top-performing leasing agents gain competitive advantage through thorough prospect research — reviewing financials, verifying business stability, and confirming space requirements before initial tours. However, this manual research process creates bottlenecks and inconsistent screening rigor across teams, as different agents apply varying levels of scrutiny depending on workload and experience.",
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: "Where Manual Screening Breaks Down",
+    },
+    {
+      type: "paragraph",
+      text: "Financial verification requires pulling business credit scores, payment history, revenue stability, and debt obligations from multiple credit bureaus. Business stability assessment demands gathering company age, ownership changes, litigation history, and industry health signals from multiple platforms. Lease history verification and space requirements validation add further layers of manual cross-referencing.",
+    },
+    {
+      type: "list",
+      ordered: false,
+      items: [
+        "**Financial verification** — Pulling scores from Experian, Equifax, and Dun & Bradstreet manually for each prospect.",
+        "**Business stability** — Assessing company age, ownership changes, and litigation history across platforms.",
+        "**Lease history** — Verifying commercial tenant payment performance through landlord references or credit data.",
+        "**Space requirements** — Confirming square footage against headcount, parking needs, and loading dock specs.",
+      ],
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: "How AI Agents Automate Tenant Prospect Research",
+    },
+    {
+      type: "paragraph",
+      text: "An inquiry triggers an AI agent that simultaneously queries multiple financial databases and market intelligence platforms. A consolidated profile appears in the leasing dashboard with complete prospect context. Leasing agents review and qualify prospects against documented criteria, then human decision-makers engage with complete context.",
+    },
+    {
+      type: "paragraph",
+      text: "Datagrid's Data Organization Agent consolidates tenant data from CRM systems, public records, and market databases. The Data Analysis Agent evaluates prospects against documented financial, timing, and space criteria automatically — enforcing your established leasing methodology consistently across every prospect and team member.",
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: "Capturing Intelligence from Lost Deals",
+    },
+    {
+      type: "paragraph",
+      text: "Automated systems can track which prospect profiles converted, at what price points, and which qualification signals predicted successful outcomes. This enables continuous refinement of screening criteria based on actual results rather than intuition.",
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: "Planning Tenant Screening Automation",
+    },
+    {
+      type: "paragraph",
+      text: "JLL's 2025 Global Real Estate Technology Survey found that 88% of investors, owners, and landlords have started piloting AI initiatives. However, only 5% achieved all their AI goals. Success requires defining consistent qualification criteria, establishing data governance protocols for sensitive financial information, and committing to workflow changes.",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Connect to credit bureau data services for automated financial verification.",
+        "Standardize qualification criteria before automating.",
+        "Deploy AI agents for data consolidation.",
+        "Track baseline metrics before implementation.",
+      ],
+    },
+  ],
+  inlineImages: [],
+  relatedAgents: [],
+  relatedConnectors: [],
+  cta: {
+    heading: "Ready to try Datagrid?",
+    description: "Automate tenant prospect research and give every leasing agent the research capabilities of your best performer.",
+    buttonText: "Create Free Account",
+    buttonHref: "/demo",
+  },
+  relatedPosts: [
+    { title: "What Is IEQ and How to Turn Complaints Into Retention Intelligence", slug: "what-is-ieq-tenant-retention", excerpt: "IEQ is one of the most overlooked retention levers in commercial real estate." },
+    { title: "How to Scale Tenant Service Excellence Without Micromanaging Property Managers", slug: "property-management-workflow-automation", excerpt: "Scaling tenant service excellence requires systematic frameworks rather than increased supervision." },
+  ],
+};
+
+// ---------------------------------------------------------------------------
+// Scraped Post 6: IEQ and Tenant Retention
+// ---------------------------------------------------------------------------
+
+export const SCRAPED_POST_6: ScrapedBlogPost = {
+  _id: "scraped-post-6",
+  title: "What Is IEQ and How to Turn Complaints Into Retention Intelligence",
+  slug: "what-is-ieq-tenant-retention",
+  url: "/blog/what-is-ieq-tenant-retention",
+  author: "Datagrid Team",
+  publishedAt: "2026-02-04T02:00:00Z",
+  category: { title: "Commercial Real Estate", slug: "commercial-real-estate" },
+  excerpt:
+    "Indoor Environmental Quality is one of the most overlooked retention levers in commercial real estate. Learn how to turn fragmented IEQ complaints into proactive retention workflows.",
+  featuredImage: {
+    url: "/blog/ieq-tenant-retention.jpeg",
+    alt: "Indoor environmental quality monitoring in commercial building",
+    width: 1200,
+    height: 675,
+  },
+  readTimeMinutes: 11,
+  body: [
+    {
+      type: "paragraph",
+      text: "Three temperature complaints filed across two months by the same tenant remain invisible without pattern analysis, only surfacing during lease renewal discussions. Indoor Environmental Quality encompasses the measurable environmental factors affecting occupant experience — and it is one of the most overlooked retention levers in commercial real estate.",
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: "What Is IEQ and Why It Matters for Tenant Retention",
+    },
+    {
+      type: "paragraph",
+      text: "IEQ encompasses four core components: Indoor Air Quality (IAQ) focusing on airborne contaminants and ventilation effectiveness; Thermal Comfort following ASHRAE Standard 55-2004; Lighting Quality addressing daylight access and artificial lighting standards; and Acoustic Performance, increasingly important as open office layouts proliferate.",
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: "How IEQ Complaints Impact Tenant Retention",
+    },
+    {
+      type: "paragraph",
+      text: "Research shows that improvements in tenant satisfaction reduce departure likelihood by approximately 19%, according to Kingsley Associates' analysis of over 100,000 commercial tenant surveys. The Leesman Index reveals a satisfaction gap: 66% of employees consider air quality important to their work, but only 52% are satisfied with existing air quality.",
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: "Where IEQ Tracking Breaks Down",
+    },
+    {
+      type: "paragraph",
+      text: "Environmental monitoring infrastructure exists — building automation systems track temperature, humidity, and CO2 — but this data remains isolated from tenant service workflows. Property managers handling renewals may lack awareness of environmental complaints filed by the same tenant's facilities team. The fundamental issue is timing rather than data availability.",
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: "Build an IEQ-to-Retention Workflow",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "**Track complaints with pattern recognition** — Analyze complaint patterns by tenant, building zone, and timeframe rather than counting individual work orders.",
+        "**Include environmental factors in tenant health scoring** — Incorporate IEQ metrics alongside arrears, lease terms, and maintenance data in composite scoring.",
+        "**Set up proactive retention triggers** — When environmental metrics fall below acceptable ranges, automated alerts enable service teams to reach out before tenants escalate.",
+      ],
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: "Scale IEQ Standards Across Properties",
+    },
+    {
+      type: "paragraph",
+      text: "Issue resolution speeds vary across properties. Tenant intelligence fragments across systems, emails, and manager notes. Property managers lack cross-portfolio visibility regarding recurring issues. AI agents enable consistent IEQ response by synthesizing service history, request patterns, and satisfaction signals automatically into comprehensive tenant profiles.",
+    },
+  ],
+  inlineImages: [],
+  relatedAgents: [],
+  relatedConnectors: [],
+  cta: {
+    heading: "Ready to try Datagrid?",
+    description: "Start connecting your IEQ data to tenant retention workflows.",
+    buttonText: "Create Free Account",
+    buttonHref: "/demo",
+  },
+  relatedPosts: [
+    { title: "How AI Agents Automate Commercial Tenant Screening for Leasing Teams", slug: "commercial-tenant-screening-automation-ai", excerpt: "AI agents automate financial verification, business stability checks, and lease history." },
+    { title: "How to Scale Tenant Service Excellence Without Micromanaging Property Managers", slug: "property-management-workflow-automation", excerpt: "Scaling tenant service excellence requires systematic frameworks rather than increased supervision." },
+  ],
+};
+
+// ---------------------------------------------------------------------------
+// Scraped Post 7: Property Management Workflow Automation
+// ---------------------------------------------------------------------------
+
+export const SCRAPED_POST_7: ScrapedBlogPost = {
+  _id: "scraped-post-7",
+  title: "How to Scale Tenant Service Excellence Without Micromanaging Property Managers",
+  slug: "property-management-workflow-automation",
+  url: "/blog/property-management-workflow-automation",
+  author: "Datagrid Team",
+  publishedAt: "2026-02-04T03:00:00Z",
+  category: { title: "Commercial Real Estate", slug: "commercial-real-estate" },
+  excerpt:
+    "Different managers use different communication methods — creating friction for tenants and affecting retention rates. Scaling tenant service excellence requires systematic frameworks rather than increased supervision.",
+  featuredImage: {
+    url: "/blog/property-management.jpeg",
+    alt: "Property management workflow automation for tenant services",
+    width: 1200,
+    height: 675,
+  },
+  readTimeMinutes: 12,
+  body: [
+    {
+      type: "paragraph",
+      text: "Different managers use different communication methods — some prioritize ticketing systems, others rely on email or phone calls — creating friction for tenants and affecting retention rates. Building Engines and BOMA International's 2025 study covering 370 commercial real estate professionals reveals that tenant issue management consumes the most operational time (58%), followed by inspections and preventive maintenance (48%), and vendor management (38%).",
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: "Why Property Management Workflows Break Down Across Properties",
+    },
+    {
+      type: "list",
+      ordered: false,
+      items: [
+        "Inconsistent tracking methods prevent organizations from identifying best practices.",
+        "Maintenance requests disappear in email, prompting tenant escalations.",
+        "Vendors miss notifications, creating scheduling conflicts.",
+        "Individual failures compound into portfolio-wide service quality deterioration.",
+      ],
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: "Build Property Management Systems That Enable Independence",
+    },
+    {
+      type: "heading",
+      level: 3,
+      text: "Define Authority Boundaries Clearly",
+    },
+    {
+      type: "paragraph",
+      text: "Specific approval thresholds enable independent decision-making: routine maintenance under $2,000 requires no approval; $2,000 to 10% of contingency requires notification; over 10% requires authorization. Tenant communication uses standardized templates with escalation triggers for formal complaints.",
+    },
+    {
+      type: "heading",
+      level: 3,
+      text: "Standardize Outcomes Instead of Activities",
+    },
+    {
+      type: "paragraph",
+      text: "Measure tenant satisfaction scores and response times rather than monitoring activities. Since higher tenant satisfaction correlates with rent growth and lower vacancy rates, outcome-based measurement directly affects portfolio performance.",
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: "Use Workflow Automation for Consistent Service Delivery",
+    },
+    {
+      type: "paragraph",
+      text: "Standardized technology platforms create infrastructure for consistent service without constant oversight. Modern work order management systems should be the priority, as they address the most time-consuming operational area while creating cross-property visibility.",
+    },
+    {
+      type: "image",
+      image: {
+        url: "/blog/communication-agent.png",
+        alt: "Datagrid Communication Agent interface showing request routing",
+        width: 800,
+        height: 450,
+      },
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: "Establish Feedback Loops Without Surveillance",
+    },
+    {
+      type: "paragraph",
+      text: "The Kingsley Index provides standardized tenant surveys across office, industrial, medical, and retail sectors using a 5.0-point satisfaction scale, enabling portfolio-wide comparison against industry benchmarks. Effective feedback systems allow authentic tenant input to reach portfolio leadership and property managers simultaneously.",
+    },
+    {
+      type: "image",
+      image: {
+        url: "/blog/data-analysis-agent.png",
+        alt: "Datagrid Data Analysis Agent identifying early warning signs",
+        width: 800,
+        height: 450,
+      },
+    },
+  ],
+  inlineImages: [
+    { url: "/blog/communication-agent.png", alt: "Datagrid Communication Agent", width: 800, height: 450 },
+    { url: "/blog/data-analysis-agent.png", alt: "Datagrid Data Analysis Agent", width: 800, height: 450 },
+  ],
+  relatedAgents: [],
+  relatedConnectors: [],
+  cta: {
+    heading: "Ready to try Datagrid?",
+    description: "Build your first AI Agent in minutes — free to get started.",
+    buttonText: "Create Free Account",
+    buttonHref: "/demo",
+  },
+  relatedPosts: [
+    { title: "What Is IEQ and How to Turn Complaints Into Retention Intelligence", slug: "what-is-ieq-tenant-retention", excerpt: "IEQ is one of the most overlooked retention levers in commercial real estate." },
+    { title: "How AI Agents Automate Commercial Tenant Screening for Leasing Teams", slug: "commercial-tenant-screening-automation-ai", excerpt: "AI agents automate financial verification, business stability checks, and lease history." },
+  ],
+};
+
+// ---------------------------------------------------------------------------
+// Scraped Post 8: GMP Manufacturing Compliance
+// ---------------------------------------------------------------------------
+
+export const SCRAPED_POST_8: ScrapedBlogPost = {
+  _id: "scraped-post-8",
+  title: "What You Need to Know About GMP to Build Compliance Into Workflows",
+  slug: "gmp-meaning-manufacturing-guide-ai",
+  url: "/blog/gmp-meaning-manufacturing-guide-ai",
+  author: "Datagrid Team",
+  publishedAt: "2026-01-26T00:00:00Z",
+  category: { title: "Manufacturing", slug: "manufacturing" },
+  excerpt:
+    "Good Manufacturing Practice determines whether your documentation can endure FDA examination. Learn how to build GMP compliance into engineering workflows with AI-assisted documentation.",
+  featuredImage: {
+    url: "/blog/gmp-manufacturing.jpeg",
+    alt: "GMP compliance in manufacturing facility with quality control",
+    width: 1200,
+    height: 675,
+  },
+  readTimeMinutes: 14,
+  body: [
+    {
+      type: "paragraph",
+      text: "Good Manufacturing Practice establishes requirements for producing regulated products, extending beyond theoretical frameworks to determine whether documentation can endure FDA examination or face warning citations. Manufacturing engineers encounter daily engineering changes that cascade through work instructions, standard operating procedures, visual aids, and training materials. These updates often lag behind actual production practices, creating quality vulnerabilities during staff transitions.",
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: "What GMP Means for Manufacturing Engineers",
+    },
+    {
+      type: "paragraph",
+      text: "The WHO defines GMP as \"the aspect of quality assurance that ensures that medicinal products are consistently produced and controlled to the quality standards appropriate to their intended use.\" For practical manufacturing purposes, GMP attempts to eliminate risks that testing cannot detect in finished products. Quality must be embedded systematically, not verified retroactively.",
+    },
+    {
+      type: "heading",
+      level: 3,
+      text: "The Five Ps of GMP Compliance",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "**People** — Training records demonstrate operators understand current procedures.",
+        "**Premises** — Facility design directly impacts product quality through environmental controls.",
+        "**Processes** — All workflows require clear definition, validation, review, and documentation.",
+        "**Products** — Incoming material control prevents contamination problems.",
+        "**Procedures** — Written procedures required for each workflow affecting finished product quality.",
+      ],
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: "Most Common GMP Violations",
+    },
+    {
+      type: "list",
+      ordered: false,
+      items: [
+        "**CAPA deficiencies** — Leading violation category for medical device manufacturers in FY2025, cited in 26 warning letters.",
+        "**Documentation failures** — Among the most frequently cited deficiencies across pharmaceutical, medical device, and food production.",
+        "**Equipment qualification gaps** — Particularly involving unqualified process technology and missing Process Performance Qualifications.",
+        "**Data integrity violations** — Pervasive particularly at foreign pharmaceutical manufacturing sites.",
+      ],
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: "How AI Agents Support GMP Compliance",
+    },
+    {
+      type: "paragraph",
+      text: "The documentation burden creates fundamental tension: engineering changes occur faster than documentation updates, yet GMP compliance requires current, accurate procedures continuously. In pharmaceutical manufacturing, over 60% of participants identified root cause analysis as the most resource-intensive step in deviation workflows.",
+    },
+    {
+      type: "image",
+      image: {
+        url: "/blog/data-organization-agent.png",
+        alt: "Datagrid Data Organization Agent structuring deviation data",
+        width: 800,
+        height: 450,
+      },
+    },
+    {
+      type: "paragraph",
+      text: "AI agents can automate change impact analysis (scanning interconnected document systems to identify all affected SOPs), deviation trend analysis (aggregating data across batches and equipment to surface patterns), and batch record review preparation (pulling parameters into structured review packages). In all cases, AI agents support human decision-makers rather than replacing engineering judgment.",
+    },
+  ],
+  inlineImages: [
+    { url: "/blog/data-organization-agent.png", alt: "Datagrid Data Organization Agent", width: 800, height: 450 },
+  ],
+  relatedAgents: [],
+  relatedConnectors: [],
+  cta: {
+    heading: "Ready to try Datagrid?",
+    description: "Start automating documentation workflows for your GMP compliance program.",
+    buttonText: "Create Free Account",
+    buttonHref: "/demo",
+  },
+  relatedPosts: [
+    { title: "What Is Poka Yoke in Manufacturing and How to Implement It Effectively", slug: "poka-yoke-mistake-proofing-manufacturing-ai", excerpt: "Poka yoke — mistake-proofing methodology — prevents defects before they happen." },
+    { title: "How to Automate Compliance Documentation Tracking in Insurance Operations", slug: "automate-insurance-compliance-management", excerpt: "Manual compliance tracking creates systematic vulnerabilities that compound at scale." },
+  ],
+};
+
+// ---------------------------------------------------------------------------
+// Scraped Post 9: Poka Yoke Manufacturing
+// ---------------------------------------------------------------------------
+
+export const SCRAPED_POST_9: ScrapedBlogPost = {
+  _id: "scraped-post-9",
+  title: "What Is Poka Yoke in Manufacturing and How to Implement It Effectively",
+  slug: "poka-yoke-mistake-proofing-manufacturing-ai",
+  url: "/blog/poka-yoke-mistake-proofing-manufacturing-ai",
+  author: "Datagrid Team",
+  publishedAt: "2026-01-26T01:00:00Z",
+  category: { title: "Manufacturing", slug: "manufacturing" },
+  excerpt:
+    "Poka yoke — mistake-proofing methodology developed at Toyota — prevents defects before they happen. Learn the three methods, implementation strategy, and how AI enhances traditional mistake-proofing.",
+  featuredImage: {
+    url: "/blog/poka-yoke.jpeg",
+    alt: "Poka yoke mistake-proofing in manufacturing production line",
+    width: 1200,
+    height: 675,
+  },
+  readTimeMinutes: 11,
+  body: [
+    {
+      type: "paragraph",
+      text: "Engineering modifications cascade through documentation systems faster than organizations can manage. Product changes create outdated work instructions, machine installations require SOP updates that lag behind actual practices, and critical operator knowledge about preventing defects remains undocumented. Defect prevention must occur before errors happen rather than through post-production detection.",
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: "What Is Poka Yoke?",
+    },
+    {
+      type: "paragraph",
+      text: "Poka yoke — mistake-proofing methodology — was developed by Japanese industrial engineer Shigeo Shingo during the 1960s at Toyota. According to ASQ, it functions as a workflow analysis tool that either \"makes errors impossible to occur or makes them immediately obvious.\" Root causes fall into four categories: human factors, equipment issues, organizational factors, and environmental conditions.",
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: "Three Main Types of Poka Yoke Methods",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "**Contact Method** — Uses physical devices or sensors to detect errors through direct contact. Examples: guide pin dimensional verification, proximity sensors verifying component presence.",
+        "**Fixed-Value Method** — Monitors predetermined numbers of actions or components. Examples: fastener counting trays, O-ring dispensers that count each ring.",
+        "**Motion-Step Method** — Verifies all workflow steps occur in correct sequence. Examples: PLC-based interlocks in welding operations, smart torque tool controls.",
+      ],
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: "Implementation Strategy",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Identify critical defects using root cause analysis tools like 5 Whys and fishbone diagrams.",
+        "Redesign workflows to prevent identified errors through prevention or immediate detection approaches.",
+        "Incorporate controls and alerts with verification mechanisms and continuous monitoring feedback loops.",
+      ],
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: "Common Implementation Challenges",
+    },
+    {
+      type: "paragraph",
+      text: "Error-proofing devices fail when accompanying work instructions become outdated. Engineering changes invalidate existing controls, and operators lack procedural knowledge to respond when devices indicate errors. Installing devices without comprehensive operator training leads to circumvention.",
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: "AI Enhancement of Poka Yoke",
+    },
+    {
+      type: "paragraph",
+      text: "Machine vision delivers accuracy improvements — Google's Visual Inspection AI demonstrated 10x accuracy improvement compared with general-purpose machine learning. Predictive analytics enable real-time process monitoring by analyzing sensor data to detect process drift before producing out-of-spec parts. AI agents automate documentation maintenance, synchronizing BOM revisions with work instructions and identifying which procedures require updates.",
+    },
+    {
+      type: "blockquote",
+      text: "Traditional poka yoke principles — prevention over detection, simplicity, operator involvement — remain valid whether implemented with mechanical devices or AI-enhanced systems. AI agents provide sustainability by automating documentation workflows that maintain alignment between error-proofing systems and production reality.",
+    },
+  ],
+  inlineImages: [],
+  relatedAgents: [],
+  relatedConnectors: [],
+  cta: {
+    heading: "Ready to try Datagrid?",
+    description: "Automate the documentation workflows that keep your poka yoke systems effective.",
+    buttonText: "Create Free Account",
+    buttonHref: "/demo",
+  },
+  relatedPosts: [
+    { title: "What You Need to Know About GMP to Build Compliance Into Workflows", slug: "gmp-meaning-manufacturing-guide-ai", excerpt: "GMP determines whether your documentation can endure FDA examination." },
+    { title: "How to Automate Compliance Documentation Tracking in Insurance Operations", slug: "automate-insurance-compliance-management", excerpt: "Manual compliance tracking creates systematic vulnerabilities that compound at scale." },
+  ],
+};
+
+// ---------------------------------------------------------------------------
 // All scraped posts collection
 // ---------------------------------------------------------------------------
 
 export const SCRAPED_BLOG_POSTS: ScrapedBlogPost[] = [
+  SCRAPED_POST_4,
+  SCRAPED_POST_5,
+  SCRAPED_POST_6,
+  SCRAPED_POST_7,
+  SCRAPED_POST_8,
+  SCRAPED_POST_9,
   SCRAPED_POST_1,
   SCRAPED_POST_2,
   SCRAPED_POST_3,
@@ -987,8 +1659,17 @@ export const ALL_BLOG_IMAGE_URLS: ScrapedBlogImage[] = [
   SCRAPED_POST_1.featuredImage,
   SCRAPED_POST_2.featuredImage,
   SCRAPED_POST_3.featuredImage,
+  SCRAPED_POST_4.featuredImage,
+  SCRAPED_POST_5.featuredImage,
+  SCRAPED_POST_6.featuredImage,
+  SCRAPED_POST_7.featuredImage,
+  SCRAPED_POST_8.featuredImage,
+  SCRAPED_POST_9.featuredImage,
   // Inline images
   ...SCRAPED_POST_1.inlineImages,
   ...SCRAPED_POST_2.inlineImages,
   ...SCRAPED_POST_3.inlineImages,
+  ...SCRAPED_POST_4.inlineImages,
+  ...SCRAPED_POST_7.inlineImages,
+  ...SCRAPED_POST_8.inlineImages,
 ];
