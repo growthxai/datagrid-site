@@ -203,3 +203,35 @@ body {
     cross-draw 0.6s ease-out forwards,
     cross-pulse 6s ease-in-out 0.6s infinite;
 }
+
+@keyframes shimmer-wave {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+.use-agent-shimmer > * {
+  -webkit-text-fill-color: initial;
+}
+
+.group\/card:hover .use-agent-shimmer > * {
+  -webkit-text-fill-color: transparent;
+}
+
+.group\/card:hover .use-agent-shimmer {
+  color: var(--color-accent);
+  background: linear-gradient(
+    90deg,
+    var(--color-accent) 0%,
+    var(--color-accent) 30%,
+    #93C5FD 45%,
+    #BFDBFE 50%,
+    #93C5FD 55%,
+    var(--color-accent) 70%,
+    var(--color-accent) 100%
+  );
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer-wave 1.8s ease-in-out infinite;
+}

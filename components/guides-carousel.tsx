@@ -15,12 +15,6 @@ type GuideItem = {
   image: string;
 };
 
-const CTA_LABELS: Record<string, string> = {
-  "Document Review": "Get the Analysis",
-  Guides: "Read the Guide",
-  Industry: "Explore the Report",
-};
-
 function ArrowLeft() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -78,7 +72,7 @@ export default function GuidesCarousel({ guides }: { guides: GuideItem[] }) {
               className="relative rounded-2xl overflow-hidden cursor-pointer"
               style={{
                 flex: isActive ? 4 : 1,
-                transition: "flex 700ms cubic-bezier(0.4, 0, 0.2, 1)",
+                transition: "flex 1400ms linear(0, 0.006, 0.024 2.2%, 0.098 4.5%, 0.532 12.5%, 0.803 17.5%, 0.938 21%, 1.026 24.5%, 1.086 28%, 1.112 30.5%, 1.113 32.5%, 1.094 35%, 1.056 38.5%, 1.018 42.5%, 0.994 46.5%, 0.983 50%, 0.982 53.5%, 0.991 57.5%, 1.003 62.5%, 1.011 67%, 1.013 71%, 1.009 76%, 1.004 82%, 1.001 89%, 1)",
               }}
             >
               <Image
@@ -96,19 +90,30 @@ export default function GuidesCarousel({ guides }: { guides: GuideItem[] }) {
         })}
       </div>
 
-      {/* Text content — slides horizontally like Stripe's squeezy carousel */}
-      <div className="mt-5 overflow-hidden">
-        <div
-          className="flex transition-transform duration-700 ease-[cubic-bezier(0.4,0,0.2,1)]"
-          style={{ transform: `translateX(-${activeIndex * 100}%)` }}
-        >
-          {guides.map((guide, i) => (
-            <div key={guide._id} className="w-full shrink-0">
+      {/* Text content — cross-dissolve in place */}
+      <div className="mt-5 relative">
+        {guides.map((guide, i) => {
+          const isActive = i === activeIndex;
+          return (
+            <div
+              key={guide._id}
+              className="transition-opacity duration-500 ease-out"
+              style={{
+                opacity: isActive ? 1 : 0,
+                pointerEvents: isActive ? "auto" : "none",
+                position: i === 0 ? "relative" : "absolute",
+                top: i === 0 ? undefined : 0,
+                left: i === 0 ? undefined : 0,
+                right: i === 0 ? undefined : 0,
+              }}
+            >
               <div className="flex items-start justify-between gap-8">
                 <div>
-                  <h3 className="text-lg font-medium text-foreground leading-snug">
-                    {guide.title}
-                  </h3>
+                  <Link href={`/blog/${guide.slug}`} className="hover:text-accent transition-colors duration-200" tabIndex={isActive ? 0 : -1}>
+                    <h3 className="text-lg font-medium leading-snug">
+                      {guide.title}
+                    </h3>
+                  </Link>
                   {guide.excerpt && (
                     <p className="mt-1 text-sm text-secondary max-w-xl">
                       {guide.excerpt}
@@ -117,15 +122,15 @@ export default function GuidesCarousel({ guides }: { guides: GuideItem[] }) {
                 </div>
                 <Link
                   href={`/blog/${guide.slug}`}
-                  className="group shrink-0 inline-flex items-center px-5 py-2.5 text-sm font-medium rounded-lg border border-border text-foreground hover:bg-surface transition-all duration-200 ease-out whitespace-nowrap"
-                  tabIndex={i === activeIndex ? 0 : -1}
+                  className="group shrink-0 inline-flex items-center px-5 py-2.5 text-sm font-medium rounded-lg border border-border text-foreground hover:bg-black/[0.03] transition-all duration-200 ease-out whitespace-nowrap"
+                  tabIndex={isActive ? 0 : -1}
                 >
-                  {CTA_LABELS[guide.category || ""] || "Read More"}<CtaArrow />
+                  Read Post<CtaArrow />
                 </Link>
               </div>
             </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
     </div>
   );

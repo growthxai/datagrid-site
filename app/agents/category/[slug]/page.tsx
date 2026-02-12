@@ -39,7 +39,7 @@ export default async function CategoryPage({ params }: Props) {
       <section className="relative py-16 sm:py-20 overflow-hidden hero-glow">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center_top,rgba(37,99,235,0.12),transparent_60%)]" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-medium text-black/75 mb-4">Agent Category</p>
+          <p className="text-xs font-medium text-[#a29080] mb-4">Agent Category</p>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-white">
             {currentCategory?.title || "Category"} Agents
           </h1>

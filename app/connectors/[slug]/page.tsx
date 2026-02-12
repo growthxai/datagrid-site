@@ -56,7 +56,7 @@ export default async function ConnectorDetailPage({ params }: Props) {
         {/* Supported Agents */}
         {supportedAgents.length > 0 && (
           <section className="mt-12">
-            <p className="text-xs font-medium text-black/75 mb-4">Compatible</p>
+            <p className="text-xs font-medium text-[#a29080] mb-4">Compatible</p>
             <h2 className="text-2xl font-medium text-foreground mb-8">
               Supported Agents
             </h2>
@@ -82,7 +82,7 @@ export default async function ConnectorDetailPage({ params }: Props) {
         {/* Related Guides */}
         {relatedGuides.length > 0 && (
           <section className="mt-16">
-            <p className="text-xs font-medium text-black/75 mb-4">Learn More</p>
+            <p className="text-xs font-medium text-[#a29080] mb-4">Learn More</p>
             <h2 className="text-2xl font-medium text-foreground mb-8">
               Related Guides
             </h2>

@@ -8,6 +8,7 @@ import {
 } from "@/lib/scraped-blog-data";
 import type { Guide } from "@/lib/types";
 import HoverCard from "@/components/hover-card";
+import BlueprintBg from "@/components/blueprint-bg";
 
 export const metadata = {
   title: "Blog | Datagrid",
@@ -39,11 +40,26 @@ function getReadTime(guide: Guide): number {
   return Math.max(3, Math.round(words / 40));
 }
 
+function getFeaturedImage(guide: Guide): string | null {
+  const scraped = SCRAPED_BLOG_POSTS.find(
+    (p) => p.slug === guide.slug.current
+  );
+  if (scraped && scraped.featuredImage.url.startsWith("/")) {
+    return scraped.featuredImage.url;
+  }
+  return null;
+}
+
+const GUIDE_SLUGS = new Set(
+  PLACEHOLDER_GUIDES.map((g) => g.slug.current)
+);
+
 function mergeGuides(sanityGuides: Guide[]): Guide[] {
   const scraped = scrapedToGuides();
   const slugSet = new Set(sanityGuides.map((g) => g.slug.current));
   const additional = scraped.filter((g) => !slugSet.has(g.slug.current));
-  return [...sanityGuides, ...additional];
+  const all = [...sanityGuides, ...additional];
+  return all.filter((g) => !GUIDE_SLUGS.has(g.slug.current));
 }
 
 const FILTER_CATEGORIES = [
@@ -73,60 +89,64 @@ export default async function BlogPage() {
 
   return (
     <>
-      {/* ── Dark Hero ── */}
-      <section className="bg-dark pt-16 pb-20 sm:pt-20 sm:pb-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium text-white leading-tight">
-            The Datagrid<br />Resource Hub
-          </h1>
-          <p className="mt-4 text-base text-dark-muted max-w-xl mx-auto leading-relaxed">
-            Explore the latest in agentic AI, from product updates and industry insights to
-            practical guides that help your team work smarter, faster, and more efficiently.
-          </p>
+      {/* ── Hero + Featured Post ── */}
+      <section className="relative bg-[#f5f1ed] py-20 sm:py-28">
+        <div className="absolute inset-0 overflow-hidden">
+          <BlueprintBg variant="blog" />
+        </div>
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="lg:max-w-[45%]">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium text-foreground leading-[1.1]">
+              The Datagrid Blog
+            </h1>
+            <p className="mt-4 text-base text-secondary max-w-md leading-relaxed">
+              Explore the latest in agentic AI, from product updates and industry insights to
+              practical guides that help your team work smarter, faster, and more efficiently.
+            </p>
+          </div>
+
+          {/* Featured post — absolutely positioned right, overlapping below */}
+          {heroPost && (
+            <div className="mt-6 lg:mt-0 lg:absolute lg:right-8 xl:right-[max(2rem,calc((100%-80rem)/2+2rem))] lg:top-1/2 lg:-translate-y-[calc(25%+40px)] lg:w-[600px] z-10">
+              <HoverCard>
+                <Link
+                  href={`/blog/${heroPost.slug.current}`}
+                  className="group flex flex-col sm:flex-row rounded-2xl border border-border bg-background shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                >
+                  <div className="sm:w-60 lg:w-80 shrink-0 aspect-[4/3] sm:aspect-auto sm:min-h-[320px] bg-surface relative overflow-hidden">
+                    {getFeaturedImage(heroPost) ? (
+                      <Image
+                        src={getFeaturedImage(heroPost)!}
+                        alt={heroPost.title}
+                        fill
+                        className="object-cover group-hover:scale-[1.03] transition-transform duration-500 ease-out"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-br from-accent/8 to-accent/3" />
+                    )}
+                  </div>
+                  <div className="p-5 sm:p-6 flex flex-col justify-center min-w-0">
+                    <span className="inline-flex self-start items-center px-2 py-0.5 text-[11px] font-medium rounded-full bg-surface text-secondary border border-border mb-2">
+                      {heroPost.category?.title}
+                    </span>
+                    <h2 className="text-xl font-medium text-foreground leading-snug group-hover:text-accent transition-colors duration-200">
+                      {heroPost.title}
+                    </h2>
+                    <p className="mt-2 text-sm text-secondary leading-relaxed">
+                      {heroPost.excerpt}
+                    </p>
+                    <div className="mt-3 flex items-center gap-2 text-xs text-tertiary">
+                      <span className="font-medium text-secondary">Datagrid Team</span>
+                      <span>&middot;</span>
+                      <span>{formatDate(heroPost.publishedAt)}</span>
+                    </div>
+                  </div>
+                </Link>
+              </HoverCard>
+            </div>
+          )}
         </div>
       </section>
-
-      {/* ── Featured Post ── */}
-      {heroPost && (
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 -mt-10">
-          <HoverCard>
-          <Link
-            href={`/blog/${heroPost.slug.current}`}
-            className="group block rounded-2xl border border-border bg-background shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
-          >
-            <div className="grid grid-cols-1 lg:grid-cols-2">
-              <div className="aspect-[16/10] lg:aspect-auto bg-surface relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/8 to-accent/3" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-sm text-tertiary">Featured Image</span>
-                </div>
-              </div>
-              <div className="p-8 sm:p-10 flex flex-col justify-center">
-                <span className="inline-flex self-start items-center px-3 py-1 text-xs font-medium rounded-full bg-surface text-secondary border border-border mb-4">
-                  {heroPost.category?.title}
-                </span>
-                <h2 className="text-2xl sm:text-3xl font-medium text-foreground leading-snug group-hover:text-accent transition-colors duration-200">
-                  {heroPost.title}
-                </h2>
-                <p className="mt-3 text-base text-secondary leading-relaxed line-clamp-2">
-                  {heroPost.excerpt}
-                </p>
-                <div className="mt-6 flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center">
-                    <span className="text-xs font-medium text-accent">D</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-xs text-tertiary">
-                    <span className="font-medium text-secondary">Datagrid Team</span>
-                    <span>&middot;</span>
-                    <span>{formatDate(heroPost.publishedAt)}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Link>
-          </HoverCard>
-        </div>
-      )}
 
       {/* ── Filter Bar ── */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12">
@@ -202,10 +222,21 @@ export default async function BlogPage() {
                 >
                   {/* Image */}
                   <div className="aspect-[16/10] rounded-xl bg-surface relative overflow-hidden mb-4">
-                    <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-xs text-tertiary">Featured Image</span>
-                    </div>
+                    {getFeaturedImage(guide) ? (
+                      <Image
+                        src={getFeaturedImage(guide)!}
+                        alt={guide.title}
+                        fill
+                        className="object-cover group-hover:scale-[1.03] transition-transform duration-500 ease-out"
+                      />
+                    ) : (
+                      <>
+                        <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent" />
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <span className="text-xs text-tertiary">Featured Image</span>
+                        </div>
+                      </>
+                    )}
                   </div>
 
                   {/* Title */}

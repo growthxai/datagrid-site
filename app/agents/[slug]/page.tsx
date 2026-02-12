@@ -113,7 +113,7 @@ export default async function AgentDetailPage({ params }: Props) {
             {/* Related Guides */}
             {relatedGuides.length > 0 && (
               <section>
-                <p className="text-xs font-medium text-black/75 mb-4">Learn More</p>
+                <p className="text-xs font-medium text-[#a29080] mb-4">Learn More</p>
                 <h2 className="text-2xl font-medium text-foreground mb-6">
                   Related Guides
                 </h2>
@@ -141,7 +141,7 @@ export default async function AgentDetailPage({ params }: Props) {
             {/* Use Cases */}
             {useCases.length > 0 && (
               <section>
-                <p className="text-xs font-medium text-black/75 mb-4">Explore</p>
+                <p className="text-xs font-medium text-[#a29080] mb-4">Explore</p>
                 <h2 className="text-2xl font-medium text-foreground mb-6">
                   Use Cases
                 </h2>

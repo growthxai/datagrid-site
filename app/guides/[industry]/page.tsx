@@ -6,6 +6,7 @@ import {
   resolveConnectors,
   resolveGuides,
 } from "@/lib/cross-references";
+import BlueprintBg from "@/components/blueprint-bg";
 
 type Props = { params: Promise<{ industry: string }> };
 
@@ -34,15 +35,28 @@ export default async function IndustryGuidePage({ params }: Props) {
 
   return (
     <>
-      {/* Dark hero */}
-      <section className="relative py-16 sm:py-20 overflow-hidden hero-glow">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center_top,rgba(37,99,235,0.12),transparent_60%)]" />
+      {/* Hero */}
+      <section className="relative py-16 sm:py-20 bg-[#f5f1ed] overflow-hidden">
+        <div className="absolute inset-0">
+          <BlueprintBg variant="guides" />
+        </div>
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-medium text-black/75 mb-4">Industry Guide</p>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-white">
+          <nav className="mb-6">
+            <Link
+              href="/guides"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-secondary hover:text-accent transition-colors duration-200"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+              Back
+            </Link>
+          </nav>
+          <p className="text-xs font-medium text-[#a29080] mb-4">Industry Guide</p>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-foreground">
             {data.title}
           </h1>
-          <p className="mt-1 text-lg text-dark-muted max-w-2xl">
+          <p className="mt-1 text-lg text-secondary max-w-2xl">
             {data.description}
           </p>
         </div>
@@ -52,7 +66,7 @@ export default async function IndustryGuidePage({ params }: Props) {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Key Challenges */}
           <section className="mb-20">
-            <p className="text-xs font-medium text-black/75 mb-4">The Problem</p>
+            <p className="text-xs font-medium text-[#a29080] mb-4">The Problem</p>
             <h2 className="text-2xl font-medium text-foreground mb-10">
               Key Challenges
             </h2>
@@ -76,7 +90,7 @@ export default async function IndustryGuidePage({ params }: Props) {
           {/* Recommended Agents */}
           {agents.length > 0 && (
             <section className="mb-20">
-              <p className="text-xs font-medium text-black/75 mb-4">Recommended</p>
+              <p className="text-xs font-medium text-[#a29080] mb-4">Recommended</p>
               <h2 className="text-2xl font-medium text-foreground mb-8">
                 Recommended Agents
               </h2>
@@ -112,7 +126,7 @@ export default async function IndustryGuidePage({ params }: Props) {
           {/* Integrations */}
           {connectors.length > 0 && (
             <section className="mb-20">
-              <p className="text-xs font-medium text-black/75 mb-4">Integrations</p>
+              <p className="text-xs font-medium text-[#a29080] mb-4">Integrations</p>
               <h2 className="text-2xl font-medium text-foreground mb-8">
                 Supported Connectors
               </h2>
@@ -145,7 +159,7 @@ export default async function IndustryGuidePage({ params }: Props) {
           {/* Related Guides */}
           {guides.length > 0 && (
             <section className="mb-20">
-              <p className="text-xs font-medium text-black/75 mb-4">Learn More</p>
+              <p className="text-xs font-medium text-[#a29080] mb-4">Learn More</p>
               <h2 className="text-2xl font-medium text-foreground mb-8">
                 Related Guides
               </h2>
@@ -173,7 +187,7 @@ export default async function IndustryGuidePage({ params }: Props) {
           {/* Related Use Cases */}
           {data.useCaseSlugs.length > 0 && (
             <section className="mb-20">
-              <p className="text-xs font-medium text-black/75 mb-4">Explore</p>
+              <p className="text-xs font-medium text-[#a29080] mb-4">Explore</p>
               <h2 className="text-2xl font-medium text-foreground mb-6">
                 Related Use Cases
               </h2>

@@ -38,7 +38,7 @@ export default function CareersPage() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Careers hero */}
         <div className="mb-16 max-w-2xl">
-          <p className="text-xs font-medium text-black/75 mb-4">Careers</p>
+          <p className="text-xs font-medium text-[#a29080] mb-4">Careers</p>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-foreground">
             Build the future of construction with us
           </h1>
@@ -51,7 +51,7 @@ export default function CareersPage() {
 
         {/* Open positions listing */}
         <section>
-          <p className="text-xs font-medium text-black/75 mb-4">Join the Team</p>
+          <p className="text-xs font-medium text-[#a29080] mb-4">Join the Team</p>
           <h2 className="text-2xl font-medium text-foreground mb-8">
             Open Positions
           </h2>
@@ -86,7 +86,7 @@ export default function CareersPage() {
 
         {/* Why Datagrid section */}
         <section className="mt-20">
-          <p className="text-xs font-medium text-black/75 mb-4">Why Datagrid</p>
+          <p className="text-xs font-medium text-[#a29080] mb-4">Why Datagrid</p>
           <h2 className="text-2xl font-medium text-foreground mb-8">
             Why Datagrid?
           </h2>

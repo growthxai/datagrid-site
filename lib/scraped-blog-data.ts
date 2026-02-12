@@ -15,6 +15,16 @@
  * Replace with actual scraped data when network access is available.
  */
 
+import {
+  GUIDE_POST_RFI,
+  GUIDE_POST_DOC_SEARCH,
+  GUIDE_POST_CHANGE_ORDERS,
+  GUIDE_POST_SAFETY,
+  BLOG_POST_PRECON,
+  BLOG_POST_DRAWING,
+  BLOG_POST_DAILY,
+} from "./additional-posts";
+
 // ---------------------------------------------------------------------------
 // Blog Index Structure
 // ---------------------------------------------------------------------------
@@ -187,7 +197,8 @@ export type ScrapedBodySection =
   | { type: "list"; ordered: boolean; items: string[] }
   | { type: "image"; image: ScrapedBlogImage }
   | { type: "blockquote"; text: string; attribution?: string }
-  | { type: "callout"; text: string };
+  | { type: "callout"; text: string }
+  | { type: "agent-callout"; icon: string; agentSlug: string; agentTitle: string; description: string; connectors?: string[] };
 
 // ---------------------------------------------------------------------------
 // Scraped Post 1: Document Review / AI Submittal Review
@@ -204,8 +215,8 @@ export const SCRAPED_POST_1: ScrapedBlogPost = {
   excerpt:
     "Learn how construction teams are cutting submittal review time by 80% with AI-powered document analysis — without sacrificing accuracy or compliance.",
   featuredImage: {
-    url: "https://cdn.sanity.io/images/datagrid/production/submittal-review-hero.jpg",
-    alt: "AI agent reviewing construction submittal documents on a digital interface",
+    url: "/blog/submittal-review.jpeg",
+    alt: "Construction workers reviewing submittal documents on a jobsite",
     width: 1200,
     height: 675,
     caption: "AI-powered submittal review in action",
@@ -214,143 +225,170 @@ export const SCRAPED_POST_1: ScrapedBlogPost = {
   body: [
     {
       type: "paragraph",
-      text: "Submittal review is one of the most critical and time-consuming workflows in construction project management. For a typical commercial project, a project engineer might review hundreds of submittals — each requiring careful cross-referencing against project specifications, approved materials lists, and applicable codes. A single missed discrepancy can cascade into costly rework, schedule delays, and contentious change orders.",
+      text: "Submittal review is a critical quality gate in construction, but it's also one of the most time-consuming workflows on any project. Reviewers must manually compare product data against specifications, checking dozens of requirements across multiple spec sections. It's tedious, error-prone, and often rushed when deadlines loom.",
     },
     {
       type: "paragraph",
-      text: "At Datagrid, we have been working with general contractors and owners to automate the most painful parts of this process using purpose-built AI agents. The results have been striking: teams report cutting review time by up to 80% while actually catching more issues than manual review alone.",
+      text: "The result? Backlogs that delay procurement, compliance gaps that slip through, and reviewers spending hours on data comparison instead of applying their expertise to judgment calls. But it doesn't have to be this way.",
     },
     {
       type: "heading",
       level: 2,
-      text: "The Problem with Manual Submittal Review",
+      text: "The Traditional Submittal Review Problem",
     },
     {
       type: "paragraph",
-      text: "Manual submittal review is a deeply skilled but repetitive task. A project engineer opens a submittal package — typically a PDF from a subcontractor or supplier — and compares it line by line against the project specifications. They check material grades, dimensions, manufacturer data, test certifications, and compliance with standards like ASTM, AASHTO, or local building codes.",
-    },
-    {
-      type: "list",
-      ordered: false,
-      items: [
-        "A single submittal package can contain 20-50+ pages of technical data sheets, shop drawings, and certifications.",
-        "Project engineers spend 2-4 hours per submittal on complex packages (structural steel, curtain wall, MEP equipment).",
-        "On a $50M commercial project, teams typically process 500-1,500 submittals over the project lifecycle.",
-        "Errors in review can lead to non-conforming materials being installed, triggering rework that averages $12,000-$50,000 per incident.",
-      ],
-    },
-    {
-      type: "paragraph",
-      text: "The stakes are high, but the work is fundamentally about pattern matching and cross-referencing — exactly the kind of task where AI excels.",
-    },
-    {
-      type: "heading",
-      level: 2,
-      text: "How the Datagrid Submittal Reviewer Agent Works",
-    },
-    {
-      type: "paragraph",
-      text: "The Submittal Reviewer agent is designed to augment — not replace — your project engineers. It handles the tedious extraction and comparison work, so your team can focus on the judgment calls that require human expertise.",
-    },
-    {
-      type: "heading",
-      level: 3,
-      text: "Step 1: Ingest the Submittal Package",
-    },
-    {
-      type: "paragraph",
-      text: "The agent accepts submittal packages in PDF format, either uploaded directly or pulled from Procore, PlanGrid, or Autodesk Build via our connectors. It uses advanced document AI to extract structured data from product data sheets, shop drawings, and certifications — even from scanned or low-quality documents.",
-    },
-    {
-      type: "image",
-      image: {
-        url: "https://cdn.sanity.io/images/datagrid/production/submittal-upload-flow.png",
-        alt: "Diagram showing submittal document upload flow from Procore into the Datagrid agent",
-        width: 800,
-        height: 450,
-        caption:
-          "Submittals flow from your project management tool into the Datagrid agent automatically.",
-      },
-    },
-    {
-      type: "heading",
-      level: 3,
-      text: "Step 2: Cross-Reference Against Specifications",
-    },
-    {
-      type: "paragraph",
-      text: "Once the submittal data is extracted, the agent compares it against the project specifications you have uploaded. It checks material properties (grade, gauge, finish), dimensional requirements, manufacturer approvals, testing standards, and any special project-specific requirements noted in the spec sections.",
-    },
-    {
-      type: "heading",
-      level: 3,
-      text: "Step 3: Generate the Review Report",
-    },
-    {
-      type: "paragraph",
-      text: "The output is a structured review report that flags discrepancies with specific references to both the submittal and spec section. Each flag includes a severity level (critical, moderate, informational) and a recommended action. The report can be exported as a PDF or pushed directly back into Procore as a submittal response.",
-    },
-    {
-      type: "heading",
-      level: 2,
-      text: "Real-World Results",
-    },
-    {
-      type: "paragraph",
-      text: "We piloted the Submittal Reviewer with three general contractors across a combined 12 active projects during Q4 2024. The results exceeded our expectations:",
-    },
-    {
-      type: "list",
-      ordered: false,
-      items: [
-        "**80% reduction in review time** — Average review time dropped from 2.5 hours to 30 minutes per submittal package.",
-        "**23% more issues caught** — The agent flagged discrepancies that human reviewers missed in parallel blind tests.",
-        "**Zero false approvals** — In every case where the agent recommended approval, the human reviewer agreed after independent verification.",
-        "**$340K estimated savings** — Across the 12 pilot projects, teams avoided an estimated $340,000 in potential rework costs from caught discrepancies.",
-      ],
-    },
-    {
-      type: "blockquote",
-      text: "We were skeptical at first — our PEs have decades of experience. But the agent caught two spec non-conformances on a curtain wall submittal that we had initially approved. That alone saved us a six-figure rework situation.",
-      attribution: "VP of Operations, Top-20 ENR General Contractor",
-    },
-    {
-      type: "heading",
-      level: 2,
-      text: "Getting Started",
-    },
-    {
-      type: "paragraph",
-      text: "The Submittal Reviewer is available today for Datagrid customers. If you are using Procore, the setup takes less than 15 minutes — connect your Procore account, upload your project specifications, and the agent is ready to review.",
+      text: "Consider what happens when a submittal package arrives. The reviewer must:",
     },
     {
       type: "list",
       ordered: true,
       items: [
-        "Connect your project management tool (Procore, PlanGrid, or Autodesk Build) via the Datagrid Connectors page.",
-        "Upload your project specifications as PDFs — the agent indexes them automatically.",
-        "Route incoming submittals to the agent for review. You can do this manually or set up automatic routing for specific spec sections.",
-        "Review the agent's output report. Approve, revise, or reject with the agent's analysis as your starting point.",
+        "Identify which specification sections apply to the submittal",
+        "Read through the spec to extract specific requirements",
+        "Compare each requirement against the product data sheets",
+        "Check for missing information that needs clarification",
+        "Document findings in a structured format",
+        "Track the review for audit purposes",
       ],
     },
     {
       type: "paragraph",
-      text: "Start with one agent and scale as your team gets comfortable. Most teams begin with the highest-volume submittal types (concrete, structural steel, MEP equipment) and expand from there.",
+      text: "For a single submittal, this process can take 30 minutes to several hours depending on complexity. Multiply that by hundreds of submittals per project, and you have a major bottleneck.",
     },
     {
       type: "heading",
       level: 2,
-      text: "Key Takeaways",
+      text: "How AI Changes Submittal Review",
+    },
+    {
+      type: "paragraph",
+      text: "AI agents can automate the data comparison portion of submittal review, freeing reviewers to focus on what humans do best: making judgment calls about acceptability, identifying coordination issues, and catching problems that require experience to recognize.",
+    },
+    {
+      type: "heading",
+      level: 3,
+      text: "Automatic Spec Matching",
+    },
+    {
+      type: "paragraph",
+      text: "When a submittal is uploaded, AI can automatically identify which specification sections apply based on the submittal description, CSI division, and content analysis. No more hunting through specs to find the right section.",
+    },
+    {
+      type: "heading",
+      level: 3,
+      text: "Requirement Extraction",
+    },
+    {
+      type: "paragraph",
+      text: "AI can read specification sections and extract specific requirements into a structured checklist. \"Material shall be Type X\" becomes a checkable item, not a sentence to re-read every time.",
+    },
+    {
+      type: "heading",
+      level: 3,
+      text: "Automated Comparison",
+    },
+    {
+      type: "paragraph",
+      text: "With requirements extracted and submittal data parsed, AI can compare them systematically. Items that clearly meet spec are marked compliant. Items that clearly don't meet spec are flagged. Items that need human judgment are highlighted for review.",
+    },
+    {
+      type: "agent-callout",
+      icon: "➡",
+      agentSlug: "summary-spec-submittal",
+      agentTitle: "Summary Spec Submittal Agent",
+      description: "Compare submittals against specifications to quickly identify compliance gaps and reduce review risk.",
+      connectors: ["Procore", "PlanGrid", "Autodesk Build"],
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: "Beyond Basic Compliance Checking",
+    },
+    {
+      type: "paragraph",
+      text: "Basic compliance checking catches obvious issues, but experienced reviewers know that a submittal can meet every spec requirement and still create problems. Coordination conflicts, maintenance concerns, and hidden costs often don't show up in a spec comparison.",
+    },
+    {
+      type: "paragraph",
+      text: "Advanced AI analysis can go beyond compliance to surface these deeper issues:",
     },
     {
       type: "list",
       ordered: false,
       items: [
-        "AI agents can dramatically reduce time spent on repetitive construction document workflows.",
-        "Integration with existing tools like Procore and PlanGrid means no disruption to current processes.",
-        "The agent augments your team's expertise — it handles extraction and comparison, your PEs handle judgment.",
-        "Start with one agent and scale as your team gets comfortable with AI-assisted workflows.",
+        "Coordination concerns with other trades or systems",
+        "Maintenance and lifecycle cost implications",
+        "Installation requirements that may affect schedule",
+        "Compatibility issues with previously approved products",
+        "Questions to ask before approval",
       ],
+    },
+    {
+      type: "agent-callout",
+      icon: "⤵",
+      agentSlug: "deep-dive-spec-submittal",
+      agentTitle: "Deep Dive Spec Submittal Agent",
+      description: "Deeply review submittals against specs to surface risks, scope gaps, and next steps before approvals create downstream issues.",
+      connectors: ["Procore", "PlanGrid", "Autodesk Build"],
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: "Improving Submittal Quality at the Source",
+    },
+    {
+      type: "paragraph",
+      text: "The best way to reduce review burden is to improve submittal quality before packages are submitted. When subcontractors and suppliers can verify their own submittals against spec requirements, they catch issues early and reduce rejection cycles.",
+    },
+    {
+      type: "paragraph",
+      text: "AI-guided submittal building helps submitters:",
+    },
+    {
+      type: "list",
+      ordered: false,
+      items: [
+        "Understand what spec sections require",
+        "Identify missing documentation before submission",
+        "Format packages correctly the first time",
+        "Verify compliance before formal submission",
+      ],
+    },
+    {
+      type: "agent-callout",
+      icon: "🛠",
+      agentSlug: "submittal-builder",
+      agentTitle: "Submittal Builder Agent",
+      description: "Build complete, properly formatted submittal packages from cover page to final PDF in a guided workflow.",
+      connectors: ["Procore", "PlanGrid", "Autodesk Build"],
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: "Getting Started with AI Submittal Review",
+    },
+    {
+      type: "paragraph",
+      text: "Implementing AI-assisted submittal review doesn't require replacing your existing systems or changing your workflows dramatically. Most teams start by:",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Connecting their document management system (Procore, ACC, SharePoint)",
+        "Running AI review in parallel with manual review initially",
+        "Using AI-generated reports as a starting point for human review",
+        "Gradually relying more on AI as confidence builds",
+      ],
+    },
+    {
+      type: "paragraph",
+      text: "The goal isn't to remove humans from submittal review — it's to let humans focus on the parts of review that require human judgment while AI handles the tedious data comparison.",
+    },
+    {
+      type: "paragraph",
+      text: "Ready to see how AI can transform your submittal workflow? Try the Summary Spec Submittal Agent on your next submittal package and see the difference automated compliance checking can make.",
     },
   ],
   inlineImages: [
@@ -365,16 +403,22 @@ export const SCRAPED_POST_1: ScrapedBlogPost = {
   ],
   relatedAgents: [
     {
-      title: "Submittal Reviewer",
-      slug: "submittal-reviewer",
+      title: "Summary Spec Submittal",
+      slug: "summary-spec-submittal",
       shortDescription:
-        "Automatically reviews submittals against specs and flags discrepancies.",
+        "Compare submittals against specifications to quickly identify compliance gaps.",
     },
     {
-      title: "RFI Drafter",
-      slug: "rfi-drafter",
+      title: "Deep Dive Spec Submittal",
+      slug: "deep-dive-spec-submittal",
       shortDescription:
-        "Drafts RFIs from field observations and drawing markups.",
+        "Deeply review submittals against specs to surface risks and scope gaps.",
+    },
+    {
+      title: "Submittal Builder",
+      slug: "submittal-builder",
+      shortDescription:
+        "Build complete, properly formatted submittal packages in a guided workflow.",
     },
   ],
   relatedConnectors: [
@@ -387,6 +431,11 @@ export const SCRAPED_POST_1: ScrapedBlogPost = {
       title: "PlanGrid",
       slug: "plangrid",
       shortDescription: "Import plans from PlanGrid",
+    },
+    {
+      title: "Autodesk Build",
+      slug: "autodesk-build",
+      shortDescription: "Connect to Autodesk Build",
     },
   ],
   cta: {
@@ -427,8 +476,8 @@ export const SCRAPED_POST_2: ScrapedBlogPost = {
   excerpt:
     "A step-by-step guide to connecting your existing construction software with Datagrid's AI agents. Procore, PlanGrid, Autodesk Build, and more.",
   featuredImage: {
-    url: "https://cdn.sanity.io/images/datagrid/production/connectors-hero.jpg",
-    alt: "Datagrid connector integration dashboard showing linked construction software logos",
+    url: "/blog/connectors-setup.jpeg",
+    alt: "Construction team using integrated software tools on a project site",
     width: 1200,
     height: 675,
     caption:
@@ -680,8 +729,8 @@ export const SCRAPED_POST_3: ScrapedBlogPost = {
   excerpt:
     "Practical advice for general contractors looking to implement AI tools without disrupting existing workflows. A roadmap from pilot to scale.",
   featuredImage: {
-    url: "https://cdn.sanity.io/images/datagrid/production/gc-ai-adoption-hero.jpg",
-    alt: "Construction site with digital AI overlay representing smart construction technology",
+    url: "/blog/gc-ai-adoption.jpeg",
+    alt: "General contractor overseeing an active construction site",
     width: 1200,
     height: 675,
     caption:
@@ -754,6 +803,14 @@ export const SCRAPED_POST_3: ScrapedBlogPost = {
       text: "Pro tip: Start by tracking how many hours your team spends on each workflow per week. The workflow with the highest hour count and the most repetitive steps is your best AI pilot candidate.",
     },
     {
+      type: "agent-callout",
+      icon: "🔎",
+      agentSlug: "deep-search",
+      agentTitle: "Deep Search Agent",
+      description: "Search deeply across specs, drawings, RFIs, and submittals to get accurate answers grounded in project requirements — so your team can find answers instead of filing RFIs.",
+      connectors: ["Procore", "Google Drive"],
+    },
+    {
       type: "heading",
       level: 2,
       text: "Phase 2: Run a Controlled Pilot",
@@ -783,6 +840,14 @@ export const SCRAPED_POST_3: ScrapedBlogPost = {
       text: "The shadow mode approach is critical. It lets your team build trust in the AI's output before relying on it. Every GC we have worked with who skipped this step had lower adoption rates than those who ran a proper pilot.",
     },
     {
+      type: "agent-callout",
+      icon: "🛠",
+      agentSlug: "submittal-builder",
+      agentTitle: "Submittal-Builder Agent",
+      description: "Build complete, properly formatted submittal packages from cover page to final PDF in a guided workflow — a great first agent for teams new to AI.",
+      connectors: ["Procore", "Google Drive"],
+    },
+    {
       type: "heading",
       level: 3,
       text: "What to Measure",
@@ -810,6 +875,14 @@ export const SCRAPED_POST_3: ScrapedBlogPost = {
     {
       type: "paragraph",
       text: "At this stage, you will also want to designate an internal AI champion — typically a tech-forward project engineer or PM who can help train colleagues and provide first-line support. This person does not need to be a technologist; they just need to be enthusiastic about the tools and patient with colleagues who are less comfortable with change.",
+    },
+    {
+      type: "agent-callout",
+      icon: "📋",
+      agentSlug: "daily-report",
+      agentTitle: "Daily Report Agent",
+      description: "Capture daily work activity quickly and generate a complete, structured daily report without missing details — a high-impact second agent for teams expanding beyond document review.",
+      connectors: ["Procore", "Google Drive"],
     },
     {
       type: "image",
@@ -919,22 +992,22 @@ export const SCRAPED_POST_3: ScrapedBlogPost = {
   ],
   relatedAgents: [
     {
-      title: "Submittal Reviewer",
-      slug: "submittal-reviewer",
+      title: "Deep Search Agent",
+      slug: "deep-search",
       shortDescription:
-        "Automatically reviews submittals against specs and flags discrepancies.",
+        "Search deeply across specs, drawings, RFIs, and submittals for grounded answers.",
     },
     {
-      title: "Daily Log Compiler",
-      slug: "daily-log-compiler",
+      title: "Submittal-Builder Agent",
+      slug: "submittal-builder",
       shortDescription:
-        "Compiles daily reports from multiple foremen into a single project log.",
+        "Build complete, properly formatted submittal packages in a guided workflow.",
     },
     {
-      title: "RFI Drafter",
-      slug: "rfi-drafter",
+      title: "Daily Report Agent",
+      slug: "daily-report",
       shortDescription:
-        "Drafts RFIs from field observations and drawing markups.",
+        "Capture daily work activity and generate complete, structured reports automatically.",
     },
   ],
   relatedConnectors: [
@@ -943,6 +1016,12 @@ export const SCRAPED_POST_3: ScrapedBlogPost = {
       slug: "procore",
       shortDescription:
         "Sync projects, RFIs, submittals, and daily logs with Procore.",
+    },
+    {
+      title: "Google Drive",
+      slug: "google-drive",
+      shortDescription:
+        "Access documents stored in Google Drive and Google Workspace.",
     },
   ],
   cta: {
@@ -960,10 +1039,10 @@ export const SCRAPED_POST_3: ScrapedBlogPost = {
         "Learn how construction teams are cutting submittal review time by 80% with AI-powered document analysis.",
     },
     {
-      title: "Getting Started with Datagrid Connectors",
-      slug: "getting-started-connectors",
+      title: "AI Safety Inspections: From Site Photos to Actionable Reports",
+      slug: "ai-safety-inspections",
       excerpt:
-        "A step-by-step guide to connecting your existing construction software with Datagrid's AI agents.",
+        "Learn how AI agents turn visual data into prioritized, field-ready safety findings.",
     },
   ],
 };
@@ -1635,41 +1714,40 @@ export const SCRAPED_POST_9: ScrapedBlogPost = {
 };
 
 // ---------------------------------------------------------------------------
+// Re-export additional posts
+// ---------------------------------------------------------------------------
+
+export {
+  GUIDE_POST_RFI,
+  GUIDE_POST_DOC_SEARCH,
+  GUIDE_POST_CHANGE_ORDERS,
+  GUIDE_POST_SAFETY,
+  BLOG_POST_PRECON,
+  BLOG_POST_DRAWING,
+  BLOG_POST_DAILY,
+};
+
+// ---------------------------------------------------------------------------
 // All scraped posts collection
 // ---------------------------------------------------------------------------
 
 export const SCRAPED_BLOG_POSTS: ScrapedBlogPost[] = [
+  // Blog posts (shown on /blog)
   SCRAPED_POST_4,
   SCRAPED_POST_5,
   SCRAPED_POST_6,
   SCRAPED_POST_7,
   SCRAPED_POST_8,
   SCRAPED_POST_9,
-  SCRAPED_POST_1,
+  BLOG_POST_PRECON,
+  BLOG_POST_DRAWING,
+  BLOG_POST_DAILY,
   SCRAPED_POST_2,
+  // Guide posts (filtered from /blog, rendered at /blog/[slug] with Guide badge)
+  SCRAPED_POST_1,
   SCRAPED_POST_3,
-];
-
-// ---------------------------------------------------------------------------
-// All image URLs for batch download
-// ---------------------------------------------------------------------------
-
-export const ALL_BLOG_IMAGE_URLS: ScrapedBlogImage[] = [
-  // Featured images
-  SCRAPED_POST_1.featuredImage,
-  SCRAPED_POST_2.featuredImage,
-  SCRAPED_POST_3.featuredImage,
-  SCRAPED_POST_4.featuredImage,
-  SCRAPED_POST_5.featuredImage,
-  SCRAPED_POST_6.featuredImage,
-  SCRAPED_POST_7.featuredImage,
-  SCRAPED_POST_8.featuredImage,
-  SCRAPED_POST_9.featuredImage,
-  // Inline images
-  ...SCRAPED_POST_1.inlineImages,
-  ...SCRAPED_POST_2.inlineImages,
-  ...SCRAPED_POST_3.inlineImages,
-  ...SCRAPED_POST_4.inlineImages,
-  ...SCRAPED_POST_7.inlineImages,
-  ...SCRAPED_POST_8.inlineImages,
+  GUIDE_POST_RFI,
+  GUIDE_POST_DOC_SEARCH,
+  GUIDE_POST_CHANGE_ORDERS,
+  GUIDE_POST_SAFETY,
 ];

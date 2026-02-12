@@ -12,7 +12,7 @@ export default function DemoPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Left column — value prop */}
           <div>
-            <p className="text-xs font-medium text-black/75 mb-4">Get Started</p>
+            <p className="text-xs font-medium text-[#a29080] mb-4">Get Started</p>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-foreground">
               See Datagrid in action
             </h1>

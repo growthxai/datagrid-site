@@ -17,7 +17,7 @@ const RESOURCE_LINKS = [
     icon: "blog",
   },
   {
-    href: "/guides/general-contractors",
+    href: "/guides",
     label: "Guides",
     description: "Industry guides for GCs, owners, and specialty contractors",
     icon: "guide",

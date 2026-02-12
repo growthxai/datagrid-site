@@ -43,7 +43,7 @@ export default async function UseCasePage({ params }: Props) {
         <section className="relative py-16 sm:py-20 overflow-hidden hero-glow">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center_top,rgba(37,99,235,0.12),transparent_60%)]" />
           <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <p className="text-xs font-medium text-black/75 mb-4">Use Case</p>
+            <p className="text-xs font-medium text-[#a29080] mb-4">Use Case</p>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-white">
               AI Agents for {title}
             </h1>
@@ -65,7 +65,7 @@ export default async function UseCasePage({ params }: Props) {
               </p>
             </div>
 
-            <p className="text-xs font-medium text-black/75 mb-4">Recommended</p>
+            <p className="text-xs font-medium text-[#a29080] mb-4">Recommended</p>
             <h2 className="text-2xl font-medium text-foreground mb-8">
               Recommended Agents
             </h2>
@@ -114,7 +114,7 @@ export default async function UseCasePage({ params }: Props) {
       <section className="relative py-16 sm:py-20 overflow-hidden hero-glow">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center_top,rgba(37,99,235,0.12),transparent_60%)]" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-medium text-black/75 mb-4">Use Case</p>
+          <p className="text-xs font-medium text-[#a29080] mb-4">Use Case</p>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-white">
             AI Agents for {data.title}
           </h1>
@@ -128,7 +128,7 @@ export default async function UseCasePage({ params }: Props) {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Workflow Steps */}
           <section className="mb-20">
-            <p className="text-xs font-medium text-black/75 mb-4">How It Works</p>
+            <p className="text-xs font-medium text-[#a29080] mb-4">How It Works</p>
             <h2 className="text-2xl font-medium text-foreground mb-10">
               Workflow
             </h2>
@@ -155,7 +155,7 @@ export default async function UseCasePage({ params }: Props) {
           {/* Recommended Agents */}
           {agents.length > 0 && (
             <section className="mb-20">
-              <p className="text-xs font-medium text-black/75 mb-4">Recommended</p>
+              <p className="text-xs font-medium text-[#a29080] mb-4">Recommended</p>
               <h2 className="text-2xl font-medium text-foreground mb-8">
                 Recommended Agents
               </h2>
@@ -191,7 +191,7 @@ export default async function UseCasePage({ params }: Props) {
           {/* Compatible Connectors */}
           {connectors.length > 0 && (
             <section className="mb-20">
-              <p className="text-xs font-medium text-black/75 mb-4">Integrations</p>
+              <p className="text-xs font-medium text-[#a29080] mb-4">Integrations</p>
               <h2 className="text-2xl font-medium text-foreground mb-8">
                 Compatible Connectors
               </h2>
@@ -224,7 +224,7 @@ export default async function UseCasePage({ params }: Props) {
           {/* Related Guides */}
           {guides.length > 0 && (
             <section className="mb-20">
-              <p className="text-xs font-medium text-black/75 mb-4">Learn More</p>
+              <p className="text-xs font-medium text-[#a29080] mb-4">Learn More</p>
               <h2 className="text-2xl font-medium text-foreground mb-8">
                 Related Guides
               </h2>
@@ -252,7 +252,7 @@ export default async function UseCasePage({ params }: Props) {
           {/* Explore More Use Cases */}
           {otherUseCases.length > 0 && (
             <section className="mb-20">
-              <p className="text-xs font-medium text-black/75 mb-4">Explore</p>
+              <p className="text-xs font-medium text-[#a29080] mb-4">Explore</p>
               <h2 className="text-2xl font-medium text-foreground mb-6">
                 More Use Cases
               </h2>

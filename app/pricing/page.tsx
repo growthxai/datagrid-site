@@ -99,7 +99,7 @@ export default function PricingPage() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Pricing hero */}
         <div className="text-center mb-16">
-          <p className="text-xs font-medium text-black/75 mb-4">Pricing</p>
+          <p className="text-xs font-medium text-[#a29080] mb-4">Pricing</p>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-foreground">
             Simple, transparent pricing
           </h1>
