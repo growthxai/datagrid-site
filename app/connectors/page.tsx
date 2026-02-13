@@ -20,7 +20,7 @@ export default async function ConnectorsPage() {
         breadcrumb="Product/Connectors"
         title="Connectors to Construction Software"
         description="Datagrid integrates with the construction software you already use. Connect in minutes, no custom development required."
-        variant="connectors"
+        variant="network"
       />
 
       <div className="pt-10 pb-16 sm:pt-12 sm:pb-20 lg:pt-14 lg:pb-24 bg-background">

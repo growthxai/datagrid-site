@@ -89,10 +89,10 @@ function DropdownTrigger({ label, active, onClick }: { label: string; active: bo
     <div className="relative group/dropdown">
       {/* Hover pill behind trigger */}
       <div
-        className={`absolute -left-4 -top-2 rounded-lg bg-background pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${
+        className={`absolute -left-4 -top-2 rounded-lg bg-background border pointer-events-none transition-opacity duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${
           active
-            ? "opacity-0"
-            : "group-hover/dropdown:opacity-100 group-hover/dropdown:shadow-[0_2px_8px_rgba(0,0,0,0.06)] opacity-0 shadow-none"
+            ? "opacity-100 border-border shadow-[inset_0_1px_3px_rgba(0,0,0,0.06)]"
+            : "group-hover/dropdown:opacity-100 group-hover/dropdown:border-border opacity-0 border-transparent"
         }`}
         style={{ height: "36px", width: "calc(100% + 32px)" }}
       />
@@ -120,7 +120,7 @@ function ProductPanel({ onClose }: { onClose: () => void }) {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 animate-mega-content">
         <div className="flex gap-8">
           {/* Agents — ~58% */}
-          <div className="flex-[58] min-w-0">
+          <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-medium text-tertiary">Agents</span>
               <Link href="/agents" onClick={onClose} className="group text-xs font-medium text-accent hover:text-accent-hover transition-colors inline-flex items-center">
@@ -145,7 +145,7 @@ function ProductPanel({ onClose }: { onClose: () => void }) {
               <p className="text-sm font-medium text-foreground group-hover/card:text-accent transition-all duration-300 ease-out">{featuredAgent.title}</p>
               <p className="text-xs text-secondary mt-1 leading-relaxed line-clamp-2">{featuredAgent.description}</p>
               <span className="mt-2.5 text-xs font-medium inline-flex items-center text-accent">
-                Try it
+                Featured Agent
                 <span className="inline-flex items-center w-3.5 ml-1.5 overflow-hidden">
                   <span className="w-0 group-hover/card:w-[5px] h-[1.5px] bg-current rounded-full transition-[width] duration-200 ease-out shrink-0" />
                   <svg width="7" height="10" viewBox="0 0 7 10" fill="none" className="shrink-0"><path d="M1.5 1L5.5 5L1.5 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
@@ -183,7 +183,7 @@ function ProductPanel({ onClose }: { onClose: () => void }) {
           <div className="w-px bg-border/60 shrink-0 -my-6" />
 
           {/* Connectors — ~42% */}
-          <div className="flex-[42] min-w-0">
+          <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-medium text-tertiary">Connectors</span>
               <Link href="/connectors" onClick={onClose} className="group text-xs font-medium text-accent hover:text-accent-hover transition-colors inline-flex items-center">
@@ -212,7 +212,7 @@ function ProductPanel({ onClose }: { onClose: () => void }) {
               <p className="text-sm font-medium text-foreground group-hover/card:text-accent transition-all duration-300 ease-out">{featuredConnector.title}</p>
               <p className="text-xs text-secondary mt-1 leading-relaxed line-clamp-2">{featuredConnector.description}</p>
               <span className="mt-auto pt-2 text-xs font-medium inline-flex items-center text-accent">
-                View connector
+                Featured Connector
                 <span className="inline-flex items-center w-3.5 ml-1.5 overflow-hidden">
                   <span className="w-0 group-hover/card:w-[5px] h-[1.5px] bg-current rounded-full transition-[width] duration-200 ease-out shrink-0" />
                   <svg width="7" height="10" viewBox="0 0 7 10" fill="none" className="shrink-0"><path d="M1.5 1L5.5 5L1.5 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
@@ -373,7 +373,7 @@ export default function Nav() {
   const [activeDropdown, setActiveDropdown] = useState<"product" | "resources" | null>(null);
   const navRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
-  const hasPageHeader = ["/agents", "/connectors", "/guides"].includes(pathname);
+  const hasPageHeader = pathname === "/agents" || pathname === "/guides" || pathname === "/product" || pathname === "/resources" || pathname === "/blog" || pathname.startsWith("/connectors") || pathname.startsWith("/agents/") || pathname.startsWith("/blog/");
 
   const closeDropdown = useCallback(() => setActiveDropdown(null), []);
   useClickOutside(navRef, closeDropdown);

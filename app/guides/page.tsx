@@ -12,6 +12,16 @@ const GUIDE_IMAGES: Record<string, string> = {
   "reducing-change-order-disputes": "/blog/change-orders.jpeg",
   "ai-safety-inspections": "/blog/safety-inspections.jpeg",
   "gc-guide-ai-adoption": "/blog/gc-ai-adoption.jpeg",
+  "getting-started-connectors": "/blog/connectors-setup.jpeg",
+  "automate-insurance-compliance-management": "/blog/insurance-compliance.jpeg",
+  "commercial-tenant-screening-automation-ai": "/blog/tenant-screening.jpeg",
+  "what-is-ieq-tenant-retention": "/blog/ieq-tenant-retention.jpeg",
+  "property-management-workflow-automation": "/blog/property-management.jpeg",
+  "gmp-meaning-manufacturing-guide-ai": "/blog/gmp-manufacturing.jpeg",
+  "poka-yoke-mistake-proofing-manufacturing-ai": "/blog/poka-yoke.jpeg",
+  "ai-preconstruction-workflows": "/blog/preconstruction-ai.jpeg",
+  "drawing-comparison-ai": "/blog/drawing-comparison.jpeg",
+  "hidden-cost-manual-daily-reporting": "/blog/daily-reporting-cost.jpeg",
 };
 
 export const metadata = {

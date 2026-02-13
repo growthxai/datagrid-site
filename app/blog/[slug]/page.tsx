@@ -12,6 +12,7 @@ import type { Guide } from "@/lib/types";
 import type { ReactNode } from "react";
 import HoverCard from "@/components/hover-card";
 import BlueprintBg from "@/components/blueprint-bg";
+import StickyBreadcrumb from "@/components/sticky-breadcrumb";
 
 // ---------------------------------------------------------------------------
 // Connector icons
@@ -294,8 +295,8 @@ function renderBody(sections: ScrapedBodySection[]): ReactNode[] {
                   ) : (
                     <div />
                   )}
-                  <span className="text-sm font-medium inline-flex items-center use-agent-shimmer transition-all duration-150">
-                    <span className="text-accent opacity-40 group-hover/card:opacity-100 transition-opacity duration-150">Use Agent</span> <span className="text-accent ml-1 opacity-60 group-hover/card:opacity-100 transition-opacity duration-150">&rarr;</span>
+                  <span className="text-sm font-medium inline-flex items-center use-agent-shimmer">
+                    Use Agent <span className="ml-1">&rarr;</span>
                   </span>
                 </div>
               </Link>
@@ -394,40 +395,17 @@ export default async function BlogPostPage({ params }: Props) {
   // ── Read time ──
   const readTime = scrapedPost?.readTimeMinutes ?? bodyPost.readTimeMinutes;
 
-  // ── Is this post a guide? ──
-  const isGuide = PLACEHOLDER_GUIDES.some((g) => g.slug.current === slug);
-
   return (
-    <div className="py-16 sm:py-20 lg:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* ── Breadcrumb ── */}
-        <nav className="mb-8">
-          <Link
-            href={isGuide ? "/guides" : "/blog"}
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-secondary hover:text-accent transition-colors duration-200"
-          >
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-            Back
-          </Link>
-        </nav>
+    <>
+      <StickyBreadcrumb breadcrumb={`Resources / Blog / ${guide.title}`} />
 
+      <div className="pt-12 pb-16 sm:pt-16 sm:pb-20 lg:pt-20 lg:pb-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* ── Three-column layout ── */}
         <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr] xl:grid-cols-[220px_1fr_260px] gap-8 lg:gap-12">
           {/* ── Left: Table of Contents (sticky, hidden on mobile) ── */}
           <aside className="hidden lg:block">
-            <div className="sticky top-[116px]">
+            <div className="sticky top-[160px]">
               <p className="text-xs font-medium text-tertiary mb-4">
                 On this page
               </p>
@@ -449,16 +427,7 @@ export default async function BlogPostPage({ params }: Props) {
           <div className="max-w-3xl mx-auto w-full lg:mx-0">
             {/* ── Article Header ── */}
             <header className="mb-10">
-              <div className="flex items-center gap-2 mb-4">
-                {isGuide && (
-                  <span className="inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-accent text-accent-foreground">
-                    Guide
-                  </span>
-                )}
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-full bg-surface text-secondary border border-border">
-                  {guide.category?.title}
-                </span>
-              </div>
+              <p className="text-xs font-medium text-[#4b4036] mb-4">{guide.category?.title || "Blog"}</p>
               <h1 className="text-[2rem] sm:text-5xl font-medium leading-[1.15] tracking-tight text-foreground">
                 {guide.title}
               </h1>
@@ -556,8 +525,8 @@ export default async function BlogPostPage({ params }: Props) {
                           ) : (
                             <div />
                           )}
-                          <span className="text-sm font-medium text-secondary opacity-40 group-hover/card:opacity-100 transition-all duration-150 inline-flex items-center use-agent-shimmer">
-                            Use Agent <span className="text-accent ml-1">&rarr;</span>
+                          <span className="text-sm font-medium inline-flex items-center use-agent-shimmer">
+                            Use Agent <span className="ml-1">&rarr;</span>
                           </span>
                         </div>
                       </Link>
@@ -614,7 +583,7 @@ export default async function BlogPostPage({ params }: Props) {
 
           {/* ── Right sidebar ── */}
           <aside className="hidden xl:block">
-            <div className="sticky top-[116px] space-y-8">
+            <div className="sticky top-[160px] space-y-8">
               {/* Related Agents */}
               {relatedAgents.length > 0 && (
                 <div>
@@ -793,5 +762,6 @@ export default async function BlogPostPage({ params }: Props) {
         )}
       </div>
     </div>
+    </>
   );
 }
