@@ -10,6 +10,7 @@ const FOOTER_COLUMNS: { heading: string; links: { href: string; label: string; e
     links: [
       { href: "/agents", label: "Agents" },
       { href: "/connectors", label: "Connectors" },
+      { href: "/guides", label: "Guides" },
       { href: "/blog", label: "Blog" },
       { href: "/developers", label: "Developers" },
       { href: "/download", label: "Download" },

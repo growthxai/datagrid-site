@@ -3,14 +3,18 @@
 import Link from "next/link";
 import { useState } from "react";
 import BlueprintBg from "@/components/blueprint-bg";
+import StickyBreadcrumb from "@/components/sticky-breadcrumb";
 
 export default function DownloadPage() {
   const [activePlatform, setActivePlatform] = useState<"mac" | "windows">("mac");
+  const LATEST_VERSION = "1.0.5";
 
   return (
     <>
+      <StickyBreadcrumb breadcrumb={[{ label: "Home", href: "/" }, { label: "Download" }]} />
+
       {/* Hero — full-bleed, dramatic */}
-      <section className="relative pt-32 pb-24 sm:pt-40 sm:pb-32 overflow-hidden bg-[#0a0a0a]">
+      <section className="relative pt-32 pb-0 sm:pt-40 overflow-hidden bg-[#0a0a0a]">
         {/* Radial gradient glow */}
         <div className="absolute inset-0">
           <div
@@ -38,12 +42,17 @@ export default function DownloadPage() {
           </p>
 
           {/* Platform toggle */}
-          <div className="mt-10 inline-flex items-center rounded-full border border-white/10 bg-white/5 p-1">
+          <div className="mt-10 relative inline-flex items-center rounded-full border border-white/10 bg-white/5 p-1">
+            {/* Sliding pill */}
+            <div
+              className="absolute top-1 bottom-1 rounded-full bg-white shadow-sm transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)]"
+              style={{ left: activePlatform === "mac" ? "4px" : "calc(50% + 0px)", width: "calc(50% - 4px)" }}
+            />
             <button
               onClick={() => setActivePlatform("mac")}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
+              className={`relative z-10 flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-colors duration-300 ${
                 activePlatform === "mac"
-                  ? "bg-white text-[#0a0a0a] shadow-sm"
+                  ? "text-[#0a0a0a]"
                   : "text-white/60 hover:text-white/80"
               }`}
             >
@@ -54,9 +63,9 @@ export default function DownloadPage() {
             </button>
             <button
               onClick={() => setActivePlatform("windows")}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
+              className={`relative z-10 flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-colors duration-300 ${
                 activePlatform === "windows"
-                  ? "bg-white text-[#0a0a0a] shadow-sm"
+                  ? "text-[#0a0a0a]"
                   : "text-white/60 hover:text-white/80"
               }`}
             >
@@ -79,6 +88,7 @@ export default function DownloadPage() {
                 <line x1="12" y1="15" x2="12" y2="3" />
               </svg>
               Download for {activePlatform === "mac" ? "macOS" : "Windows"}
+              <span className="ml-1 text-sm opacity-50">v{LATEST_VERSION}</span>
             </Link>
           </div>
 
@@ -92,17 +102,27 @@ export default function DownloadPage() {
           <div className="relative rounded-xl sm:rounded-2xl overflow-hidden border border-white/10 shadow-[0_20px_80px_-12px_rgba(67,97,238,0.25)]">
             {/* Title bar */}
             <div className="flex items-center gap-2 px-4 py-3 bg-[#1a1a1a] border-b border-white/5">
-              <div className="flex gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-                <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
-                <div className="w-3 h-3 rounded-full bg-[#28c840]" />
+              {/* macOS traffic lights — left */}
+              <div className="relative w-12 h-3">
+                <div className={`absolute inset-0 flex gap-1.5 transition-all duration-500 ease-out ${activePlatform === "mac" ? "opacity-100 scale-100" : "opacity-0 scale-75"}`}>
+                  <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
+                  <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
+                  <div className="w-3 h-3 rounded-full bg-[#28c840]" />
+                </div>
               </div>
               <div className="flex-1 flex justify-center">
                 <div className="px-4 py-1 rounded-md bg-white/5 text-xs text-white/30 font-mono">
                   app.datagrid.com
                 </div>
               </div>
-              <div className="w-12" />
+              {/* Windows controls — right */}
+              <div className="relative w-12 h-3 flex justify-end">
+                <div className={`absolute right-0 inset-y-0 flex items-center gap-3 transition-all duration-500 ease-out ${activePlatform === "windows" ? "opacity-100 scale-100" : "opacity-0 scale-75"}`}>
+                  <svg width="10" height="1" viewBox="0 0 10 1" className="text-white/30"><line x1="0" y1="0.5" x2="10" y2="0.5" stroke="currentColor" strokeWidth="1" /></svg>
+                  <svg width="10" height="10" viewBox="0 0 10 10" className="text-white/30"><rect x="0.5" y="0.5" width="9" height="9" stroke="currentColor" strokeWidth="1" fill="none" /></svg>
+                  <svg width="10" height="10" viewBox="0 0 10 10" className="text-white/30"><line x1="1" y1="1" x2="9" y2="9" stroke="currentColor" strokeWidth="1.2" /><line x1="9" y1="1" x2="1" y2="9" stroke="currentColor" strokeWidth="1.2" /></svg>
+                </div>
+              </div>
             </div>
             {/* App content area */}
             <div className="bg-[#111] aspect-[16/9] flex items-center justify-center">

@@ -26,6 +26,202 @@ export default async function ProductPage() {
         variant="agents"
       />
 
+      {/* Agentic AI intro */}
+      <section className="py-16 sm:py-20 lg:py-24 bg-background">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+            <div>
+              <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-medium tracking-tight text-foreground leading-[1.1]">
+                Agentic AI designed for the <span className="text-accent">Built World</span>
+              </h2>
+              <p className="mt-5 text-secondary max-w-lg">
+                Datagrid helps project teams work up to 95% faster, turning hours of manual document handling into minutes and keeping every project on track.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <div className="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/15 flex items-center justify-center mb-4">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-emerald-600">
+                    <path d="M12 2L2 12l10 10 10-10L12 2z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M12 8L8 12l4 4 4-4-4-4z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+                <h3 className="text-base font-medium text-foreground">Automate What Slows You Down</h3>
+                <p className="mt-2 text-sm text-secondary leading-relaxed">
+                  From analyzing thousands of documents to managing real-time project updates, Datagrid replaces repetitive work with automated execution.
+                </p>
+              </div>
+              <div>
+                <div className="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/15 flex items-center justify-center mb-4">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-amber-600">
+                    <path d="M4 6l4-2 4 2 4-2 4 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M4 12l4-2 4 2 4-2 4 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M4 18l4-2 4 2 4-2 4 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+                <h3 className="text-base font-medium text-foreground">Focus on What Matters</h3>
+                <p className="mt-2 text-sm text-secondary leading-relaxed">
+                  With the busywork off their plate, your team can focus on keeping projects on time and running smoothly from start to finish.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* What Sets Datagrid Apart */}
+      <section className="py-16 sm:py-20 lg:py-24 bg-[#f5f1ed]">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-foreground">
+              What Sets Datagrid Apart
+            </h2>
+            <p className="mt-4 text-secondary max-w-2xl mx-auto">
+              Unlike generic AI tools that summarize or search, Datagrid&apos;s agentic AI reasons, plans, and executes across your data and tools, delivering real answers, clear insights, and work that gets done.
+            </p>
+          </div>
+
+          {/* Knowledge */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start mb-20">
+            <div>
+              <div className="flex items-center gap-2.5 mb-4">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-accent">
+                  <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
+                  <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.5" />
+                  <path d="M12 2v4M12 18v4M2 12h4M18 12h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+                <span className="text-xs font-semibold tracking-wider uppercase text-[#4b4036]">Knowledge</span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-medium text-foreground leading-tight">
+                Get Answers You Can <span className="text-accent">Trust</span>
+              </h3>
+              <p className="mt-4 text-secondary leading-relaxed">
+                Datagrid doesn&apos;t just generate responses — it delivers data-backed insights grounded in your project files. Every answer reflects your drawings, specs, and schedules, so you can make decisions with confidence instead of guesswork.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-border bg-background p-6 sm:p-8">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-8 rounded-lg bg-accent/10 border border-accent/15 flex items-center justify-center">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-accent">
+                    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+                <span className="text-sm font-medium text-foreground">AI Assistant</span>
+              </div>
+              <div className="space-y-3">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs rounded-full bg-surface border border-border text-secondary">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" /></svg>
+                    Procore Data
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs rounded-full bg-surface border border-border text-secondary">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z" stroke="currentColor" strokeWidth="2" /></svg>
+                    Building Permits
+                  </span>
+                </div>
+                <p className="text-sm text-secondary leading-relaxed italic">
+                  &ldquo;Verify if the condition in this photo complies with the specs we have in the system.&rdquo;
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Tools */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start mb-20">
+            <div className="order-2 lg:order-1 rounded-2xl border border-border bg-background p-6 sm:p-8">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-md bg-accent/10 flex items-center justify-center">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-accent"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                  </div>
+                  <span className="text-sm font-medium text-foreground">Closeout Companion</span>
+                </div>
+                <span className="text-xs text-secondary">Reasoning</span>
+              </div>
+              <div className="space-y-3">
+                <div>
+                  <p className="text-[11px] font-semibold tracking-wider uppercase text-tertiary mb-1.5">Plan</p>
+                  <p className="text-sm text-secondary italic leading-relaxed border-l-2 border-accent/20 pl-3">
+                    Summarize all open punch items after Substantial Completion by combining information from the dataset and the attached image.
+                  </p>
+                </div>
+                <div className="space-y-2 pt-1">
+                  <p className="text-sm text-foreground flex items-start gap-2">
+                    <span className="shrink-0 mt-1 w-4 h-4 rounded-full bg-emerald-500/10 flex items-center justify-center">
+                      <svg width="8" height="8" viewBox="0 0 24 24" fill="none" className="text-emerald-600"><path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                    </span>
+                    Extract punch-item details and status indicators from the attached close-out image.
+                  </p>
+                  <p className="text-sm text-foreground flex items-start gap-2">
+                    <span className="shrink-0 mt-1 w-4 h-4 rounded-full bg-emerald-500/10 flex items-center justify-center">
+                      <svg width="8" height="8" viewBox="0 0 24 24" fill="none" className="text-emerald-600"><path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                    </span>
+                    Pull all Open Item entries from the OPC 10 Close-Out Check List dataset.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="order-1 lg:order-2">
+              <div className="flex items-center gap-2.5 mb-4">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-accent">
+                  <path d="M12 2l2.09 6.26L20 10l-5.91 1.74L12 18l-2.09-6.26L4 10l5.91-1.74L12 2z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span className="text-xs font-semibold tracking-wider uppercase text-[#4b4036]">Tools</span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-medium text-foreground leading-tight">
+                Built to <span className="text-accent">Understand</span>
+              </h3>
+              <p className="mt-4 text-secondary leading-relaxed">
+                Datagrid doesn&apos;t stop at pulling information — it interprets it. Agents go beyond language models to process text, drawings, spreadsheets, and even videos to interpret information, perform calculations, and surface what matters. Visual and analytical intelligence combine so you can get real work done.
+              </p>
+            </div>
+          </div>
+
+          {/* Actions */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+            <div>
+              <div className="flex items-center gap-2.5 mb-4">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-accent">
+                  <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span className="text-xs font-semibold tracking-wider uppercase text-[#4b4036]">Actions</span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-medium text-foreground leading-tight">
+                Turn Prompts into <span className="text-accent">Progress</span>
+              </h3>
+              <p className="mt-4 text-secondary leading-relaxed">
+                Datagrid&apos;s agents act directly inside your systems to handle all the tasks you usually do by hand. With a single prompt, they can draft RFIs, run compliance checks, fill out forms, and send updates so your projects stay on track without the manual grind. Insight becomes action everywhere your team already works.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-border bg-background p-6 sm:p-8">
+              <div className="flex items-center justify-between mb-5">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-md bg-surface border border-border flex items-center justify-center overflow-hidden">
+                    <Image src="/logos/procore.svg" alt="Procore" width={14} height={14} className="w-3.5 h-3.5 object-contain" />
+                  </div>
+                  <span className="text-sm font-medium text-foreground">Procore RFI</span>
+                </div>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-md bg-accent text-accent-foreground">Create</span>
+              </div>
+              <div className="space-y-4">
+                <div>
+                  <p className="text-[11px] font-medium text-tertiary mb-1">Subject</p>
+                  <p className="text-sm text-foreground">Curtain Wall Anchor Detail — Level 12 Conflict with Post-Tension Slab</p>
+                </div>
+                <div>
+                  <p className="text-[11px] font-medium text-tertiary mb-1">Question</p>
+                  <p className="text-sm text-secondary leading-relaxed">The anchoring detail shows embed plates, but Level 12 slab is post-tensioned. Should the detail be modified? If so, provide an alternate solution.</p>
+                </div>
+                <div>
+                  <p className="text-[11px] font-medium text-tertiary mb-1">Due date</p>
+                  <p className="text-sm text-foreground">05/07/2025</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Agents Section */}
       <section className="py-16 sm:py-20 lg:py-24 bg-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

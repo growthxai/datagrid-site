@@ -463,7 +463,7 @@ export default function Nav() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden border-t border-border/50">
+        <div className="md:hidden border-t border-border/50 shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.06)]">
           <div className="px-4 py-6 space-y-4">
             <p className="text-xs font-medium text-tertiary tracking-wider">Product</p>
             {PRODUCT_LINKS.map((link) => (

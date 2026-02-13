@@ -221,7 +221,8 @@ export default function ConnectorsFilter({
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="4" y1="6" x2="20" y2="6" /><line x1="4" y1="12" x2="14" y2="12" /><line x1="4" y1="18" x2="8" y2="18" />
             </svg>
-            {activeCategory ?? "Filter by Category"}
+            <span className="sm:hidden">Filter</span>
+            <span className="hidden sm:inline">{activeCategory ?? "Filter by Category"}</span>
             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="ml-0.5">
               <path d="M6 9l6 6 6-6" />
             </svg>
@@ -254,7 +255,7 @@ export default function ConnectorsFilter({
         </div>
 
         {/* Search */}
-        <div className="relative w-56">
+        <div className="relative flex-1 sm:flex-none sm:w-56">
           <svg
             className="absolute left-3 top-1/2 -translate-y-1/2 text-secondary/50"
             width="14"
@@ -279,7 +280,7 @@ export default function ConnectorsFilter({
         </div>
 
         {/* Right side: count + sort */}
-        <div className="ml-auto flex items-center gap-3">
+        <div className="hidden sm:flex ml-auto items-center gap-3">
           <span className="text-xs text-secondary py-1.5">
             Showing {filtered.length}
           </span>

@@ -78,10 +78,10 @@ export default async function HomePage() {
                 Automate submittal reviews, RFIs, daily logs, and more. Purpose-built
                 for general contractors, owners, and subs.
               </p>
-              <div className="mt-8 flex items-start gap-4">
+              <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-start gap-3 sm:gap-4">
                 <Link
                   href="/demo"
-                  className="group shrink-0 inline-flex items-center px-6 py-3 text-sm font-medium rounded-lg bg-accent text-accent-foreground shadow-sm hover:bg-accent-hover hover:shadow-md transition-all duration-200 ease-out whitespace-nowrap"
+                  className="group flex sm:inline-flex items-center justify-center px-6 py-3 text-sm font-medium rounded-lg bg-accent text-accent-foreground shadow-sm hover:bg-accent-hover hover:shadow-md transition-all duration-200 ease-out whitespace-nowrap"
                 >
                   Sign up for Datagrid<CtaArrow />
                 </Link>
@@ -182,6 +182,14 @@ export default async function HomePage() {
               );
             })}
           </div>
+          <div className="mt-8 text-center sm:hidden">
+            <Link
+              href="/agents"
+              className="inline-flex group items-center px-5 py-2.5 text-sm font-medium rounded-lg border border-border text-foreground hover:bg-black/[0.03] transition-all duration-200 ease-out"
+            >
+              View all agents<CtaArrow />
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -241,6 +249,14 @@ export default async function HomePage() {
                 </HoverCard>
               );
             })}
+          </div>
+          <div className="mt-8 text-center sm:hidden">
+            <Link
+              href="/connectors"
+              className="inline-flex group items-center px-5 py-2.5 text-sm font-medium rounded-lg border border-border text-foreground hover:bg-black/[0.03] transition-all duration-200 ease-out"
+            >
+              View all connectors<CtaArrow />
+            </Link>
           </div>
         </div>
       </section>

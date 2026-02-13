@@ -43,7 +43,7 @@ export default function HeroInput() {
   const hasValue = value.trim().length > 0;
 
   return (
-    <div ref={containerRef} className="relative w-[22rem]">
+    <div ref={containerRef} className="relative w-full sm:w-[22rem]">
       {/* Input bar — stays in place, does not expand horizontally */}
       <div
         onClick={!active ? handleActivate : undefined}

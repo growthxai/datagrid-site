@@ -174,7 +174,6 @@ export default function FaqPage() {
         description="Because good decisions start with clear answers."
         variant="agents"
         heroBg="white"
-        centered
       />
 
       <div className="pb-16 sm:pb-20 lg:pb-24 bg-background">

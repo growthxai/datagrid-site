@@ -107,7 +107,7 @@ export default function GuidesCarousel({ guides }: { guides: GuideItem[] }) {
                 right: i === 0 ? undefined : 0,
               }}
             >
-              <div className="flex items-start justify-between gap-8">
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-8">
                 <div>
                   <Link href={`/blog/${guide.slug}`} className="hover:text-accent transition-colors duration-200" tabIndex={isActive ? 0 : -1}>
                     <h3 className="text-lg font-medium leading-snug">
@@ -115,14 +115,14 @@ export default function GuidesCarousel({ guides }: { guides: GuideItem[] }) {
                     </h3>
                   </Link>
                   {guide.excerpt && (
-                    <p className="mt-1 text-sm text-secondary max-w-xl">
+                    <p className="mt-1 text-sm text-secondary sm:max-w-xl">
                       {guide.excerpt}
                     </p>
                   )}
                 </div>
                 <Link
                   href={`/blog/${guide.slug}`}
-                  className="group shrink-0 inline-flex items-center px-5 py-2.5 text-sm font-medium rounded-lg border border-border text-foreground hover:bg-black/[0.03] transition-all duration-200 ease-out whitespace-nowrap"
+                  className="group shrink-0 inline-flex items-center px-5 py-2.5 text-sm font-medium rounded-lg border border-border text-foreground hover:bg-black/[0.03] transition-all duration-200 ease-out whitespace-nowrap self-start"
                   tabIndex={isActive ? 0 : -1}
                 >
                   Read Post<CtaArrow />

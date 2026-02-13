@@ -95,7 +95,7 @@ export default function GuidesPage() {
                             <svg width="10" height="10" viewBox="0 0 24 24" fill="none">
                               <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
-                            {agentCount} agent{agentCount !== 1 ? "s" : ""}
+                            <span className="hidden sm:inline">{agentCount} agent{agentCount !== 1 ? "s" : ""}</span>
                           </span>
                         )}
                         {connectorCount > 0 && (
@@ -104,7 +104,7 @@ export default function GuidesPage() {
                               <path d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                               <path d="M10.172 13.828a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.102 1.101" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                             </svg>
-                            {connectorCount} connector{connectorCount !== 1 ? "s" : ""}
+                            <span className="hidden sm:inline">{connectorCount} connector{connectorCount !== 1 ? "s" : ""}</span>
                           </span>
                         )}
                       </div>

@@ -192,32 +192,8 @@ export default function AgentsFilter({
 
   return (
     <>
-      {/* Search + filter + category pills — single row */}
-      <div data-sticky-toolbar className="sticky top-[88px] z-40 bg-background py-3 flex items-center gap-3 mb-2 flex-wrap">
-        <div className="relative w-56">
-          <svg
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-secondary/50"
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <circle cx="11" cy="11" r="8" />
-            <path d="M21 21l-4.35-4.35" />
-          </svg>
-          <input
-            type="text"
-            placeholder="Search agents..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-8 pr-3 py-1.5 text-xs bg-surface border border-border rounded-full placeholder:text-secondary/50 text-foreground focus:outline-none focus:ring-1 focus:ring-accent/30 focus:border-accent/30 transition-colors duration-150"
-          />
-        </div>
-
+      {/* Filter + search + category pills — single row */}
+      <div data-sticky-toolbar className="sticky top-[88px] z-40 bg-background py-3 flex items-center gap-3 mb-2 sm:flex-wrap">
         {/* Filter button + dropdown */}
         <div ref={filterRef} className="relative">
           <button
@@ -301,13 +277,37 @@ export default function AgentsFilter({
           )}
         </div>
 
-        {/* Divider */}
-        <div className="w-px h-5 bg-border" />
+        <div className="relative flex-1 sm:flex-none sm:w-56">
+          <svg
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-secondary/50"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <path d="M21 21l-4.35-4.35" />
+          </svg>
+          <input
+            type="text"
+            placeholder="Search agents..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="w-full pl-8 pr-3 py-1.5 text-xs bg-surface border border-border rounded-full placeholder:text-secondary/50 text-foreground focus:outline-none focus:ring-1 focus:ring-accent/30 focus:border-accent/30 transition-colors duration-150"
+          />
+        </div>
 
-        {/* Category pills */}
+        {/* Divider — hidden on mobile */}
+        <div className="hidden sm:block w-px h-5 bg-border" />
+
+        {/* Category pills — hidden on mobile */}
         <button
           onClick={() => setActiveCategory(null)}
-          className={`px-3 py-1.5 text-xs font-medium rounded-full transition-all duration-200 ease-out ${
+          className={`hidden sm:inline-flex px-3 py-1.5 text-xs font-medium rounded-full transition-all duration-200 ease-out ${
             activeCategory === null
               ? "bg-accent text-accent-foreground shadow-sm"
               : "border border-border text-secondary hover:text-foreground hover:border-accent/30 hover:shadow-sm"
@@ -323,7 +323,7 @@ export default function AgentsFilter({
                 activeCategory === cat.slug.current ? null : cat.slug.current
               )
             }
-            className={`px-3 py-1.5 text-xs font-medium rounded-full transition-all duration-200 ease-out ${
+            className={`hidden sm:inline-flex px-3 py-1.5 text-xs font-medium rounded-full transition-all duration-200 ease-out ${
               activeCategory === cat.slug.current
                 ? "bg-accent text-accent-foreground shadow-sm"
                 : "border border-border text-secondary hover:text-foreground hover:border-accent/30 hover:shadow-sm"
@@ -336,7 +336,7 @@ export default function AgentsFilter({
         {hasAnyFilter && (
           <button
             onClick={clearAll}
-            className="text-xs text-secondary hover:text-foreground transition-colors duration-150 ml-1"
+            className="hidden sm:inline-flex text-xs text-secondary hover:text-foreground transition-colors duration-150 ml-1"
           >
             Clear all
           </button>

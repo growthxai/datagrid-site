@@ -46,11 +46,11 @@ export function BreadcrumbSegments({ breadcrumb }: { breadcrumb: BreadcrumbProp 
   const parts = resolveParts(breadcrumb);
 
   return (
-    <nav className="flex items-center gap-1.5 text-sm font-medium">
+    <nav className="flex items-center gap-1.5 text-sm font-medium min-w-0">
       {parts.map((part, i) => {
         const isLast = i === parts.length - 1;
         return (
-          <span key={i} className="inline-flex items-center gap-1.5">
+          <span key={i} className={`inline-flex items-center gap-1.5 ${isLast ? "min-w-0" : "shrink-0"}`}>
             {i > 0 && (
               <svg width="7" height="10" viewBox="0 0 7 10" fill="none" className="text-[#c4b8aa]">
                 <path d="M1.5 1L5.5 5L1.5 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -61,7 +61,7 @@ export function BreadcrumbSegments({ breadcrumb }: { breadcrumb: BreadcrumbProp 
                 {part.label}
               </Link>
             ) : (
-              <span className={isLast ? "text-[#4b4036]" : "text-[#a29080]"}>{part.label}</span>
+              <span className={isLast ? "text-[#4b4036] truncate" : "text-[#a29080]"}>{part.label}</span>
             )}
           </span>
         );
