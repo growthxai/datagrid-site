@@ -3,6 +3,7 @@ import Image from "next/image";
 import { PLACEHOLDER_GUIDES } from "@/lib/placeholder-data";
 import BlueprintBg from "@/components/blueprint-bg";
 import HoverCard from "@/components/hover-card";
+import PageHeader from "@/components/page-header";
 
 const GUIDE_IMAGES: Record<string, string> = {
   "ai-agents-submittal-review": "/blog/submittal-review.jpeg",
@@ -38,21 +39,12 @@ export default function GuidesPage() {
 
   return (
     <>
-      {/* Hero header */}
-      <section className="relative py-16 sm:py-20 bg-[#f5f1ed] overflow-hidden">
-        <div className="absolute inset-0">
-          <BlueprintBg variant="guides" />
-        </div>
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-medium text-[#a29080] mb-4">Resources</p>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-foreground">
-            Guides
-          </h1>
-          <p className="mt-1 text-lg text-secondary max-w-2xl">
-            Insights, guides, and best practices for AI-powered construction workflows.
-          </p>
-        </div>
-      </section>
+      <PageHeader
+        breadcrumb="Resources/Guides"
+        title="Guides for Construction Teams"
+        description="Insights, guides, and best practices for AI-powered construction workflows."
+        variant="guides"
+      />
 
       {/* Guide cards */}
       <div className="py-14 sm:py-18 lg:py-22 bg-background">
@@ -130,9 +122,9 @@ export default function GuidesPage() {
                         ) : (
                           <span />
                         )}
-                        <span className="text-sm font-medium inline-flex items-center use-agent-shimmer transition-all duration-150">
-                          <span className="text-accent opacity-40 group-hover/card:opacity-100 transition-opacity duration-150">Read</span>
-                          <span className="inline-flex items-center w-3.5 ml-1.5 overflow-hidden text-accent opacity-60 group-hover/card:opacity-100 transition-opacity duration-150">
+                        <span className="text-sm font-medium inline-flex items-center use-agent-shimmer">
+                          Read
+                          <span className="inline-flex items-center w-3.5 ml-1.5 overflow-hidden">
                             <span className="w-0 group-hover/card:w-[5px] h-[1.5px] bg-current rounded-full transition-[width] duration-200 ease-out shrink-0" />
                             <svg width="7" height="10" viewBox="0 0 7 10" fill="none" className="shrink-0">
                               <path d="M1.5 1L5.5 5L1.5 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

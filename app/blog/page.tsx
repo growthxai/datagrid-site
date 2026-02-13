@@ -113,7 +113,7 @@ export default async function BlogPage() {
                   href={`/blog/${heroPost.slug.current}`}
                   className="group flex flex-col sm:flex-row rounded-2xl border border-border bg-background shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
                 >
-                  <div className="sm:w-60 lg:w-80 shrink-0 aspect-[4/3] sm:aspect-auto sm:min-h-[320px] bg-surface relative overflow-hidden">
+                  <div className="sm:w-60 lg:w-80 shrink-0 aspect-[4/3] sm:aspect-auto sm:min-h-[276px] bg-surface relative overflow-hidden">
                     {getFeaturedImage(heroPost) ? (
                       <Image
                         src={getFeaturedImage(heroPost)!}

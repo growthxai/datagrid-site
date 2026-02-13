@@ -3,6 +3,7 @@ import { getAgents, getCategories } from "@/lib/queries";
 import { PLACEHOLDER_AGENTS, PLACEHOLDER_CATEGORIES } from "@/lib/placeholder-data";
 import BlueprintBg from "@/components/blueprint-bg";
 import AgentsFilter from "@/components/agents-filter";
+import PageHeader from "@/components/page-header";
 
 export const metadata = {
   title: "AI Agents",
@@ -20,22 +21,12 @@ export default async function AgentsPage() {
 
   return (
     <>
-      {/* Hero header */}
-      <section className="relative py-16 sm:py-20 bg-[#f5f1ed] overflow-hidden">
-        <div className="absolute inset-0">
-          <BlueprintBg variant="agents" />
-        </div>
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-medium text-[#a29080] mb-4">Agent Library</p>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-foreground">
-            AI Agents
-          </h1>
-          <p className="mt-1 text-lg text-secondary max-w-2xl">
-            Purpose-built AI agents for construction workflows. Each agent is
-            trained on real project data and integrates with your existing tools.
-          </p>
-        </div>
-      </section>
+      <PageHeader
+        breadcrumb="Product/Agents"
+        title="AI Agents for Construction"
+        description="Purpose-built AI agents for construction workflows. Each agent is trained on real project data and integrates with your existing tools."
+        variant="agents"
+      />
 
       <div className="pt-10 pb-16 sm:pt-12 sm:pb-20 lg:pt-14 lg:pb-24 bg-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

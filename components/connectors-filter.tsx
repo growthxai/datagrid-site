@@ -4,6 +4,7 @@ import { useState, useMemo, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import HoverCard from "@/components/hover-card";
+import { CONNECTOR_ICON } from "@/lib/nav-data";
 
 type Connector = {
   _id: string;
@@ -11,22 +12,6 @@ type Connector = {
   slug: { current: string };
   shortDescription: string;
   agentCount?: number;
-};
-
-const CONNECTOR_ICON: Record<string, string> = {
-  procore: "/logos/icons/procore.svg",
-  sharepoint: "/logos/icons/sharepoint.svg",
-  "autodesk-acc": "/logos/icons/autodesk.svg",
-  "oracle-aconex": "/logos/icons/oracle-aconex.svg",
-  "p6-primavera": "/logos/icons/p6-primavera.svg",
-  "trimble-connect": "/logos/icons/trimble-connect.svg",
-  quickbase: "/logos/icons/quickbase.svg",
-  notion: "/logos/icons/notion.svg",
-  "imap-email": "/logos/icons/imap-email.svg",
-  slack: "/logos/icons/slack.svg",
-  egnyte: "/logos/icons/egnyte.svg",
-  quickbooks: "/logos/icons/quickbooks.svg",
-  "google-drive": "/logos/icons/google-drive.svg",
 };
 
 const CATEGORIES: { label: string; slugs: string[] }[] = [
@@ -99,7 +84,7 @@ export default function ConnectorsFilter({
   return (
     <>
       {/* Toolbar */}
-      <div className="flex items-center gap-3 mb-8">
+      <div data-sticky-toolbar className="sticky top-[88px] z-40 bg-background py-3 flex items-center gap-3 mb-5">
         {/* Filter by Category */}
         <div ref={categoryRef} className="relative">
           <button
@@ -171,7 +156,7 @@ export default function ConnectorsFilter({
 
         {/* Right side: count + sort */}
         <div className="ml-auto flex items-center gap-3">
-          <span className="text-xs text-secondary">
+          <span className="text-xs text-secondary py-1.5">
             Showing {filtered.length}
           </span>
 
@@ -179,7 +164,7 @@ export default function ConnectorsFilter({
           <div ref={sortRef} className="relative">
             <button
               onClick={() => { setSortOpen(!sortOpen); setCategoryOpen(false); }}
-              className="inline-flex items-center gap-1 text-xs font-medium text-foreground hover:text-accent transition-colors duration-150"
+              className="inline-flex items-center gap-1 py-1.5 text-xs font-medium text-foreground hover:text-accent transition-colors duration-150"
             >
               Sort by
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -247,7 +232,7 @@ export default function ConnectorsFilter({
                   </p>
                   {agentCount != null && (
                     <div className="mt-auto pt-5 flex items-center justify-end transition-transform duration-300 ease-out group-hover/card:-translate-x-[1px] group-hover/card:translate-y-[1px]">
-                      <span className="text-sm font-medium text-secondary opacity-40 group-hover/card:opacity-100 transition-all duration-150 inline-flex items-center use-agent-shimmer">
+                      <span className="text-sm font-medium inline-flex items-center use-agent-shimmer">
                         {agentCount} {agentCount === 1 ? "agent" : "agents"} available
                         <span className="inline-flex items-center w-3.5 ml-1.5 overflow-hidden">
                           <span className="w-0 group-hover/card:w-[5px] h-[1.5px] bg-current rounded-full transition-[width] duration-200 ease-out shrink-0" />

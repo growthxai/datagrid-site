@@ -3,6 +3,7 @@ import { getConnectors } from "@/lib/queries";
 import { PLACEHOLDER_CONNECTORS } from "@/lib/placeholder-data";
 import BlueprintBg from "@/components/blueprint-bg";
 import ConnectorsFilter from "@/components/connectors-filter";
+import PageHeader from "@/components/page-header";
 
 export const metadata = {
   title: "Connectors",
@@ -15,22 +16,12 @@ export default async function ConnectorsPage() {
 
   return (
     <>
-      {/* Hero header */}
-      <section className="relative py-16 sm:py-20 bg-[#f5f1ed] overflow-hidden">
-        <div className="absolute inset-0">
-          <BlueprintBg variant="connectors" />
-        </div>
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-medium text-[#a29080] mb-4">Integrations</p>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-foreground">
-            Connectors
-          </h1>
-          <p className="mt-1 text-lg text-secondary max-w-2xl">
-            Datagrid integrates with the construction software you already use.
-            Connect in minutes, no custom development required.
-          </p>
-        </div>
-      </section>
+      <PageHeader
+        breadcrumb="Product/Connectors"
+        title="Connectors to Construction Software"
+        description="Datagrid integrates with the construction software you already use. Connect in minutes, no custom development required."
+        variant="connectors"
+      />
 
       <div className="pt-10 pb-16 sm:pt-12 sm:pb-20 lg:pt-14 lg:pb-24 bg-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
