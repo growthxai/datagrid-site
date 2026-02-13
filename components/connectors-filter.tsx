@@ -14,12 +14,125 @@ type Connector = {
   agentCount?: number;
 };
 
-const CATEGORIES: { label: string; slugs: string[] }[] = [
-  { label: "Project Management", slugs: ["procore", "oracle-aconex", "p6-primavera", "trimble-connect", "quickbase"] },
-  { label: "Document Management", slugs: ["sharepoint", "autodesk-acc", "google-drive", "egnyte", "notion"] },
-  { label: "Communication", slugs: ["slack", "imap-email"] },
-  { label: "Finance", slugs: ["quickbooks"] },
-];
+const CONNECTOR_CATEGORY: Record<string, string> = {
+  /* Construction */
+  "accubid-anywhere": "Construction",
+  "archicad": "Construction",
+  "autodesk-acc": "Construction",
+  "bim-360-build": "Construction",
+  "bim-track": "Construction",
+  "bim360-docs": "Construction",
+  "bluebeam": "Construction",
+  "bridgit": "Construction",
+  "buildingconnected": "Construction",
+  "cmic": "Construction",
+  "civil-3d": "Construction",
+  "fieldwire": "Construction",
+  "highwire": "Construction",
+  "hilti-ontrack": "Construction",
+  "navisworks": "Construction",
+  "oracle-aconex": "Construction",
+  "oracle-primavera-cloud-opc": "Construction",
+  "p6-eppm": "Construction",
+  "p6-primavera": "Construction",
+  "plangrid": "Construction",
+  "procore": "Construction",
+  "remarcable": "Construction",
+  "revit": "Construction",
+  "revizto": "Construction",
+  "riskcast": "Construction",
+  "synchro-4d-pro": "Construction",
+  "textura": "Construction",
+  "tradetapp": "Construction",
+  "trimble-connect": "Construction",
+  /* Storage */
+  "aws-timestream-integration": "Storage",
+  "amazon-aws-s3": "Storage",
+  "amazon-aurora": "Storage",
+  "amazon-rds": "Storage",
+  "amazon-redshift": "Storage",
+  "azure-blob-storage": "Storage",
+  "azure-data-lake-storage": "Storage",
+  "azure-mysql-database": "Storage",
+  "azure-postgresql-database": "Storage",
+  "azure-sql-database": "Storage",
+  "bigquery": "Storage",
+  "box": "Storage",
+  "dropbox": "Storage",
+  "egnyte": "Storage",
+  "google-cloud-sql-postgresql": "Storage",
+  "google-cloud-sql-sql-server": "Storage",
+  "google-cloud-storage": "Storage",
+  "google-drive": "Storage",
+  "jdbc-mysql": "Storage",
+  "ms-sql-server": "Storage",
+  "mariadb": "Storage",
+  "mongodb": "Storage",
+  "onedrive": "Storage",
+  "postgresql": "Storage",
+  "snowflake": "Storage",
+  /* Projects */
+  "asana": "Projects",
+  "jira": "Projects",
+  "microsoft-project": "Projects",
+  "monday": "Projects",
+  "quickbase": "Projects",
+  "smartsheet": "Projects",
+  /* Financial */
+  "fred": "Financial",
+  "quickbooks": "Financial",
+  "sage-300-cre": "Financial",
+  "sage-300-cloud": "Financial",
+  "sage-intacct": "Financial",
+  "stripe": "Financial",
+  /* Marketing */
+  "google-analytics": "Marketing",
+  "linkedin-pages": "Marketing",
+  "mixpanel": "Marketing",
+  "outreach": "Marketing",
+  "surveymonkey": "Marketing",
+  /* ERP */
+  "acumatica": "ERP",
+  "ms-dynamics-365-nav": "ERP",
+  "oracle-netsuite": "ERP",
+  "sap-bw-4hana": "ERP",
+  "sap-s-4hana": "ERP",
+  /* CRM */
+  "hubspot": "CRM",
+  "intercom": "CRM",
+  "salesforce": "CRM",
+  /* Collaboration */
+  "airtable": "Collaboration",
+  "google-sheets": "Collaboration",
+  "microsoft-excel": "Collaboration",
+  "microsoft-teams": "Collaboration",
+  "notion": "Collaboration",
+  "slack": "Collaboration",
+  /* E-commerce */
+  "bigcommerce": "E-commerce",
+  /* Documents */
+  "docusign": "Documents",
+  "hellosign": "Documents",
+  "sharepoint": "Documents",
+  /* DevOps */
+  "gitlab": "DevOps",
+  "github": "DevOps",
+  "sentry": "DevOps",
+  /* Translation */
+  "emque": "Translation",
+  /* Scheduling */
+  "google-calendar": "Scheduling",
+  /* Email Sync */
+  "exchange": "Email Sync",
+  "imap-email": "Email Sync",
+  /* Customer Support */
+  "freshdesk": "Customer Support",
+  /* Data */
+  "databricks": "Data",
+  "ms-fabric": "Data",
+  /* Web Development */
+  "http-fetch": "Web Development",
+};
 
 type SortOption = "name-asc" | "name-desc" | "agents-desc" | "agents-asc";
 
@@ -52,12 +165,22 @@ export default function ConnectorsFilter({
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
+  const categories = useMemo(() => {
+    const counts: Record<string, number> = {};
+    connectors.forEach((c) => {
+      const cat = CONNECTOR_CATEGORY[c.slug.current];
+      if (cat) counts[cat] = (counts[cat] || 0) + 1;
+    });
+    return Object.entries(counts)
+      .map(([label, count]) => ({ label, count }))
+      .sort((a, b) => b.count - a.count);
+  }, [connectors]);
+
   const filtered = useMemo(() => {
     let result = [...connectors];
 
     if (activeCategory) {
-      const cat = CATEGORIES.find((c) => c.label === activeCategory);
-      if (cat) result = result.filter((c) => cat.slugs.includes(c.slug.current));
+      result = result.filter((c) => CONNECTOR_CATEGORY[c.slug.current] === activeCategory);
     }
 
     if (query.trim()) {
@@ -114,15 +237,16 @@ export default function ConnectorsFilter({
               >
                 All Categories
               </button>
-              {CATEGORIES.map((cat) => (
+              {categories.map((cat) => (
                 <button
                   key={cat.label}
                   onClick={() => { setActiveCategory(cat.label); setCategoryOpen(false); }}
-                  className={`w-full text-left px-3 py-1.5 text-xs transition-colors duration-100 ${
+                  className={`w-full flex items-center justify-between px-3 py-1.5 text-xs transition-colors duration-100 ${
                     activeCategory === cat.label ? "text-accent font-medium" : "text-secondary hover:text-foreground hover:bg-surface"
                   }`}
                 >
-                  {cat.label}
+                  <span>{cat.label}</span>
+                  <span className="text-tertiary">{cat.count}</span>
                 </button>
               ))}
             </div>

@@ -2,8 +2,9 @@
 
 import { useEffect, useRef } from "react";
 import { BreadcrumbSegments } from "@/components/page-header";
+import type { BreadcrumbProp } from "@/components/page-header";
 
-export default function StickyBreadcrumb({ breadcrumb }: { breadcrumb: string }) {
+export default function StickyBreadcrumb({ breadcrumb }: { breadcrumb: BreadcrumbProp }) {
   const barRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

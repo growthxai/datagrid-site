@@ -397,7 +397,11 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <>
-      <StickyBreadcrumb breadcrumb={`Resources / Blog / ${guide.title}`} />
+      <StickyBreadcrumb breadcrumb={[
+        { label: "Resources", href: "/resources" },
+        { label: "Blog", href: "/blog" },
+        { label: guide.title },
+      ]} />
 
       <div className="pt-12 pb-16 sm:pt-16 sm:pb-20 lg:pt-20 lg:pb-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

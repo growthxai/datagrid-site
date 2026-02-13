@@ -68,6 +68,54 @@ function formatDate(dateString: string | undefined): string {
   });
 }
 
+function BlogCard({
+  guide,
+  formatDate: fmt,
+  getFeaturedImage: getImg,
+}: {
+  guide: Guide;
+  formatDate: (d: string | undefined) => string;
+  getFeaturedImage: (g: Guide) => string | null;
+}) {
+  const img = getImg(guide);
+  return (
+    <article>
+      <Link href={`/blog/${guide.slug.current}`} className="group block">
+        <div className="aspect-[16/10] rounded-xl bg-surface relative overflow-hidden mb-4">
+          {img ? (
+            <Image
+              src={img}
+              alt={guide.title}
+              fill
+              className="object-cover group-hover:scale-[1.03] transition-transform duration-500 ease-out"
+            />
+          ) : (
+            <>
+              <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-xs text-tertiary">Featured Image</span>
+              </div>
+            </>
+          )}
+        </div>
+        <h2 className="text-base font-medium text-foreground leading-snug group-hover:text-accent transition-colors duration-200 line-clamp-2">
+          {guide.title}
+        </h2>
+        <div className="mt-3 flex items-center gap-2.5">
+          <div className="w-6 h-6 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center shrink-0">
+            <span className="text-[10px] font-medium text-accent">D</span>
+          </div>
+          <div className="flex items-center gap-1.5 text-xs text-tertiary">
+            <span className="font-medium text-secondary">Datagrid Team</span>
+            <span>&middot;</span>
+            <span>{fmt(guide.publishedAt)}</span>
+          </div>
+        </div>
+      </Link>
+    </article>
+  );
+}
+
 export default async function BlogPage() {
   const guidesData = await getGuides().catch(() => []);
   const sanityGuides = guidesData.length > 0 ? guidesData : PLACEHOLDER_GUIDES;
@@ -181,54 +229,50 @@ export default async function BlogPage() {
           </div>
 
           {/* Post Grid */}
-          {remainingPosts.length > 0 && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
-              {remainingPosts.map((guide) => (
-                <article key={guide._id}>
-                  <Link
-                    href={`/blog/${guide.slug.current}`}
-                    className="group block"
-                  >
-                    {/* Image */}
-                    <div className="aspect-[16/10] rounded-xl bg-surface relative overflow-hidden mb-4">
-                      {getFeaturedImage(guide) ? (
-                        <Image
-                          src={getFeaturedImage(guide)!}
-                          alt={guide.title}
-                          fill
-                          className="object-cover group-hover:scale-[1.03] transition-transform duration-500 ease-out"
-                        />
-                      ) : (
-                        <>
-                          <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent" />
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <span className="text-xs text-tertiary">Featured Image</span>
-                          </div>
-                        </>
-                      )}
-                    </div>
+          {remainingPosts.length > 0 && (() => {
+            const insertAt = 4;
+            const before = remainingPosts.slice(0, insertAt);
+            const after = remainingPosts.slice(insertAt);
 
-                    {/* Title */}
-                    <h2 className="text-base font-medium text-foreground leading-snug group-hover:text-accent transition-colors duration-200 line-clamp-2">
-                      {guide.title}
-                    </h2>
+            return (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
+                {before.map((guide) => (
+                  <BlogCard key={guide._id} guide={guide} formatDate={formatDate} getFeaturedImage={getFeaturedImage} />
+                ))}
 
-                    {/* Author + Date */}
-                    <div className="mt-3 flex items-center gap-2.5">
-                      <div className="w-6 h-6 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center shrink-0">
-                        <span className="text-[10px] font-medium text-accent">D</span>
-                      </div>
-                      <div className="flex items-center gap-1.5 text-xs text-tertiary">
-                        <span className="font-medium text-secondary">Datagrid Team</span>
-                        <span>&middot;</span>
-                        <span>{formatDate(guide.publishedAt)}</span>
-                      </div>
-                    </div>
-                  </Link>
-                </article>
-              ))}
-            </div>
-          )}
+                {/* ── Subscribe Card (inline) ── */}
+                <div className="sm:col-span-2 rounded-2xl bg-accent/5 border border-accent/10 p-6 sm:p-8 flex flex-col justify-center">
+                  <h3 className="text-lg font-medium text-foreground">
+                    Subscribe for updates
+                  </h3>
+                  <p className="mt-1.5 text-sm text-secondary max-w-md">
+                    Join the community of operators, project managers, and leaders using
+                    agentic AI to move faster and do more with less.
+                  </p>
+                  <div className="mt-4 flex items-center gap-3">
+                    <input
+                      type="email"
+                      placeholder="you@example.com"
+                      className="w-56 px-4 py-2 text-sm rounded-lg border border-border bg-background text-foreground placeholder:text-tertiary focus:outline-none focus:border-accent/40"
+                    />
+                    <button className="px-5 py-2 text-sm font-medium rounded-lg bg-accent text-accent-foreground hover:bg-accent-hover transition-colors duration-150">
+                      Get updates
+                    </button>
+                  </div>
+                  <p className="mt-2.5 text-xs text-tertiary">
+                    By subscribing you agree to our{" "}
+                    <Link href="/privacy" className="underline hover:text-secondary">
+                      Privacy Policy
+                    </Link>.
+                  </p>
+                </div>
+
+                {after.map((guide) => (
+                  <BlogCard key={guide._id} guide={guide} formatDate={formatDate} getFeaturedImage={getFeaturedImage} />
+                ))}
+              </div>
+            );
+          })()}
 
           {/* ── Pagination ── */}
           <div className="mt-14 flex items-center justify-center gap-1.5">
@@ -252,37 +296,6 @@ export default async function BlogPage() {
                 <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </span>
-          </div>
-
-          {/* ── Subscribe Banner ── */}
-          <div className="mt-14 rounded-2xl bg-accent/5 border border-accent/10 p-8 sm:p-10">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
-              <div>
-                <h3 className="text-xl font-medium text-foreground">
-                  Subscribe for updates
-                </h3>
-                <p className="mt-2 text-sm text-secondary max-w-md">
-                  Join the community of operators, project managers, and leaders using
-                  agentic AI to move faster and do more with less.
-                </p>
-              </div>
-              <div className="flex items-center gap-3 shrink-0">
-                <input
-                  type="email"
-                  placeholder="you@example.com"
-                  className="w-56 px-4 py-2.5 text-sm rounded-lg border border-border bg-background text-foreground placeholder:text-tertiary focus:outline-none focus:border-accent/40"
-                />
-                <button className="px-5 py-2.5 text-sm font-medium rounded-lg bg-accent text-accent-foreground hover:bg-accent-hover transition-colors duration-150">
-                  Get updates
-                </button>
-              </div>
-            </div>
-            <p className="mt-3 text-xs text-tertiary">
-              By subscribing you agree to our{" "}
-              <Link href="/privacy" className="underline hover:text-secondary">
-                Privacy Policy
-              </Link>.
-            </p>
           </div>
         </div>
       </div>

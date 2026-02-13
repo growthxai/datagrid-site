@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 40" fill="none">
+  <!-- Datagrid Logo — Black on transparent -->
+  <g transform="translate(4, 4)">
+    <circle cx="4" cy="4" r="2.5" fill="#2563EB"/>
+    <circle cx="14" cy="4" r="2.5" fill="#1A1A1A"/>
+    <circle cx="24" cy="4" r="2.5" fill="#1A1A1A"/>
+    <circle cx="34" cy="4" r="2.5" fill="#1A1A1A"/>
+    <circle cx="4" cy="14" r="2.5" fill="#1A1A1A"/>
+    <circle cx="14" cy="14" r="2.5" fill="#2563EB"/>
+    <circle cx="24" cy="14" r="2.5" fill="#1A1A1A"/>
+    <circle cx="34" cy="14" r="2.5" fill="#1A1A1A"/>
+    <circle cx="4" cy="24" r="2.5" fill="#1A1A1A"/>
+    <circle cx="14" cy="24" r="2.5" fill="#1A1A1A"/>
+    <circle cx="24" cy="24" r="2.5" fill="#2563EB"/>
+    <circle cx="34" cy="24" r="2.5" fill="#1A1A1A"/>
+    <circle cx="4" cy="34" r="2.5" fill="#1A1A1A"/>
+    <circle cx="14" cy="34" r="2.5" fill="#1A1A1A"/>
+    <circle cx="24" cy="34" r="2.5" fill="#1A1A1A"/>
+    <circle cx="34" cy="34" r="2.5" fill="#2563EB"/>
+  </g>
+  <text x="52" y="28" font-family="Inter, ui-sans-serif, system-ui, -apple-system, sans-serif" font-size="22" font-weight="700" letter-spacing="-0.025em" fill="#1A1A1A">Datagrid</text>
+</svg>

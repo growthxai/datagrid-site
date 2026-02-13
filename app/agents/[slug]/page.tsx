@@ -44,11 +44,16 @@ export default async function AgentDetailPage({ params }: Props) {
   return (
     <>
       <PageHeader
-        breadcrumb={`Product / Agents / ${agent.title}`}
+        breadcrumb={[
+          { label: "Product", href: "/product" },
+          { label: "Agents", href: "/agents" },
+          { label: agent.title },
+        ]}
         title={agent.title}
         description={agent.description || agent.shortDescription}
         variant="agents"
         heroBg="white"
+        eyebrow="AI Agent"
         headerRight={
           <div className={`hidden sm:flex shrink-0 w-20 h-20 lg:w-24 lg:h-24 rounded-2xl border ${iconData?.bg || "bg-accent/5"} ${iconData?.border || "border-accent/10"} items-center justify-center`}>
             <svg width="36" height="36" viewBox="0 0 24 24" fill="none" className={`lg:w-11 lg:h-11 ${iconData?.color || "text-accent"}`}>
@@ -59,7 +64,7 @@ export default async function AgentDetailPage({ params }: Props) {
       />
 
       {/* Documentation body */}
-      <div className="pt-6 pb-14 sm:pt-8 sm:pb-18 lg:pt-10 lg:pb-22 bg-background">
+      <div className="pb-14 sm:pb-18 lg:pb-22 bg-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-14 lg:gap-16">
             {/* Left column: Overview + Inputs/Outputs */}
@@ -112,78 +117,139 @@ export default async function AgentDetailPage({ params }: Props) {
                 </div>
               </section>
 
-            </div>
-
-            {/* Right column: CTA card + How it works + Use Cases */}
-            <div>
-              {/* Agent info + CTA */}
-              <div className="p-5 rounded-2xl border border-border bg-surface mb-10">
-                <div className="flex items-center gap-2 mb-4">
-                  <Link
-                    href="/demo"
-                    className="group group/cta relative overflow-hidden flex-1 inline-flex items-center justify-center h-10 px-5 text-sm font-medium rounded-lg bg-accent text-accent-foreground shadow-sm hover:bg-accent-hover hover:shadow-md transition-all duration-200 ease-out"
-                  >
-                    <span className="relative z-10 inline-flex items-center">Use Agent<CtaArrow /></span>
-                    <span className="absolute inset-0 opacity-0 group-hover/cta:opacity-100 transition-opacity duration-300 bg-[linear-gradient(90deg,transparent_0%,transparent_30%,rgba(255,255,255,0.3)_45%,rgba(255,255,255,0.5)_50%,rgba(255,255,255,0.3)_55%,transparent_70%,transparent_100%)] bg-[length:200%_100%] group-hover/cta:animate-[shimmer-wave_1.5s_ease-in-out_infinite]" />
-                  </Link>
-                  <button
-                    type="button"
-                    className="shrink-0 inline-flex items-center justify-center gap-1.5 h-10 px-4 text-sm font-medium rounded-lg border border-border text-foreground hover:bg-black/[0.04] transition-all duration-200 ease-out"
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v13" />
-                    </svg>
-                    Share
-                  </button>
-                </div>
-                <div className="flex items-center justify-between text-[11px] text-tertiary">
-                  <span>v1.0 &middot; Last updated Jan 2025</span>
-                  <span className="inline-flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                    Live
-                  </span>
-                </div>
-              </div>
-
-              <section className="mb-10">
-                <h2 className="text-xl font-medium text-foreground mb-4">How it works</h2>
-                <div className="space-y-4">
-                  {[
-                    { step: "1", title: "Connect your data sources", desc: "Link the agent to your project documents via any supported connector." },
-                    { step: "2", title: "Run the agent", desc: `Provide the required inputs and the ${agent.title} processes them automatically.` },
-                    { step: "3", title: "Review structured output", desc: "Get clear, actionable results you can share with your team." },
-                  ].map((item) => (
-                    <div key={item.step} className="flex items-start gap-3">
-                      <div className="shrink-0 w-6 h-6 rounded-full bg-accent/10 text-accent flex items-center justify-center text-[11px] font-semibold">
-                        {item.step}
-                      </div>
-                      <div>
-                        <p className="text-sm font-medium text-foreground">{item.title}</p>
-                        <p className="text-xs text-secondary mt-0.5 leading-relaxed">{item.desc}</p>
-                      </div>
+              {/* Video Preview */}
+              <section className="mb-14">
+                <div className="relative aspect-video rounded-2xl bg-[#1a1a1a] border border-border overflow-hidden group cursor-pointer">
+                  {/* Thumbnail overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/10" />
+                  {/* Play button */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center group-hover:bg-white/20 group-hover:scale-105 transition-all duration-300 ease-out">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="white" className="ml-1">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
                     </div>
-                  ))}
+                  </div>
+                  {/* Bottom bar */}
+                  <div className="absolute bottom-0 left-0 right-0 px-4 py-3 flex items-center gap-3">
+                    <span className="text-[11px] text-white/60 font-medium">0:28</span>
+                    <div className="flex-1 h-1 rounded-full bg-white/20">
+                      <div className="w-0 h-full rounded-full bg-accent" />
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" className="opacity-60">
+                        <path d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M11 5L6 9H2v6h4l5 4V5z" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" className="opacity-60">
+                        <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </div>
+                  </div>
+                  {/* Agent label */}
+                  <div className="absolute top-4 left-4 flex items-center gap-2">
+                    <div className={`w-7 h-7 rounded-lg ${iconData?.bg || "bg-accent/20"} ${iconData?.border || "border-accent/30"} border flex items-center justify-center`}>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className={iconData?.color || "text-accent"}>
+                        <path d={iconData?.icon || "M13 10V3L4 14h7v7l9-11h-7z"} stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </div>
+                    <span className="text-xs font-medium text-white/80">{agent.title}</span>
+                  </div>
                 </div>
               </section>
 
-              {/* Use Cases */}
-              {useCases.length > 0 && (
-                <section>
-                  <h2 className="text-xl font-medium text-foreground mb-4">Use cases</h2>
-                  <div className="flex flex-wrap gap-2">
-                    {useCases.map((uc) => (
-                      <Link
-                        key={uc.slug}
-                        href={`/agents/for/${uc.slug}`}
-                        className="text-xs px-2.5 py-1 rounded-full bg-surface border border-border text-secondary hover:text-foreground hover:border-accent/30 transition-all duration-200 ease-out"
-                      >
-                        {uc.title}
-                      </Link>
-                    ))}
-                  </div>
-                </section>
-              )}
             </div>
+
+            {/* Right column: sidebar */}
+            <aside>
+              <div className="sticky top-[154px] space-y-8">
+                {/* Agent info + CTA */}
+                <div>
+                  <div className="p-4 rounded-xl border border-border bg-background">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Link
+                        href="/demo"
+                        className="group group/cta relative overflow-hidden flex-1 inline-flex items-center justify-center h-10 px-5 text-sm font-medium rounded-lg bg-accent text-accent-foreground shadow-sm hover:bg-accent-hover hover:shadow-md transition-all duration-200 ease-out"
+                      >
+                        <span className="relative z-10 inline-flex items-center">Use Agent<CtaArrow /></span>
+                        <span className="absolute inset-0 opacity-0 group-hover/cta:opacity-100 transition-opacity duration-300 bg-[linear-gradient(90deg,transparent_0%,transparent_30%,rgba(255,255,255,0.3)_45%,rgba(255,255,255,0.5)_50%,rgba(255,255,255,0.3)_55%,transparent_70%,transparent_100%)] bg-[length:200%_100%] group-hover/cta:animate-[shimmer-wave_1.5s_ease-in-out_infinite]" />
+                      </Link>
+                      <button
+                        type="button"
+                        className="shrink-0 inline-flex items-center justify-center gap-1.5 h-10 px-4 text-sm font-medium rounded-lg border border-border text-foreground hover:bg-black/[0.04] transition-all duration-200 ease-out"
+                      >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v13" />
+                        </svg>
+                        Share
+                      </button>
+                    </div>
+                    <div className="flex items-center justify-between text-[11px] text-tertiary">
+                      <span>v1.0 &middot; Last updated Jan 2025</span>
+                      <span className="inline-flex items-center gap-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                        Live
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Common Use Cases */}
+                {agent.commonUseCases && agent.commonUseCases.length > 0 && (
+                  <div>
+                    <p className="text-xs font-medium text-tertiary mb-3">Common Use Cases</p>
+                    <div className="p-3 rounded-xl border border-border bg-background">
+                      <ul className="space-y-2.5">
+                        {agent.commonUseCases.map((uc: string, i: number) => (
+                          <li key={i} className="flex items-start gap-2.5 text-sm text-secondary">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-accent shrink-0 mt-0.5">
+                              <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                            {uc}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                )}
+
+                {/* Minimum Knowledge Required */}
+                {agent.minimumKnowledge && agent.minimumKnowledge.length > 0 && (
+                  <div>
+                    <p className="text-xs font-medium text-tertiary mb-3">Minimum knowledge required</p>
+                    <div className="p-3 rounded-xl border border-border bg-background">
+                      <ul className="space-y-2.5">
+                        {agent.minimumKnowledge.map((item: string, i: number) => (
+                          <li key={i} className="flex items-start gap-2.5 text-sm text-secondary">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-accent shrink-0 mt-0.5">
+                              <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                )}
+
+                {/* Use Cases */}
+                {useCases.length > 0 && (
+                  <div>
+                    <p className="text-xs font-medium text-tertiary mb-3">Use cases</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {useCases.map((uc) => (
+                        <Link
+                          key={uc.slug}
+                          href={`/agents/for/${uc.slug}`}
+                          className="text-xs px-2.5 py-1 rounded-full bg-background border border-border text-secondary hover:text-foreground hover:border-accent/30 transition-all duration-200 ease-out"
+                        >
+                          {uc.title}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </aside>
           </div>
         </div>
       </div>

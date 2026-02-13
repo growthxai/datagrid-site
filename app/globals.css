@@ -217,10 +217,6 @@ body {
   transition: opacity 0.15s ease;
 }
 
-[data-sticky-toolbar].stuck {
-  box-shadow: 0 1px 8px rgba(0,0,0,0.08), 0 4px 24px rgba(0,0,0,0.04);
-}
-
 [data-sticky-toolbar].stuck::before {
   content: "";
   position: absolute;
@@ -232,6 +228,7 @@ body {
   background: var(--color-background);
   border-top: 1px solid rgba(0, 0, 0, 0.08);
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 8px rgba(0,0,0,0.08), 0 4px 24px rgba(0,0,0,0.04);
   z-index: -1;
 }
 

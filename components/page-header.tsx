@@ -4,8 +4,11 @@ import { useEffect, useRef, useMemo } from "react";
 import Link from "next/link";
 import BlueprintBg from "@/components/blueprint-bg";
 
+export type BreadcrumbItem = { label: string; href?: string };
+export type BreadcrumbProp = string | BreadcrumbItem[];
+
 type Props = {
-  breadcrumb: string;
+  breadcrumb: BreadcrumbProp;
   title: string;
   description: string;
   variant: "agents" | "connectors" | "guides" | "network" | "blog";
@@ -13,6 +16,7 @@ type Props = {
   headerBottom?: React.ReactNode;
   heroBg?: "tan" | "white";
   eyebrow?: string;
+  centered?: boolean;
 };
 
 export const SEGMENT_ROUTES: Record<string, string> = {
@@ -25,13 +29,25 @@ export const SEGMENT_ROUTES: Record<string, string> = {
   Blog: "/blog",
 };
 
-export function BreadcrumbSegments({ breadcrumb }: { breadcrumb: string }) {
-  const parts = breadcrumb.split("/").map((s) => s.trim()).filter(Boolean);
+function resolveParts(breadcrumb: BreadcrumbProp): BreadcrumbItem[] {
+  if (Array.isArray(breadcrumb)) return breadcrumb;
+  return breadcrumb.split("/").map((s) => s.trim()).filter(Boolean).map((label) => ({
+    label,
+    href: SEGMENT_ROUTES[label],
+  }));
+}
+
+export function breadcrumbLabel(breadcrumb: BreadcrumbProp): string {
+  const parts = resolveParts(breadcrumb);
+  return parts[parts.length - 1]?.label || "";
+}
+
+export function BreadcrumbSegments({ breadcrumb }: { breadcrumb: BreadcrumbProp }) {
+  const parts = resolveParts(breadcrumb);
 
   return (
     <nav className="flex items-center gap-1.5 text-sm font-medium">
       {parts.map((part, i) => {
-        const href = SEGMENT_ROUTES[part];
         const isLast = i === parts.length - 1;
         return (
           <span key={i} className="inline-flex items-center gap-1.5">
@@ -40,12 +56,12 @@ export function BreadcrumbSegments({ breadcrumb }: { breadcrumb: string }) {
                 <path d="M1.5 1L5.5 5L1.5 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             )}
-            {href && !isLast ? (
-              <Link href={href} className="text-[#a29080] hover:text-accent transition-colors duration-150">
-                {part}
+            {part.href && !isLast ? (
+              <Link href={part.href} className="text-[#a29080] hover:text-accent transition-colors duration-150">
+                {part.label}
               </Link>
             ) : (
-              <span className={isLast ? "text-[#4b4036]" : "text-[#a29080]"}>{part}</span>
+              <span className={isLast ? "text-[#4b4036]" : "text-[#a29080]"}>{part.label}</span>
             )}
           </span>
         );
@@ -54,7 +70,8 @@ export function BreadcrumbSegments({ breadcrumb }: { breadcrumb: string }) {
   );
 }
 
-export default function PageHeader({ breadcrumb, title, description, variant, headerRight, headerBottom, heroBg = "tan", eyebrow }: Props) {
+export default function PageHeader({ breadcrumb, title, description, variant, headerRight, headerBottom, heroBg = "tan", eyebrow: eyebrowProp, centered }: Props) {
+  const eyebrow = eyebrowProp || breadcrumbLabel(breadcrumb);
   const isWhite = heroBg === "white";
   const barRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -107,14 +124,14 @@ export default function PageHeader({ breadcrumb, title, description, variant, he
             <BlueprintBg variant={variant} />
           </div>
         )}
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-medium text-[#4b4036] mb-4">{eyebrow || breadcrumb.split("/").pop()?.trim()}</p>
+        <div className={`relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ${centered ? "text-center" : ""}`}>
+          <p className="text-xs font-medium text-[#4b4036] mb-4">{eyebrow}</p>
           <div ref={contentRef} className={headerRight ? "flex items-start justify-between gap-8" : ""}>
             <div>
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-foreground">
                 {title}
               </h1>
-              <p className="mt-1 text-lg text-secondary max-w-2xl">
+              <p className={`mt-1 text-lg text-secondary max-w-2xl ${centered ? "mx-auto" : ""}`}>
                 {description}
               </p>
             </div>

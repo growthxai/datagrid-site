@@ -8,6 +8,7 @@ import { AGENT_ICONS, CONNECTOR_ICON } from "@/lib/nav-data";
 import { PLACEHOLDER_AGENTS, PLACEHOLDER_CONNECTORS, PLACEHOLDER_GUIDES } from "@/lib/placeholder-data";
 import { SCRAPED_BLOG_POSTS } from "@/lib/scraped-blog-data";
 import CtaArrow from "@/components/cta-arrow";
+import LogoContextMenu from "@/components/logo-context-menu";
 
 const PRODUCT_LINKS = [
   { href: "/agents", label: "Agents" },
@@ -373,7 +374,7 @@ export default function Nav() {
   const [activeDropdown, setActiveDropdown] = useState<"product" | "resources" | null>(null);
   const navRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
-  const hasPageHeader = pathname === "/agents" || pathname === "/guides" || pathname === "/product" || pathname === "/resources" || pathname === "/blog" || pathname.startsWith("/connectors") || pathname.startsWith("/agents/") || pathname.startsWith("/blog/");
+  const hasPageHeader = pathname === "/agents" || pathname === "/guides" || pathname === "/product" || pathname === "/resources" || pathname === "/blog" || pathname === "/pricing" || pathname === "/download" || pathname === "/help-center" || pathname === "/faq" || pathname === "/contact" || pathname === "/careers" || pathname === "/developers" || pathname === "/api-quickstart" || pathname === "/brand-assets" || pathname.startsWith("/connectors") || pathname.startsWith("/agents/") || pathname.startsWith("/blog/");
 
   const closeDropdown = useCallback(() => setActiveDropdown(null), []);
   useClickOutside(navRef, closeDropdown);
@@ -397,9 +398,11 @@ export default function Nav() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-12 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <Image src="/datagrid-logo.avif" alt="Datagrid" width={140} height={32} className="brightness-0 translate-y-0.5" priority />
-          </Link>
+          <LogoContextMenu>
+            <Link href="/" className="flex items-center gap-2">
+              <Image src="/datagrid-logo.avif" alt="Datagrid" width={140} height={32} className="brightness-0 translate-y-0.5" priority />
+            </Link>
+          </LogoContextMenu>
 
           {/* Desktop links */}
           <div className="hidden md:flex items-center gap-8">

@@ -34,7 +34,33 @@ export type Agent = {
   inputs?: string[];
   outputs?: string[];
   connectors?: ConnectorRef[];
+  commonUseCases?: string[];
+  minimumKnowledge?: string[];
+  videoUrl?: string;
   body?: unknown;
+};
+
+export type DataEndpoint = {
+  name: string;
+  category: string;
+  level: string;
+  listShow: string;
+  incrementalIngestion: boolean;
+  read: boolean;
+};
+
+export type SetupStepItem = {
+  title: string;
+  slug: string;
+};
+
+export type SetupStep = {
+  title: string;
+  slug: string;
+  bg: string;
+  icon: string;
+  subtitle?: string;
+  items?: SetupStepItem[];
 };
 
 export type Connector = {
@@ -45,6 +71,9 @@ export type Connector = {
   shortDescription: string;
   logo?: unknown;
   agents?: AgentRef[];
+  prerequisites?: string[];
+  setupSteps?: SetupStep[];
+  dataEndpoints?: DataEndpoint[];
   setupGuide?: unknown;
   body?: unknown;
 };
